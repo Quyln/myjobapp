@@ -23,7 +23,7 @@ class _TinNoiBatSecState extends State<TinNoiBatSec> {
 
   void getnewlist() async {
     var url = Uri.parse(
-        'https://raw.githubusercontent.com/Quyln/myjobapp/main/data/home_tinnoibat.json?token=GHSAT0AAAAAACIIBBDBLQZHSCAAC4XOMNFIZIXDWTA');
+        'https://raw.githubusercontent.com/Quyln/myjobapp/main/data/home_tinnoibat.json?token=GHSAT0AAAAAACIIBBDB55HUPMVJJ3ZWFGTSZIXEHZA');
     var response = await http.get(url);
 
     if (response.statusCode == 200) {
@@ -49,6 +49,7 @@ class _TinNoiBatSecState extends State<TinNoiBatSec> {
                   alignment: AlignmentDirectional.bottomStart,
                   children: [
                     Container(
+                      padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(
                           image: DecorationImage(
                               fit: BoxFit.fitWidth,
