@@ -3,9 +3,7 @@ import 'package:myjobapp/HomePage/home_tinnoibat_section.dart';
 import 'package:myjobapp/HomePage/home_top_section.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({super.key});
-
-  final _controller = PageController();
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {

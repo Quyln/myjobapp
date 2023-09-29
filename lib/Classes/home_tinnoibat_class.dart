@@ -8,9 +8,8 @@ class TinNoiBatHomeClass {
     required this.title,
   });
 
-  static TinNoiBatHomeClass fromJson(data) => TinNoiBatHomeClass(
-        image: data['image'],
-        title: data['title'],
-        link: data['link'],
-      );
+  static TinNoiBatHomeClass fromJson(dynamic data) {
+    return TinNoiBatHomeClass(
+        image: data['image'], title: data['title'], link: data['link']);
+  }
 }
