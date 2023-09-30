@@ -1,7 +1,7 @@
 [
     {
          "date":"30-09",
-         "salary":"10,000,000đ",
+         "salary":10000000,
          "khuvuctinh":"Bình Dương",
          "khuvuchuyen":"Bến Cát",
          "title":"Tuyển công nhân sản xuất linh kiện vi tính",
@@ -10,7 +10,7 @@
     },
     {
         "date":"30-09",
-        "salary":"12,000,000đ",
+        "salary":12000000,
         "khuvuctinh":"Đồng Nai",
         "khuvuchuyen":"Trảng Bơm",
         "title":"Tuyển 50 thợ sơn",
@@ -19,7 +19,7 @@
    },    
    {
     "date":"30-09",
-    "salary":"9,000,000đ",
+    "salary":9000000,
     "khuvuctinh":"Hồ Chí Minh",
     "khuvuchuyen":"Quận 7",
     "title":"Tuyển 100 lao động",
