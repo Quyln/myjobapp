@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:myjobapp/HomePage/home_tincanbiet_section.dart';
+import 'package:myjobapp/HomePage/home_tinlaodong_section.dart';
 import 'package:myjobapp/HomePage/home_tinnoibat_section.dart';
 import 'package:myjobapp/HomePage/home_top_section.dart';
 import 'package:myjobapp/HomePage/home_viecmoinhat_section.dart';
@@ -19,35 +21,47 @@ class HomePage extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            Text(
-              'Tin nổi bật',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+            Padding(
+              padding: EdgeInsets.only(left: 20),
+              child: Text(
+                'Tin nổi bật',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+              ),
             ),
             SizedBox(height: 180, child: TinNoiBatSec()),
             SizedBox(
               height: 10,
             ),
-            Text(
-              'Việc làm mới nhất',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+            Padding(
+              padding: EdgeInsets.only(left: 20),
+              child: Text(
+                'Tin tức công nhân-lao động',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+              ),
+            ),
+            SizedBox(height: 180, child: TinlaodongHSec()),
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 20),
+              child: Text(
+                'Việc làm mới nhất',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+              ),
             ),
             SizedBox(height: 180, child: ViecmoinhatHomeSec()),
             SizedBox(
               height: 10,
             ),
-            Text(
-              'Tin tức công nhân-lao động',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+            Padding(
+              padding: EdgeInsets.only(left: 20),
+              child: Text(
+                'Tin cần thiết',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+              ),
             ),
-            SizedBox(height: 180, child: TinNoiBatSec()),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              'Tin cần thiết',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-            ),
-            SizedBox(height: 180, child: TinNoiBatSec()),
+            SizedBox(height: 180, child: TincanbietHSec()),
           ],
         ),
       )),

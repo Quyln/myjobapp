@@ -1,17 +1,17 @@
 import 'dart:convert';
-
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/home_tintuc_class.dart';
 import 'package:http/http.dart' as http;
 
-class TinNoiBatSec extends StatefulWidget {
-  const TinNoiBatSec({super.key});
+class TincanbietHSec extends StatefulWidget {
+  const TincanbietHSec({super.key});
 
   @override
-  State<TinNoiBatSec> createState() => _TinNoiBatSecState();
+  State<TincanbietHSec> createState() => _TinNoiBatSecState();
 }
 
-class _TinNoiBatSecState extends State<TinNoiBatSec> {
+class _TinNoiBatSecState extends State<TincanbietHSec> {
   final _controller = PageController();
   List<dynamic> tinNoiBatHomedata = [];
 
@@ -44,43 +44,48 @@ class _TinNoiBatSecState extends State<TinNoiBatSec> {
           .map(
             (e) => Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-                child: Stack(
-                  alignment: AlignmentDirectional.bottomEnd,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              fit: BoxFit.fitWidth,
-                              image: NetworkImage(e.image)),
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(25),
-                          boxShadow: const [
-                            BoxShadow(
-                                blurRadius: 2,
-                                blurStyle: BlurStyle.outer,
-                                color: Color.fromRGBO(0, 0, 0, 0.4))
-                          ]),
-                    ),
-                    Container(
-                      height: 40,
-                      width: 270,
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(25),
-                              topLeft: Radius.circular(25))),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10, top: 10),
-                        child: Text(
-                          e.title,
-                          style: TextStyle(fontSize: 17),
-                          softWrap: true,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                child: InkWell(
+                  onTap: () {
+                    launchUrlString(e.link);
+                  },
+                  child: Stack(
+                    alignment: AlignmentDirectional.bottomEnd,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                fit: BoxFit.fitWidth,
+                                image: NetworkImage(e.image)),
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(25),
+                            boxShadow: const [
+                              BoxShadow(
+                                  blurRadius: 2,
+                                  blurStyle: BlurStyle.outer,
+                                  color: Color.fromRGBO(0, 0, 0, 0.4))
+                            ]),
                       ),
-                    )
-                  ],
+                      Container(
+                        height: 40,
+                        width: 270,
+                        decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                bottomRight: Radius.circular(25),
+                                topLeft: Radius.circular(25))),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10, top: 10),
+                          child: Text(
+                            e.title,
+                            style: const TextStyle(fontSize: 17),
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 )),
           )
           .toList(),

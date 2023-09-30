@@ -79,6 +79,58 @@ class _TinNoiBatSecState extends State<ViecmoinhatHomeSec> {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
+                    ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Container(
+                        height: 37,
+                        width: 128,
+                        decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                bottomRight: Radius.circular(25),
+                                topLeft: Radius.circular(25))),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10, top: 10),
+                          child: Text(
+                            e.salary,
+                            style: TextStyle(
+                              fontSize: 17,
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Container(
+                        height: 37,
+                        width: 128,
+                        decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(25),
+                                topRight: Radius.circular(25))),
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 10, top: 10),
+                          child: Align(
+                            alignment: Alignment.topRight,
+                            child: Text(
+                              e.khuvuctinh,
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ),
+                      ),
                     )
                   ],
                 )),
