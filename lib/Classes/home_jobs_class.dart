@@ -1,6 +1,6 @@
 class JobsClass {
   String date;
-  int salary;
+  String salary;
   String khuvuctinh;
   String khuvuchuyen;
   String title;
