@@ -1,17 +1,17 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:myjobapp/Classes/home_tintuc_class.dart';
+import 'package:myjobapp/Classes/home_jobs_class.dart';
 import 'package:http/http.dart' as http;
 
-class TinNoiBatSec extends StatefulWidget {
-  const TinNoiBatSec({super.key});
+class ViecmoinhatHomeSec extends StatefulWidget {
+  const ViecmoinhatHomeSec({super.key});
 
   @override
-  State<TinNoiBatSec> createState() => _TinNoiBatSecState();
+  State<ViecmoinhatHomeSec> createState() => _TinNoiBatSecState();
 }
 
-class _TinNoiBatSecState extends State<TinNoiBatSec> {
+class _TinNoiBatSecState extends State<ViecmoinhatHomeSec> {
   final _controller = PageController();
   List<dynamic> tinNoiBatHomedata = [];
 
@@ -23,12 +23,12 @@ class _TinNoiBatSecState extends State<TinNoiBatSec> {
 
   void getnewlist() async {
     var url = Uri.parse(
-        'https://raw.githubusercontent.com/Quyln/myjobapp/main/data/home_tinnoibat.json');
+        'https://raw.githubusercontent.com/Quyln/myjobapp/main/data/home_viecmoinhat.json');
     var response = await http.get(url);
 
     if (response.statusCode == 200) {
       List<dynamic> dataList = jsonDecode(response.body);
-      tinNoiBatHomedata = dataList.map((e) => TinTucClass.fromJson(e)).toList();
+      tinNoiBatHomedata = dataList.map((e) => JobsClass.fromJson(e)).toList();
       setState(() {
         tinNoiBatHomedata;
       });
@@ -45,7 +45,7 @@ class _TinNoiBatSecState extends State<TinNoiBatSec> {
             (e) => Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
                 child: Stack(
-                  alignment: AlignmentDirectional.bottomEnd,
+                  alignment: Alignment.bottomRight,
                   children: [
                     Container(
                       padding: EdgeInsets.all(20),

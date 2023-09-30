@@ -23,7 +23,7 @@ class _TinNoiBatSecState extends State<TinNoiBatSec> {
 
   void getnewlist() async {
     var url = Uri.parse(
-        'https://raw.githubusercontent.com/Quyln/myjobapp/main/data/home_tinnoibat.json');
+        'https://raw.githubusercontent.com/Quyln/myjobapp/main/data/home_tinlaodong.json');
     var response = await http.get(url);
 
     if (response.statusCode == 200) {

@@ -29,7 +29,7 @@ class TopSection extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   Text(
-                    'Thành Viên',
+                    'Quản trị viên',
                     style: TextStyle(fontStyle: FontStyle.normal, fontSize: 16),
                   ),
                 ],

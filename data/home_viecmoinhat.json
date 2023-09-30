@@ -1,18 +1,29 @@
 [
     {
-        "link":"https://thanhnien.vn/chu-tich-quoc-hoi-phat-dong-giai-bong-da-danh-cho-cong-nhan-viet-nam-185230728203404523.htm",
-        "image":"https://th.bing.com/th/id/OIF.jUSYKj4KT3u1N1Oaqq09RQ?w=295&h=180&c=7&r=0&o=5&dpr=2&pid=1.7",
-        "title": "Chủ tịch Quốc hội phát động giải bóng đá dành cho công nhân Việt Nam"
+         "date":"30-09",
+         "salary":"10,000,000đ",
+         "khuvuctinh":"Bình Dương",
+         "khuvuchuyen":"Bến Cát",
+         "title":"Tuyển công nhân sản xuất linh kiện vi tính",
+         "image":"https://static.chotot.com/storage/chotot-kinhnghiem/c2c/2020/08/cong-nhan-san-xuat1.jpg",
+         "content":"Công ty Đức Trí cần Tuyển Nam Nữ Trưa Nay Phỏng Vấn Tại Cty Điện Tử Bàu Bàng."
     },
     {
-        "link":"https://thanhnien.vn/ton-vinh-167-cong-nhan-nhan-giai-thuong-nguyen-duc-canh-185230724103404205.htm",
-        "image":"https://th.bing.com/th?id=OIF.Ii%2f3N6uNYOFH%2fYMCuyzZZg&w=304&h=180&c=7&r=0&o=5&dpr=2&pid=1.7",
-        "title": "Tôn vinh 167 công nhân nhận Giải thưởng Nguyễn Đức Cảnh"
-       },
-       {
-        "link":"https://thanhnien.vn/nhieu-gia-dinh-cong-nhan-con-nam-giuong-bo-me-nam-duoi-san-von-ven-10-m2-18523072816060812.htm",
-        "image":"https://th.bing.com/th/id/OIP.K2J-ax9-gthNoetWkYjzBgHaFj?w=242&h=181&c=7&r=0&o=5&dpr=2&pid=1.7",
-        "title": "Nhiều gia đình công nhân con nằm giường, bố mẹ nằm dưới sàn, vỏn vẹn 10 m2"
-       }
-
+        "date":"30-09",
+        "salary":"12,000,000đ",
+        "khuvuctinh":"Đồng Nai",
+        "khuvuchuyen":"Trảng Bơm",
+        "title":"Tuyển 50 thợ sơn",
+        "image":"https://th.bing.com/th/id/R.61797a5801f45d8be7a3e839211d432b?rik=70nnZpID%2bTbqWw&riu=http%3a%2f%2fsonnha.giabaonhieu1m2.com%2fwp-content%2fuploads%2f2022%2f04%2fthợ-đu-dây-ngoài-trời.jpg&ehk=P%2bE1Hs0R3fGKIy2TzsPOYwj%2fIHGQWS1k63IOJDSLXeM%3d&risl=&pid=ImgRaw&r=0",
+        "content":"Công ty Hoàng Khôi cần tuyển gấp 50 thợ sơn."
+   },    
+   {
+    "date":"30-09",
+    "salary":"9,000,000đ",
+    "khuvuctinh":"Hồ Chí Minh",
+    "khuvuchuyen":"Quận 7",
+    "title":"Tuyển 100 lao động",
+    "image":"https://timviec365.vn/pictures/images/lao-dong-pho-thong-min.jpg",
+    "content":"Công ty Trí Việt chuyên sản may mặc cần tuyển gấp 100 lao động phổ thông."
+    }
   ]
