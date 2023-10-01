@@ -1,19 +1,19 @@
 import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/home_tintuc_class.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher_string.dart';
 
-class TinlaodongHSec extends StatefulWidget {
-  const TinlaodongHSec({super.key});
+class TinNoiBatHSec extends StatefulWidget {
+  const TinNoiBatHSec({super.key});
 
   @override
-  State<TinlaodongHSec> createState() => _TinlaodongHSecState();
+  State<TinNoiBatHSec> createState() => _TinNoiBatHSecState();
 }
 
-class _TinlaodongHSecState extends State<TinlaodongHSec> {
-  List<TinTucClass> tinLaoDongdata = [];
+class _TinNoiBatHSecState extends State<TinNoiBatHSec> {
+  List<TinTucClass> tinNoiBatHomedata = [];
 
   @override
   void initState() {
@@ -23,14 +23,14 @@ class _TinlaodongHSecState extends State<TinlaodongHSec> {
 
   void getnewlist() async {
     var url = Uri.parse(
-        'https://raw.githubusercontent.com/Quyln/myjobapp/main/data/home_tinlaodong.json');
+        'https://raw.githubusercontent.com/Quyln/myjobapp/main/data/home_tinnoibat.json');
     var response = await http.get(url);
 
     if (response.statusCode == 200) {
       List<dynamic> dataList = jsonDecode(response.body);
-      tinLaoDongdata = dataList.map((e) => TinTucClass.fromJson(e)).toList();
+      tinNoiBatHomedata = dataList.map((e) => TinTucClass.fromJson(e)).toList();
       setState(() {
-        tinLaoDongdata;
+        tinNoiBatHomedata;
       });
     }
   }
@@ -38,19 +38,19 @@ class _TinlaodongHSecState extends State<TinlaodongHSec> {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider.builder(
-        itemCount: tinLaoDongdata.length,
+        itemCount: tinNoiBatHomedata.length,
         itemBuilder: (context, index, _) {
           return Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
               image: DecorationImage(
                 fit: BoxFit.fill,
-                image: NetworkImage(tinLaoDongdata[index].image),
+                image: NetworkImage(tinNoiBatHomedata[index].image),
               ),
             ),
             child: InkWell(
               onTap: () {
-                launchUrlString(tinLaoDongdata[index].link);
+                launchUrlString(tinNoiBatHomedata[index].link);
               },
               child: Container(
                 padding: const EdgeInsets.all(16),
@@ -65,7 +65,7 @@ class _TinlaodongHSecState extends State<TinlaodongHSec> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      tinLaoDongdata[index].title,
+                      tinNoiBatHomedata[index].title,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
@@ -75,7 +75,7 @@ class _TinlaodongHSecState extends State<TinlaodongHSec> {
                       height: 5,
                     ),
                     Image.network(
-                      tinLaoDongdata[index].author,
+                      tinNoiBatHomedata[index].author,
                       width: 60,
                       height: 10,
                       fit: BoxFit.fill,

@@ -1,19 +1,20 @@
 import 'dart:convert';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/home_tintuc_class.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_svg/flutter_svg.dart';
 
 class TincanbietHSec extends StatefulWidget {
   const TincanbietHSec({super.key});
 
   @override
-  State<TincanbietHSec> createState() => _TinNoiBatSecState();
+  State<TincanbietHSec> createState() => _TincanbietHSecState();
 }
 
-class _TinNoiBatSecState extends State<TincanbietHSec> {
-  final _controller = PageController();
-  List<dynamic> tinNoiBatHomedata = [];
+class _TincanbietHSecState extends State<TincanbietHSec> {
+  List<TinTucClass> tinCanBietdata = [];
 
   @override
   void initState() {
@@ -28,67 +29,69 @@ class _TinNoiBatSecState extends State<TincanbietHSec> {
 
     if (response.statusCode == 200) {
       List<dynamic> dataList = jsonDecode(response.body);
-      tinNoiBatHomedata = dataList.map((e) => TinTucClass.fromJson(e)).toList();
+      tinCanBietdata = dataList.map((e) => TinTucClass.fromJson(e)).toList();
       setState(() {
-        tinNoiBatHomedata;
+        tinCanBietdata;
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return PageView(
-      controller: _controller,
-      scrollDirection: Axis.horizontal,
-      children: tinNoiBatHomedata
-          .map(
-            (e) => Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-                child: InkWell(
-                  onTap: () {
-                    launchUrlString(e.link);
-                  },
-                  child: Stack(
-                    alignment: AlignmentDirectional.bottomEnd,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                fit: BoxFit.fitWidth,
-                                image: NetworkImage(e.image)),
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.circular(25),
-                            boxShadow: const [
-                              BoxShadow(
-                                  blurRadius: 2,
-                                  blurStyle: BlurStyle.outer,
-                                  color: Color.fromRGBO(0, 0, 0, 0.4))
-                            ]),
-                      ),
-                      Container(
-                        height: 40,
-                        width: 270,
-                        decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                                bottomRight: Radius.circular(25),
-                                topLeft: Radius.circular(25))),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 10, top: 10),
-                          child: Text(
-                            e.title,
-                            style: const TextStyle(fontSize: 17),
-                            softWrap: true,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                )),
-          )
-          .toList(),
-    );
+    return CarouselSlider.builder(
+        itemCount: tinCanBietdata.length,
+        itemBuilder: (context, index, _) {
+          return Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              image: DecorationImage(
+                fit: BoxFit.fill,
+                image: NetworkImage(tinCanBietdata[index].image),
+              ),
+            ),
+            child: InkWell(
+              onTap: () {
+                launchUrlString(tinCanBietdata[index].link);
+              },
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    gradient: const LinearGradient(
+                        colors: [Colors.transparent, Colors.black],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      tinCanBietdata[index].title,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          color: Colors.white),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    SvgPicture.network(
+                      tinCanBietdata[index].author,
+                      width: 60,
+                      height: 10,
+                      fit: BoxFit.fill,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+        options: CarouselOptions(
+            aspectRatio: 16 / 9,
+            enableInfiniteScroll: false,
+            enlargeCenterPage: true,
+            autoPlay: true,
+            autoPlayInterval: const Duration(seconds: 7)));
   }
 }

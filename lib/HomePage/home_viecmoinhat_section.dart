@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/home_jobs_class.dart';
 import 'package:http/http.dart' as http;
 
-class ViecmoinhatHomeSec extends StatefulWidget {
-  const ViecmoinhatHomeSec({super.key});
+class ViecmoinhatHSec extends StatefulWidget {
+  const ViecmoinhatHSec({super.key});
 
   @override
-  State<ViecmoinhatHomeSec> createState() => _TinNoiBatSecState();
+  State<ViecmoinhatHSec> createState() => _ViecmoinhatHSecState();
 }
 
-class _TinNoiBatSecState extends State<ViecmoinhatHomeSec> {
+class _ViecmoinhatHSecState extends State<ViecmoinhatHSec> {
   final _controller = PageController();
-  List<dynamic> tinNoiBatHomedata = [];
+  List<dynamic> viecMoiNhatdata = [];
 
   @override
   void initState() {
@@ -28,9 +28,9 @@ class _TinNoiBatSecState extends State<ViecmoinhatHomeSec> {
 
     if (response.statusCode == 200) {
       List<dynamic> dataList = jsonDecode(response.body);
-      tinNoiBatHomedata = dataList.map((e) => JobsClass.fromJson(e)).toList();
+      viecMoiNhatdata = dataList.map((e) => JobsClass.fromJson(e)).toList();
       setState(() {
-        tinNoiBatHomedata;
+        viecMoiNhatdata;
       });
     }
   }
@@ -40,7 +40,7 @@ class _TinNoiBatSecState extends State<ViecmoinhatHomeSec> {
     return PageView(
       controller: _controller,
       scrollDirection: Axis.horizontal,
-      children: tinNoiBatHomedata
+      children: viecMoiNhatdata
           .map(
             (e) => Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
