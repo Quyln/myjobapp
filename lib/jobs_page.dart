@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myjobapp/JobsPage/jobs_appbar_sec.dart';
 
 class JobsPage extends StatelessWidget {
   const JobsPage({super.key});
@@ -6,7 +7,12 @@ class JobsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: Colors.blue,
-    );
+        backgroundColor: Color.fromRGBO(220, 223, 229, 1),
+        body: SafeArea(
+            child: CustomScrollView(
+          slivers: [
+            JSecAppBar(),
+          ],
+        )));
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AppBarNSec extends StatelessWidget {
-  const AppBarNSec({super.key});
+class JSecAppBar extends StatelessWidget {
+  const JSecAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {

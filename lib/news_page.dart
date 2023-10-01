@@ -7,12 +7,12 @@ class NewsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromRGBO(220, 223, 229, 1),
+    return const Scaffold(
+      backgroundColor: Color.fromRGBO(220, 223, 229, 1),
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            const AppBarNSec(),
+            AppBarNSec(),
             ShowNSec(),
           ],
         ),

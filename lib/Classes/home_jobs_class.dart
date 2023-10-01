@@ -1,5 +1,6 @@
 class JobsClass {
   String date;
+  String position;
   String salary;
   String khuvuctinh;
   String khuvuchuyen;
@@ -10,6 +11,7 @@ class JobsClass {
   JobsClass(
       {required this.content,
       required this.date,
+      required this.position,
       required this.image,
       required this.khuvuchuyen,
       required this.khuvuctinh,
@@ -20,6 +22,7 @@ class JobsClass {
     return JobsClass(
         content: data['content'],
         date: data['date'],
+        position: data['position'],
         image: data['image'],
         khuvuchuyen: data['khuvuchuyen'],
         khuvuctinh: data['khuvuctinh'],
