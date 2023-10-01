@@ -29,7 +29,7 @@ class AppBarNSec extends StatelessWidget {
           padding: EdgeInsets.only(right: 15),
           child: CircleAvatar(
             radius: 25,
-            backgroundColor: Colors.lightBlueAccent,
+            backgroundColor: Colors.white,
             backgroundImage: NetworkImage(
                 'https://www.premadegraphics.com/img_1/23/Female-Avatar-2.png'),
           ),

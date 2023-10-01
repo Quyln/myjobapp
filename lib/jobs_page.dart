@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myjobapp/JobsPage/jobs_appbar_sec.dart';
+import 'package:myjobapp/JobsPage/news_body_sec%20copy.dart';
 
 class JobsPage extends StatelessWidget {
   const JobsPage({super.key});
@@ -12,6 +13,7 @@ class JobsPage extends StatelessWidget {
             child: CustomScrollView(
           slivers: [
             JSecAppBar(),
+            ShowJSec(),
           ],
         )));
   }
