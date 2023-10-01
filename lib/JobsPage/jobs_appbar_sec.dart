@@ -9,10 +9,13 @@ class JSecAppBar extends StatelessWidget {
       floating: true,
       pinned: false,
       backgroundColor: Colors.white,
-      leading: const Icon(
-        Icons.search,
-        size: 30,
-        color: Colors.black,
+      leading: IconButton(
+        onPressed: () {},
+        icon: const Icon(
+          Icons.search,
+          size: 30,
+          color: Colors.black,
+        ),
       ),
       title: const Text(
         'Tin tức',

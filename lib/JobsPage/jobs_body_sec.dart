@@ -83,7 +83,7 @@ class _ShowJSecState extends State<ShowJSec> {
                           alignment: Alignment.bottomRight,
                           child: Container(
                             height: 40,
-                            width: 140,
+                            width: 150,
                             decoration: BoxDecoration(
                                 gradient: const LinearGradient(
                                     colors: [Colors.transparent, Colors.red],
@@ -93,8 +93,8 @@ class _ShowJSecState extends State<ShowJSec> {
                                 borderRadius: BorderRadius.circular(25)),
                             child: Center(
                               child: Text(
-                                '230k-490k/day',
-                                style: TextStyle(
+                                alljobdata[index].salary + '/Ngày',
+                                style: const TextStyle(
                                     color: Colors.yellow,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16),
