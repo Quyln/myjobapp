@@ -4,7 +4,6 @@ import 'package:url_launcher/url_launcher_string.dart';
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/home_tintuc_class.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter_svg/flutter_svg.dart';
 
 class TincanbietHSec extends StatefulWidget {
   const TincanbietHSec({super.key});
@@ -75,7 +74,7 @@ class _TincanbietHSecState extends State<TincanbietHSec> {
                     const SizedBox(
                       height: 5,
                     ),
-                    SvgPicture.network(
+                    Image.network(
                       tinCanBietdata[index].author,
                       width: 60,
                       height: 10,

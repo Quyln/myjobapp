@@ -22,46 +22,43 @@ class HomePage extends StatelessWidget {
               height: 20,
             ),
             Padding(
-              padding: EdgeInsets.only(left: 20),
+              padding: EdgeInsets.only(left: 20, bottom: 10),
               child: Text(
                 'Tin nổi bật',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w300),
               ),
             ),
             TinNoiBatHSec(),
-            SizedBox(
-              height: 10,
-            ),
             Padding(
-              padding: EdgeInsets.only(left: 20),
+              padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
               child: Text(
-                'Tin tức công nhân-lao động',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                'Cộng đồng lao động',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w300),
               ),
             ),
             TinlaodongHSec(),
-            SizedBox(
-              height: 10,
-            ),
             Padding(
-              padding: EdgeInsets.only(left: 20),
+              padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
+              child: Text(
+                'Tin cần thiết',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w300),
+              ),
+            ),
+            TincanbietHSec(),
+            Padding(
+              padding: EdgeInsets.only(
+                left: 20,
+                top: 10,
+              ),
               child: Text(
                 'Việc làm mới nhất',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w300),
               ),
             ),
             SizedBox(height: 180, child: ViecmoinhatHSec()),
             SizedBox(
               height: 10,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 20),
-              child: Text(
-                'Tin cần thiết',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-              ),
-            ),
-            TincanbietHSec()
+            )
           ],
         ),
       )),
