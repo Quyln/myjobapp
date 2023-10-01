@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myjobapp/HomePage/home_tincanbiet_section.dart';
 import 'package:myjobapp/HomePage/home_tinlaodong_section.dart';
-import 'package:myjobapp/HomePage/home_tinnoibat_section.dart';
+import 'package:myjobapp/HomePage/home_tinnoibat_secnew.dart';
 import 'package:myjobapp/HomePage/home_top_section.dart';
 import 'package:myjobapp/HomePage/home_viecmoinhat_section.dart';
 
@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
               ),
             ),
-            SizedBox(height: 180, child: TinNoiBatSec()),
+            TinNoiBatSNew(),
             SizedBox(
               height: 10,
             ),

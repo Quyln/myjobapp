@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myjobapp/home_page.dart';
+import 'package:myjobapp/bottom_nav_pages.dart';
 
 void main() {
   runApp(const MyJob());
@@ -12,7 +12,7 @@ class MyJob extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: BottomNavPages(),
     );
   }
 }
