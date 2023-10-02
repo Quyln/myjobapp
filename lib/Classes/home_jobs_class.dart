@@ -6,7 +6,7 @@ class JobsClass {
   String khuvuchuyen;
   String title;
   String image;
-  String content;
+  List<dynamic> content;
 
   JobsClass(
       {required this.content,

@@ -110,7 +110,7 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                         ),
                       ),
                       Text(
-                        'Công việc công nhân sản xuất là một vai trò quan trọng trong quá trình sản xuất và gia công. Công nhân sản xuất có nhiệm vụ tham gia vào các hoạt động sản xuất hàng ngày, bao gồm chuẩn bị và thiết lập máy móc, vận hành thiết bị sản xuất, kiểm tra chất lượng sản phẩm và bảo dưỡng các thiết bị.',
+                        '- ${widget.data.content}',
                         style: TextStyle(fontSize: 16),
                       ),
                       Padding(
