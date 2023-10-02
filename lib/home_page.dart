@@ -4,6 +4,7 @@ import 'package:myjobapp/HomePage/home_tinlaodong_section.dart';
 import 'package:myjobapp/HomePage/home_tinnoibat_section.dart';
 import 'package:myjobapp/HomePage/home_top_section.dart';
 import 'package:myjobapp/HomePage/home_viecmoinhat_section.dart';
+import 'package:myjobapp/utils/colors.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -11,7 +12,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: Color.fromRGBO(220, 223, 229, 1),
+      backgroundColor: maunen,
       body: SafeArea(
           child: SingleChildScrollView(
         child: Column(

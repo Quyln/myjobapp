@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myjobapp/utils/colors.dart';
 
 class AppBarNSec extends StatelessWidget {
   const AppBarNSec({super.key});
@@ -21,7 +22,7 @@ class AppBarNSec extends StatelessWidget {
       ),
       flexibleSpace: FlexibleSpaceBar(
         background: Container(
-          color: const Color.fromRGBO(220, 223, 229, 1),
+          color: maunen,
         ),
       ),
       actions: const [

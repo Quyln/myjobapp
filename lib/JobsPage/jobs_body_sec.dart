@@ -88,7 +88,7 @@ class _ShowJSecState extends State<ShowJSec> {
                                   Text(
                                     '${alljobdata[index].salary} triệu',
                                     style: const TextStyle(
-                                        color: Colors.white70,
+                                        color: Colors.yellow,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 16),
                                   ),
@@ -100,42 +100,40 @@ class _ShowJSecState extends State<ShowJSec> {
                           child: Column(
                             children: [
                               Container(
-                                height: 25,
-                                width: 120,
+                                height: 30,
+                                width: 135,
                                 decoration: const BoxDecoration(
                                     gradient: LinearGradient(
                                         colors: [
                                           Colors.transparent,
-                                          Colors.red
+                                          Colors.white
                                         ],
                                         begin: Alignment.topCenter,
                                         end: Alignment.bottomCenter),
-                                    color: Colors.red,
                                     borderRadius: BorderRadius.only(
                                         bottomLeft: Radius.circular(25),
                                         topRight: Radius.circular(25))),
-                                child: Center(
-                                  child: Text(
-                                    alljobdata[index].khuvuctinh,
-                                    style: const TextStyle(
-                                        color: Colors.yellow,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16),
-                                  ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(
+                                      Icons.location_on,
+                                      size: 20,
+                                      color: Colors.yellow,
+                                    ),
+                                    Text(
+                                      alljobdata[index].khuvuctinh,
+                                      style: const TextStyle(
+                                          color: Colors.yellow,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
                           ),
                         ),
-                        // Align(
-                        //     alignment: Alignment.topRight,
-                        //     child: IconButton(
-                        //       onPressed: () {},
-                        //       icon: const Icon(
-                        //         Icons.favorite_border,
-                        //         color: Colors.white,
-                        //       ),
-                        //     ))
                       ]),
                     ),
                   ),

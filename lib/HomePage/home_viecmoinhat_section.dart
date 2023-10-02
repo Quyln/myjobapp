@@ -85,57 +85,52 @@ class _ViecmoinhatHSecState extends State<ViecmoinhatHSec> {
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold),
                           ),
+                          Text(
+                            '${viecMoiNhatdata[index].salary} triệu',
+                            style: const TextStyle(
+                                color: Colors.yellow,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
+                          ),
                         ]),
                   ),
                 ),
                 Align(
-                  alignment: Alignment.bottomRight,
-                  child: Container(
-                    height: 40,
-                    width: 150,
-                    decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                            colors: [Colors.transparent, Colors.red],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter),
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(25)),
-                    child: Center(
-                      child: Text(
-                        viecMoiNhatdata[index].salary + '/Ngày',
-                        style: const TextStyle(
-                            color: Colors.yellow,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
+                  alignment: Alignment.topRight,
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 30,
+                        width: 135,
+                        decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                                colors: [Colors.transparent, Colors.white],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter),
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(25),
+                                topRight: Radius.circular(25))),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.location_on,
+                              size: 20,
+                              color: Colors.yellow,
+                            ),
+                            Text(
+                              viecMoiNhatdata[index].khuvuctinh,
+                              style: const TextStyle(
+                                  color: Colors.yellow,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Container(
-                    height: 40,
-                    width: 140,
-                    decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                            colors: [Colors.transparent, Colors.white],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter),
-                        color: Colors.red,
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(25),
-                            topRight: Radius.circular(25))),
-                    child: Center(
-                      child: Text(
-                        viecMoiNhatdata[index].khuvuctinh,
-                        style: const TextStyle(
-                            color: Colors.yellow,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
-                      ),
-                    ),
-                  ),
-                )
               ]),
             ),
           );

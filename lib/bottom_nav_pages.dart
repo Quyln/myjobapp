@@ -3,6 +3,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:myjobapp/home_page.dart';
 import 'package:myjobapp/jobs_page.dart';
 import 'package:myjobapp/news_page.dart';
+import 'package:myjobapp/utils/colors.dart';
 
 class BottomNavPages extends StatefulWidget {
   const BottomNavPages({super.key});
@@ -17,10 +18,10 @@ class _BottomNavPagesState extends State<BottomNavPages> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(220, 223, 229, 1),
+      backgroundColor: maunen,
       bottomNavigationBar: CurvedNavigationBar(
         index: index,
-        backgroundColor: const Color.fromRGBO(220, 223, 229, 1),
+        backgroundColor: maunen,
         items: const [
           Icon(Icons.home),
           Icon(Icons.newspaper),
