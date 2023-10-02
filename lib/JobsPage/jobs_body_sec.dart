@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:myjobapp/Classes/home_jobs_class.dart';
+import 'package:myjobapp/JobsPage/jobs_detail_screen.dart';
 
 class ShowJSec extends StatefulWidget {
   const ShowJSec({super.key});
@@ -51,7 +52,15 @@ class _ShowJSecState extends State<ShowJSec> {
                       borderRadius: BorderRadius.circular(25),
                     ),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => JobsDetailScr(
+                                data: alljobdata[index],
+                              ),
+                            ));
+                      },
                       child: Stack(children: [
                         Container(
                           height: double.infinity,

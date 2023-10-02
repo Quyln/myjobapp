@@ -1,8 +1,11 @@
 import 'dart:convert';
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/home_jobs_class.dart';
 import 'package:http/http.dart' as http;
+
+import '../JobsPage/jobs_detail_screen.dart';
 
 class ViecmoinhatHSec extends StatefulWidget {
   const ViecmoinhatHSec({super.key});
@@ -12,8 +15,7 @@ class ViecmoinhatHSec extends StatefulWidget {
 }
 
 class _ViecmoinhatHSecState extends State<ViecmoinhatHSec> {
-  final _controller = PageController();
-  List<dynamic> viecMoiNhatdata = [];
+  List<JobsClass> viecMoiNhatdata = [];
 
   @override
   void initState() {
@@ -37,105 +39,112 @@ class _ViecmoinhatHSecState extends State<ViecmoinhatHSec> {
 
   @override
   Widget build(BuildContext context) {
-    return PageView(
-      controller: _controller,
-      scrollDirection: Axis.horizontal,
-      children: viecMoiNhatdata
-          .map(
-            (e) => Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-                child: Stack(
+    return CarouselSlider.builder(
+        itemCount: viecMoiNhatdata.length,
+        itemBuilder: (context, index, _) {
+          return Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              image: DecorationImage(
+                fit: BoxFit.fill,
+                image: NetworkImage(viecMoiNhatdata[index].image),
+              ),
+            ),
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => JobsDetailScr(
+                        data: viecMoiNhatdata[index],
+                      ),
+                    ));
+              },
+              child: Stack(children: [
+                Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25),
+                    gradient: const LinearGradient(
+                        colors: [Colors.transparent, Colors.black],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            viecMoiNhatdata[index].position,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ]),
+                  ),
+                ),
+                Align(
                   alignment: Alignment.bottomRight,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              fit: BoxFit.fitWidth,
-                              image: NetworkImage(e.image)),
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(25),
-                          boxShadow: const [
-                            BoxShadow(
-                                blurRadius: 2,
-                                blurStyle: BlurStyle.outer,
-                                color: Color.fromRGBO(0, 0, 0, 0.4))
-                          ]),
-                    ),
-                    Container(
-                      height: 40,
-                      width: 270,
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(25),
-                              topLeft: Radius.circular(25))),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10, top: 10),
-                        child: Text(
-                          e.title,
-                          style: TextStyle(fontSize: 17),
-                          softWrap: true,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                  child: Container(
+                    height: 40,
+                    width: 150,
+                    decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                            colors: [Colors.transparent, Colors.red],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter),
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(25)),
+                    child: Center(
+                      child: Text(
+                        viecMoiNhatdata[index].salary + '/Ngày',
+                        style: const TextStyle(
+                            color: Colors.yellow,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16),
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Container(
-                        height: 37,
-                        width: 128,
-                        decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                                bottomRight: Radius.circular(25),
-                                topLeft: Radius.circular(25))),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 10, top: 10),
-                          child: Text(
-                            e.salary,
-                            style: TextStyle(
-                              fontSize: 17,
-                              color: Colors.red,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            softWrap: true,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                    height: 40,
+                    width: 140,
+                    decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                            colors: [Colors.transparent, Colors.white],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter),
+                        color: Colors.red,
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(25),
+                            topRight: Radius.circular(25))),
+                    child: Center(
+                      child: Text(
+                        viecMoiNhatdata[index].khuvuctinh,
+                        style: const TextStyle(
+                            color: Colors.yellow,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16),
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: Container(
-                        height: 37,
-                        width: 128,
-                        decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(25),
-                                topRight: Radius.circular(25))),
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 10, top: 10),
-                          child: Align(
-                            alignment: Alignment.topRight,
-                            child: Text(
-                              e.khuvuctinh,
-                              style: TextStyle(
-                                  fontSize: 17,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                              softWrap: true,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                )),
-          )
-          .toList(),
-    );
+                  ),
+                )
+              ]),
+            ),
+          );
+        },
+        options: CarouselOptions(
+            aspectRatio: 16 / 9,
+            enableInfiniteScroll: false,
+            enlargeCenterPage: true,
+            autoPlay: true,
+            autoPlayInterval: const Duration(seconds: 7)));
   }
 }

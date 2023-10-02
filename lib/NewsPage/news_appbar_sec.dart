@@ -15,9 +15,9 @@ class AppBarNSec extends StatelessWidget {
         color: Colors.black,
       ),
       title: const Text(
-        'Tin tức',
+        'TIN TỨC',
         style: TextStyle(
-            color: Colors.black, fontWeight: FontWeight.w500, fontSize: 20),
+            color: Colors.black, fontWeight: FontWeight.w300, fontSize: 18),
       ),
       flexibleSpace: FlexibleSpaceBar(
         background: Container(

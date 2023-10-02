@@ -46,16 +46,13 @@ class HomePage extends StatelessWidget {
             ),
             TincanbietHSec(),
             Padding(
-              padding: EdgeInsets.only(
-                left: 20,
-                top: 10,
-              ),
+              padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
               child: Text(
                 'Việc làm mới nhất',
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.w300),
               ),
             ),
-            SizedBox(height: 180, child: ViecmoinhatHSec()),
+            ViecmoinhatHSec(),
             SizedBox(
               height: 10,
             )
