@@ -82,60 +82,60 @@ class _ShowJSecState extends State<ShowJSec> {
                                     alljobdata[index].position,
                                     style: const TextStyle(
                                         color: Colors.white,
-                                        fontSize: 17,
+                                        fontSize: 18,
                                         fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    '${alljobdata[index].salary} triệu',
+                                    style: const TextStyle(
+                                        color: Colors.white70,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
                                   ),
                                 ]),
                           ),
                         ),
                         Align(
-                          alignment: Alignment.bottomRight,
-                          child: Container(
-                            height: 40,
-                            width: 150,
-                            decoration: BoxDecoration(
-                                gradient: const LinearGradient(
-                                    colors: [Colors.transparent, Colors.red],
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter),
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(25)),
-                            child: Center(
-                              child: Text(
-                                alljobdata[index].salary + '/Ngày',
-                                style: const TextStyle(
-                                    color: Colors.yellow,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16),
+                          alignment: Alignment.topRight,
+                          child: Column(
+                            children: [
+                              Container(
+                                height: 25,
+                                width: 120,
+                                decoration: const BoxDecoration(
+                                    gradient: LinearGradient(
+                                        colors: [
+                                          Colors.transparent,
+                                          Colors.red
+                                        ],
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter),
+                                    color: Colors.red,
+                                    borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(25),
+                                        topRight: Radius.circular(25))),
+                                child: Center(
+                                  child: Text(
+                                    alljobdata[index].khuvuctinh,
+                                    style: const TextStyle(
+                                        color: Colors.yellow,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
                         ),
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: Container(
-                            height: 40,
-                            width: 140,
-                            decoration: const BoxDecoration(
-                                gradient: LinearGradient(
-                                    colors: [Colors.transparent, Colors.white],
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter),
-                                color: Colors.red,
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(25),
-                                    topRight: Radius.circular(25))),
-                            child: Center(
-                              child: Text(
-                                alljobdata[index].khuvuctinh,
-                                style: const TextStyle(
-                                    color: Colors.yellow,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16),
-                              ),
-                            ),
-                          ),
-                        )
+                        // Align(
+                        //     alignment: Alignment.topRight,
+                        //     child: IconButton(
+                        //       onPressed: () {},
+                        //       icon: const Icon(
+                        //         Icons.favorite_border,
+                        //         color: Colors.white,
+                        //       ),
+                        //     ))
                       ]),
                     ),
                   ),

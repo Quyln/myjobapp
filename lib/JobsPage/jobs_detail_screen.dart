@@ -16,7 +16,13 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(220, 223, 229, 1),
-        leading: Icon(Icons.arrow_back_ios),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios),
+          color: Colors.black,
+        ),
         title: Text(
           widget.data.title,
           style: TextStyle(color: Colors.black),
