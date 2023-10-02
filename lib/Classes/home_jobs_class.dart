@@ -6,7 +6,7 @@ class JobsClass {
   String khuvuchuyen;
   String title;
   String image;
-  List<dynamic> content;
+  List<String> content;
 
   JobsClass(
       {required this.content,
@@ -19,8 +19,12 @@ class JobsClass {
       required this.title});
 
   static JobsClass fromJson(dynamic data) {
+    List<dynamic> contentList = data['content'];
+    List<String> finalcontentList =
+        contentList.map((e) => e.toString()).toList();
+
     return JobsClass(
-        content: data['content'],
+        content: finalcontentList,
         date: data['date'],
         position: data['position'],
         image: data['image'],
