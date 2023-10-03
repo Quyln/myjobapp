@@ -81,7 +81,7 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Công ty TNHH Kim Oanh / ',
+                    widget.data.tencty,
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   const Icon(
@@ -95,7 +95,7 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 height: 500,
                 width: double.infinity,
                 decoration: const BoxDecoration(

@@ -22,7 +22,7 @@ class JobsClass {
       required this.logocty});
 
   static JobsClass fromJson(dynamic data) {
-    List<dynamic> motacvList = data['content'];
+    List<dynamic> motacvList = data['motacv'];
     List<String> finalmotacvList = motacvList.map((e) => e.toString()).toList();
     List<dynamic> yeucaucv = data['yeucaucv'];
     List<String> finalyeucaucvList = yeucaucv.map((e) => e.toString()).toList();
@@ -37,6 +37,6 @@ class JobsClass {
         khuvuctinh: data['khuvuctinh'],
         salary: data['salary'],
         logocty: data['logocty'],
-        tencty: data['title']);
+        tencty: data['tencty']);
   }
 }
