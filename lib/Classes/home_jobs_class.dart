@@ -4,33 +4,39 @@ class JobsClass {
   String salary;
   String khuvuctinh;
   String khuvuchuyen;
-  String title;
+  String tencty;
+  String logocty;
   String image;
-  List<String> content;
-
+  List<String> motacv;
+  List<String> yeucaucv;
   JobsClass(
-      {required this.content,
+      {required this.motacv,
+      required this.yeucaucv,
       required this.date,
       required this.position,
       required this.image,
       required this.khuvuchuyen,
       required this.khuvuctinh,
       required this.salary,
-      required this.title});
+      required this.tencty,
+      required this.logocty});
 
   static JobsClass fromJson(dynamic data) {
-    List<dynamic> contentList = data['content'];
-    List<String> finalcontentList =
-        contentList.map((e) => e.toString()).toList();
+    List<dynamic> motacvList = data['content'];
+    List<String> finalmotacvList = motacvList.map((e) => e.toString()).toList();
+    List<dynamic> yeucaucv = data['yeucaucv'];
+    List<String> finalyeucaucvList = yeucaucv.map((e) => e.toString()).toList();
 
     return JobsClass(
-        content: finalcontentList,
+        motacv: finalmotacvList,
+        yeucaucv: finalyeucaucvList,
         date: data['date'],
         position: data['position'],
         image: data['image'],
         khuvuchuyen: data['khuvuchuyen'],
         khuvuctinh: data['khuvuctinh'],
         salary: data['salary'],
-        title: data['title']);
+        logocty: data['logocty'],
+        tencty: data['title']);
   }
 }

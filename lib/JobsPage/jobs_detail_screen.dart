@@ -39,13 +39,16 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                       child: const Icon(Icons.arrow_back),
                     ),
                   ),
-                  Container(
-                    height: 35,
-                    width: 35,
-                    decoration: BoxDecoration(
-                        color: Colors.black12,
-                        borderRadius: BorderRadius.circular(8)),
-                    child: const Icon(Icons.share),
+                  InkWell(
+                    onTap: () {},
+                    child: Container(
+                      height: 35,
+                      width: 35,
+                      decoration: BoxDecoration(
+                          color: Colors.black12,
+                          borderRadius: BorderRadius.circular(8)),
+                      child: const Icon(Icons.share),
+                    ),
                   ),
                 ],
               ),
@@ -101,29 +104,81 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 10),
                         child: Text(
                           'Mô tả công việc:',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 19),
                         ),
                       ),
-                      Text(
-                        '- ${widget.data.content}',
-                        style: TextStyle(fontSize: 16),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          for (var i = 0; i < widget.data.motacv.length; i++)
+                            Container(
+                              margin: const EdgeInsets.symmetric(vertical: 5),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    height: 6,
+                                    width: 6,
+                                    decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.black54),
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      widget.data.motacv[i],
+                                      style: const TextStyle(
+                                          fontSize: 16, color: Colors.black54),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                        ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 10),
                         child: Text(
                           'Yêu cầu:',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 19),
                         ),
                       ),
-                      Text(
-                        style: TextStyle(fontSize: 16),
-                        'Yêu cầu sự chính xác, tỉ mỉ và khéo léo. Các công nhân phải tuân thủ quy trình sản xuất, đảm bảo tuân thủ các quy định an toàn lao động và quy định về chất lượng. Họ cần có khả năng làm việc nhóm tốt, giao tiếp hiệu quả và thích ứng với môi trường làm việc đa dạng.',
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          for (var i = 0; i < widget.data.yeucaucv.length; i++)
+                            Container(
+                              margin: const EdgeInsets.symmetric(vertical: 5),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    height: 6,
+                                    width: 6,
+                                    decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.black54),
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      widget.data.yeucaucv[i],
+                                      style: const TextStyle(
+                                          fontSize: 16, color: Colors.black54),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                        ],
                       ),
                       Padding(
                         padding: const EdgeInsets.only(
@@ -131,7 +186,7 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.favorite_border_outlined,
                               size: 30,
                             ),
@@ -141,7 +196,7 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                               decoration: BoxDecoration(
                                   color: Colors.green,
                                   borderRadius: BorderRadius.circular(25)),
-                              child: Center(
+                              child: const Center(
                                   child: Text(
                                 'ỨNG TUYỂN',
                                 style: TextStyle(

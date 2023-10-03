@@ -5,9 +5,11 @@
          "salary":"10 - 14",
          "khuvuctinh":"Bình Dương",
          "khuvuchuyen":"Bến Cát",
-         "title":"Tuyển công nhân sản xuất linh kiện vi tính",
+         "tencty":"Công ty TNHH Đại Nghĩa",
+         "logocty":"https://daitam.vn/wp-content/uploads/2021/10/Dại-Tâm-Logo-final-Copy.png",
          "image":"https://static.chotot.com/storage/chotot-kinhnghiem/c2c/2020/08/cong-nhan-san-xuat1.jpg",
-         "content":["Tham gia vào các hoạt động sản xuất hàng ngày","Chuẩn bị và thiết lập máy móc","Kiểm tra chất lượng sản phẩm và bảo dưỡng các thiết bị"]
+         "motacv":["Tham gia vào các hoạt động sản xuất hàng ngày","Chuẩn bị và thiết lập máy móc","Kiểm tra chất lượng sản phẩm và bảo dưỡng các thiết bị"],
+         "yeucaucv":["Hồ sơ xin việc","Có CCCD/CMND","Độ tuổi từ 18 - 40"]
     },
     {
         "date":"30-09-2023",
@@ -15,9 +17,12 @@
         "salary":"13 - 17",
         "khuvuctinh":"Đồng Nai",
         "khuvuchuyen":"Trảng Bơm",
-        "title":"Tuyển 50 thợ sơn có tay nghề",
+        "tencty":"Công ty TNHH Thành Công",
+        "logocty":"https://daitam.vn/wp-content/uploads/2021/10/Dại-Tâm-Logo-final-Copy.png",
         "image":"https://th.bing.com/th/id/R.61797a5801f45d8be7a3e839211d432b?rik=70nnZpID%2bTbqWw&riu=http%3a%2f%2fsonnha.giabaonhieu1m2.com%2fwp-content%2fuploads%2f2022%2f04%2fthợ-đu-dây-ngoài-trời.jpg&ehk=P%2bE1Hs0R3fGKIy2TzsPOYwj%2fIHGQWS1k63IOJDSLXeM%3d&risl=&pid=ImgRaw&r=0",
-        "content":["Tham gia vào các hoạt động sản xuất hàng ngày","Chuẩn bị và thiết lập máy móc","Kiểm tra chất lượng sản phẩm và bảo dưỡng các thiết bị"]
+        "motacv":["Sơn khung cửa","Chuẩn bị và thiết lập máy móc","Kiểm tra chất lượng sản phẩm và bảo dưỡng các thiết bị"],
+        "yeucaucv":["Hồ sơ xin việc","Có CCCD/CMND","Độ tuổi từ 18 - 35"]
+
     },    
    {
         "date":"30-09-2023",
@@ -25,9 +30,12 @@
         "salary":"9 - 13",
         "khuvuctinh":"Hồ Chí Minh",
         "khuvuchuyen":"Quận 7",
-        "title":"Tuyển 100 lao động phổ thông không yêu cầu tay nghề",
+        "tencty":"Công ty TNHH Kim Oanh",
+        "logocty":"https://daitam.vn/wp-content/uploads/2021/10/Dại-Tâm-Logo-final-Copy.png",
         "image":"https://timviec365.vn/pictures/images/lao-dong-pho-thong-min.jpg",
-        "content":["Tham gia vào các hoạt động sản xuất hàng ngày","Chuẩn bị và thiết lập máy móc","Kiểm tra chất lượng sản phẩm và bảo dưỡng các thiết bị"]
+        "motacv":["Tham gia vào các hoạt động sản xuất hàng ngày","Chuẩn bị và thiết lập máy móc","Kiểm tra chất lượng sản phẩm và bảo dưỡng các thiết bị"],
+        "yeucaucv":["Hồ sơ xin việc","Có CCCD/CMND","Độ tuổi từ 18 - 40"]
+
     },
     {
         "date":"30-09-2023",
@@ -35,9 +43,12 @@
         "salary":"12 - 20",
         "khuvuctinh":"Hà Nội",
         "khuvuchuyen":"Quận Hoàn Kiếm",
-        "title":"Tuyển gấp 1 vị trí Thư Ký",
+        "tencty":"Công ty TNHH Hoàng Minh",
+        "logocty":"https://daitam.vn/wp-content/uploads/2021/10/Dại-Tâm-Logo-final-Copy.png",
         "image":"https://cdn.123job.vn/123job/uploads/2020/06/30/2020_06_30______6ef60c4d70038c437bea3e57eacceedb.png",
-        "content":["Tham gia vào các hoạt động sản xuất hàng ngày","Chuẩn bị và thiết lập máy móc","Kiểm tra chất lượng sản phẩm và bảo dưỡng các thiết bị"]
+        "motacv":["Chuẩn bị hồ sơ hằng ngày","Đi công tác thường xuyên","Quản lý văn phòng"],
+        "yeucaucv":["Hồ sơ xin việc","Có CCCD/CMND","Độ tuổi từ 18 - 40"]
+
     },
     {
         "date":"30-09-2023",
@@ -45,9 +56,12 @@
         "salary":"12 - 18",
         "khuvuctinh":"Bình Dương",
         "khuvuchuyen":"Quận 7",
-        "title":"Tuyển gấp 20 kỹ sư điện lạnh",
+        "tencty":"Tập Đoàn VinGroup",
+        "logocty":"https://daitam.vn/wp-content/uploads/2021/10/Dại-Tâm-Logo-final-Copy.png",
         "image":"https://dichvubachkhoa.vn/wp-content/uploads/sua-dieu-hoa-da-nang-10.jpg",
-        "content":["Tham gia vào các hoạt động sản xuất hàng ngày","Chuẩn bị và thiết lập máy móc","Kiểm tra chất lượng sản phẩm và bảo dưỡng các thiết bị"]
+        "motacv":["Tham gia vào các hoạt động sản xuất hàng ngày","Chuẩn bị và thiết lập máy móc","Kiểm tra chất lượng sản phẩm và bảo dưỡng các thiết bị"],
+        "yeucaucv":["Hồ sơ xin việc","Có CCCD/CMND","Độ tuổi từ 18 - 40"]
+
     },
     {
         "date":"30-09-2023",
@@ -55,8 +69,11 @@
         "salary":"6 - 9",
         "khuvuctinh":"Hồ Chí Minh",
         "khuvuchuyen":"Quận 7",
-        "title":"Tuyển gấp 10 bạn nữ phục vụ quán ăn",
+        "tencty":"Nhà Hàng HappyTime",
+        "logocty":"https://daitam.vn/wp-content/uploads/2021/10/Dại-Tâm-Logo-final-Copy.png",
         "image":"https://timviec365.vn/pictures/images/lao-dong-pho-thong-min.jpg",
-        "content":["Tham gia vào các hoạt động sản xuất hàng ngày","Chuẩn bị và thiết lập máy móc","Kiểm tra chất lượng sản phẩm và bảo dưỡng các thiết bị"]
+        "motacv":["Phục vụ bàn tiệc","Hỗ trợ setup bàn tiệc","Tiếp thị bia"],
+        "yeucaucv":["Nhanh nhẹn, năng động, tháo vác","Có CCCD/CMND","Độ tuổi từ 18 - 25"]
+
     }
   ]
