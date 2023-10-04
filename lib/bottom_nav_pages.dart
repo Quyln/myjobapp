@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:myjobapp/home_page.dart';
-import 'package:myjobapp/jobs_page.dart';
-import 'package:myjobapp/news_page.dart';
-import 'package:myjobapp/utils/colors.dart';
+import 'package:myjobapp/HomePage/home_page.dart';
+import 'package:myjobapp/JobsPage/jobs_page.dart';
+import 'package:myjobapp/NewsPage/news_page.dart';
 
 class BottomNavPages extends StatefulWidget {
   const BottomNavPages({super.key});
@@ -18,15 +17,30 @@ class _BottomNavPagesState extends State<BottomNavPages> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: maunen,
+      backgroundColor: Colors.white,
       bottomNavigationBar: CurvedNavigationBar(
+        animationCurve: Curves.linearToEaseOut,
+        color: Colors.black,
+        buttonBackgroundColor: Colors.black,
         index: index,
-        backgroundColor: maunen,
+        backgroundColor: Colors.white,
         items: const [
-          Icon(Icons.home),
-          Icon(Icons.newspaper),
-          Icon(Icons.work),
-          Icon(Icons.chat),
+          Icon(
+            Icons.home,
+            color: Colors.white,
+          ),
+          Icon(
+            Icons.newspaper,
+            color: Colors.white,
+          ),
+          Icon(
+            Icons.work,
+            color: Colors.white,
+          ),
+          Icon(
+            Icons.chat,
+            color: Colors.white,
+          ),
         ],
         animationDuration: const Duration(milliseconds: 300),
         onTap: (value) {
