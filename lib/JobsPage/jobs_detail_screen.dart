@@ -96,7 +96,6 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Container(
                 padding: const EdgeInsets.all(10),
-                height: 500,
                 width: double.infinity,
                 decoration: const BoxDecoration(
                     color: Colors.white,
@@ -190,20 +189,23 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                               Icons.favorite_border_outlined,
                               size: 30,
                             ),
-                            Container(
-                              height: 60,
-                              width: 200,
-                              decoration: BoxDecoration(
-                                  color: Colors.green,
-                                  borderRadius: BorderRadius.circular(25)),
-                              child: const Center(
-                                  child: Text(
-                                'ỨNG TUYỂN',
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              )),
+                            InkWell(
+                              onTap: () {},
+                              child: Container(
+                                height: 60,
+                                width: 200,
+                                decoration: BoxDecoration(
+                                    color: Colors.green,
+                                    borderRadius: BorderRadius.circular(25)),
+                                child: const Center(
+                                    child: Text(
+                                  'ỨNG TUYỂN',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                )),
+                              ),
                             )
                           ],
                         ),

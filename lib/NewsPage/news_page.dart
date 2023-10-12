@@ -9,13 +9,11 @@ class NewsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            AppBarNSec(),
-            ShowNSec(),
-          ],
-        ),
+      body: CustomScrollView(
+        slivers: [
+          AppBarNSec(),
+          ShowNSec(),
+        ],
       ),
     );
   }

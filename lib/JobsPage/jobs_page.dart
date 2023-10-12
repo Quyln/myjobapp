@@ -9,12 +9,11 @@ class JobsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
         backgroundColor: Colors.white,
-        body: SafeArea(
-            child: CustomScrollView(
+        body: CustomScrollView(
           slivers: [
             JSecAppBar(),
             ShowJSec(),
           ],
-        )));
+        ));
   }
 }

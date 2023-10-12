@@ -28,9 +28,8 @@ class _ShowNSecState extends State<ShowNSec> {
   }
 
   void getnewlist() async {
-    var url = Uri.parse(
-        'https://raw.githubusercontent.com/Quyln/myjobapp/main/data/All_news_data.json');
-    var response = await http.get(url);
+    var response = await http.get(Uri.parse(
+        'https://raw.githubusercontent.com/Quyln/myjobapp/main/data/All_news_data.json'));
 
     if (response.statusCode == 200) {
       List<dynamic> dataList = jsonDecode(response.body);
@@ -47,7 +46,7 @@ class _ShowNSecState extends State<ShowNSec> {
     return SliverList(
         delegate: SliverChildBuilderDelegate(
             (context, index) => Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
                   child: Container(
                     height: 230,
                     decoration: BoxDecoration(

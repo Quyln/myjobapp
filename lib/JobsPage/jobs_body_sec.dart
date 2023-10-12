@@ -39,7 +39,7 @@ class _ShowJSecState extends State<ShowJSec> {
     return SliverList(
         delegate: SliverChildBuilderDelegate(
             (context, index) => Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
                   child: Container(
                     height: 180,
                     decoration: BoxDecoration(

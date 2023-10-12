@@ -1,5 +1,9 @@
+import 'dart:async';
+import 'package:after_layout/after_layout.dart';
+
 import 'package:flutter/material.dart';
-import 'package:myjobapp/bottom_nav_pages.dart';
+import 'package:myjobapp/bottombar_nav.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -8,11 +12,21 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen>
+    with AfterLayoutMixin<LoginScreen> {
   final _idcontroller = TextEditingController();
   final _passcontroller = TextEditingController();
 
   bool showpassword = true;
+
+  void checkloginSH(BuildContext context) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    bool? checklogin = pref.getBool('checklogin');
+    if (checklogin = true) {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: ((context) => const BottomBarNav())));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,12 +97,13 @@ class _LoginScreenState extends State<LoginScreen> {
           Padding(
             padding: const EdgeInsets.only(top: 20, right: 30, bottom: 20),
             child: InkWell(
-              onTap: () {},
-              child: const Align(
-                alignment: Alignment.centerRight,
-                child: Text('Quên mật khẩu?'),
-              ),
-            ),
+                onTap: () {},
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text('Quên mật khẩu?'),
+                  ],
+                )),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -113,11 +128,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               InkWell(
-                onTap: () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const BottomNavPages()));
+                onTap: () async {
+                  bool result = true;
+                  if (result = true) {
+                    SharedPreferences pref =
+                        await SharedPreferences.getInstance();
+                    await pref.setBool('checklogin', true);
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) => BottomBarNav())));
+                  }
                 },
                 child: Container(
                   height: 50,
@@ -141,5 +162,10 @@ class _LoginScreenState extends State<LoginScreen> {
         ],
       )),
     );
+  }
+
+  @override
+  FutureOr<void> afterFirstLayout(BuildContext context) {
+    checkloginSH(context);
   }
 }
