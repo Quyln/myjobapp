@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:myjobapp/login_sceen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HSecAppBar extends StatelessWidget {
   const HSecAppBar({super.key});
@@ -58,10 +60,22 @@ class HSecAppBar extends StatelessWidget {
                     color: Colors.red,
                     fontSize: 20),
               ),
-              Image.network(
-                'https://th.bing.com/th/id/R.8e15a553c79945c426b3c80bd90f53b6?rik=xEtinSHRUR0Lyg&riu=http%3a%2f%2fupload.wikimedia.org%2fwikipedia%2fcommons%2fd%2fd6%2fGold_coin_icon.png&ehk=TPjFkVPmWqsKBkvQ60u9VfBVF%2fVfwjQcMsd%2fHaA6rrk%3d&risl=&pid=ImgRaw&r=0',
-                width: 30,
-                height: 30,
+              InkWell(
+                onTap: () async {
+                  SharedPreferences pref =
+                      await SharedPreferences.getInstance();
+                  await pref.setBool('checklogin', false);
+
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginScreen()));
+                },
+                child: Image.network(
+                  'https://th.bing.com/th/id/R.8e15a553c79945c426b3c80bd90f53b6?rik=xEtinSHRUR0Lyg&riu=http%3a%2f%2fupload.wikimedia.org%2fwikipedia%2fcommons%2fd%2fd6%2fGold_coin_icon.png&ehk=TPjFkVPmWqsKBkvQ60u9VfBVF%2fVfwjQcMsd%2fHaA6rrk%3d&risl=&pid=ImgRaw&r=0',
+                  width: 30,
+                  height: 30,
+                ),
               )
             ],
           ),

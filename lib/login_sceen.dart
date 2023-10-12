@@ -19,10 +19,20 @@ class _LoginScreenState extends State<LoginScreen>
 
   bool showpassword = true;
 
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  FutureOr<void> afterFirstLayout(BuildContext context) {
+    checkloginSH(context);
+  }
+
   void checkloginSH(BuildContext context) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     bool? checklogin = pref.getBool('checklogin');
-    if (checklogin = true) {
+    if (checklogin == true) {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: ((context) => const BottomBarNav())));
     }
@@ -130,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen>
               InkWell(
                 onTap: () async {
                   bool result = true;
-                  if (result = true) {
+                  if (result == true) {
                     SharedPreferences pref =
                         await SharedPreferences.getInstance();
                     await pref.setBool('checklogin', true);
@@ -162,10 +172,5 @@ class _LoginScreenState extends State<LoginScreen>
         ],
       )),
     );
-  }
-
-  @override
-  FutureOr<void> afterFirstLayout(BuildContext context) {
-    checkloginSH(context);
   }
 }

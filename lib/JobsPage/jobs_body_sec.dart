@@ -1,39 +1,15 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:myjobapp/Classes/home_jobs_class.dart';
 import 'package:myjobapp/JobsPage/jobs_detail_screen.dart';
 
 class ShowJSec extends StatefulWidget {
-  const ShowJSec({super.key});
-
+  const ShowJSec({required this.alljobdata, super.key});
+  final List<JobsClass> alljobdata;
   @override
   State<ShowJSec> createState() => _ShowJSecState();
 }
 
 class _ShowJSecState extends State<ShowJSec> {
-  List<JobsClass> alljobdata = [];
-
-  @override
-  void initState() {
-    super.initState();
-    getnewlist();
-  }
-
-  void getnewlist() async {
-    var url = Uri.parse(
-        'https://raw.githubusercontent.com/Quyln/myjobapp/main/data/All_jobs_data.json');
-    var response = await http.get(url);
-
-    if (response.statusCode == 200) {
-      List<dynamic> dataList = jsonDecode(response.body);
-      alljobdata = dataList.map((e) => JobsClass.fromJson(e)).toList();
-      setState(() {
-        alljobdata;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return SliverList(
@@ -46,7 +22,7 @@ class _ShowJSecState extends State<ShowJSec> {
                       image: DecorationImage(
                           fit: BoxFit.cover,
                           image: NetworkImage(
-                            alljobdata[index].image,
+                            widget.alljobdata[index].image,
                           )),
                       color: Colors.black,
                       borderRadius: BorderRadius.circular(25),
@@ -57,7 +33,7 @@ class _ShowJSecState extends State<ShowJSec> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => JobsDetailScr(
-                                data: alljobdata[index],
+                                data: widget.alljobdata[index],
                               ),
                             ));
                       },
@@ -79,14 +55,14 @@ class _ShowJSecState extends State<ShowJSec> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Text(
-                                    alljobdata[index].position,
+                                    widget.alljobdata[index].position,
                                     style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    '${alljobdata[index].salary} triệu',
+                                    '${widget.alljobdata[index].salary} triệu',
                                     style: const TextStyle(
                                         color: Colors.yellow,
                                         fontWeight: FontWeight.bold,
@@ -122,7 +98,7 @@ class _ShowJSecState extends State<ShowJSec> {
                                       color: Colors.yellow,
                                     ),
                                     Text(
-                                      alljobdata[index].khuvuctinh,
+                                      widget.alljobdata[index].khuvuctinh,
                                       style: const TextStyle(
                                           color: Colors.yellow,
                                           fontWeight: FontWeight.bold,
@@ -138,6 +114,6 @@ class _ShowJSecState extends State<ShowJSec> {
                     ),
                   ),
                 ),
-            childCount: alljobdata.length));
+            childCount: widget.alljobdata.length));
   }
 }
