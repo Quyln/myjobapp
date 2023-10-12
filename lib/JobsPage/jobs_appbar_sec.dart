@@ -107,6 +107,7 @@ class _JSecAppBarState extends State<JSecAppBar> {
                                         selectedText = e;
                                       });
                                       widget.onpresssearch(selectedText);
+                                      Navigator.pop(context);
                                     },
                                     child: Text(
                                       e,
@@ -127,7 +128,7 @@ class _JSecAppBarState extends State<JSecAppBar> {
                   ));
         },
         icon: const Icon(
-          Icons.search,
+          Icons.location_on_outlined,
           size: 30,
           color: Colors.black,
         ),
