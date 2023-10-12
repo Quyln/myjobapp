@@ -39,9 +39,9 @@ class _JobsPageState extends State<JobsPage> {
     }
   }
 
-  void onpresssearch() {
+  void onpresssearch(String selectedText) {
     filterJobData = alljobdata.where((element) {
-      return element.khuvuctinh == 'Hồ Chí Minh';
+      return element.khuvuctinh == selectedText;
     }).toList();
     setState(() {
       filterJobData;

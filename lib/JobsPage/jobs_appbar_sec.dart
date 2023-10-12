@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 
 class JSecAppBar extends StatefulWidget {
-  const JSecAppBar({
-    super.key,
-    required this.onpresssearch,
-  });
-  final Function() onpresssearch;
+  const JSecAppBar({super.key, required this.onpresssearch});
+  final Function(String) onpresssearch;
 
   @override
   State<JSecAppBar> createState() => _JSecAppBarState();
@@ -78,11 +75,7 @@ class _JSecAppBarState extends State<JSecAppBar> {
     'Yên Bái'
   ];
   int selectedPosition = 0;
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  String selectedText = 'Hồ Chí Minh';
 
   @override
   Widget build(BuildContext context) {
@@ -106,9 +99,15 @@ class _JSecAppBarState extends State<JSecAppBar> {
                         child: ListWheelScrollView(
                           physics: const FixedExtentScrollPhysics(),
                           diameterRatio: 1.3,
+                          itemExtent: 100,
                           children: listkhuvuc
                               .map((e) => GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      setState(() {
+                                        selectedText = e;
+                                      });
+                                      widget.onpresssearch(selectedText);
+                                    },
                                     child: Text(
                                       e,
                                       style: const TextStyle(
@@ -119,7 +118,6 @@ class _JSecAppBarState extends State<JSecAppBar> {
                                     ),
                                   ))
                               .toList(),
-                          itemExtent: 100,
                           onSelectedItemChanged: (value) {
                             setState(() {
                               selectedPosition = value;
