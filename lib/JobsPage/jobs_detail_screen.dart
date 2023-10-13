@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:myjobapp/Classes/home_jobs_class.dart';
 import 'package:myjobapp/utils/colors.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+import 'package:share_plus/share_plus.dart';
 
 class JobsDetailScr extends StatefulWidget {
   const JobsDetailScr({required this.data, super.key});
@@ -14,6 +16,27 @@ class JobsDetailScr extends StatefulWidget {
 }
 
 class _JobsDetailScrState extends State<JobsDetailScr> {
+  @override
+  void initState() {
+    super.initState();
+    String jobID = widget.data.id;
+    String appLink = 'myapp://$jobID';
+    openAppLink(appLink);
+    shareAppLink(appLink);
+  }
+
+  void openAppLink(String appLink) async {
+    if (await canLaunchUrlString(appLink)) {
+      await launchUrlString(appLink);
+    } else {
+      throw 'Khong the mo lien ket : $appLink';
+    }
+  }
+
+  void shareAppLink(String appLink) async {
+    await Share.share(appLink);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
