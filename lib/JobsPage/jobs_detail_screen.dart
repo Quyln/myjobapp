@@ -40,7 +40,108 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                     ),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      showGeneralDialog(
+                          barrierColor: Colors.black45,
+                          barrierDismissible: true,
+                          barrierLabel: 'share job',
+                          context: context,
+                          pageBuilder: (context, _, __) => Center(
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  margin: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 20),
+                                  height: 380,
+                                  width: 350,
+                                  decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(30))),
+                                  child: Column(children: [
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    Image.network(
+                                      // hinh qr code
+                                      'https://th.bing.com/th/id/OIP.AzGsz6YA4Aup3paQ_poIAwHaHa?pid=ImgDet&rs=1',
+                                      width: 200,
+                                      height: 200,
+                                    ),
+                                    const Text(
+                                      'Link to share',
+                                      style: TextStyle(
+                                          fontStyle: FontStyle.italic,
+                                          fontWeight: FontWeight.normal,
+                                          decoration: TextDecoration.none,
+                                          color: Colors.black,
+                                          fontSize: 18),
+                                    ),
+                                    Container(
+                                        //link chia se
+                                        padding: const EdgeInsets.all(10),
+                                        height: 40,
+                                        width: 250,
+                                        decoration: BoxDecoration(
+                                            color: Colors.black12,
+                                            borderRadius:
+                                                BorderRadius.circular(15)),
+                                        child: const Row(
+                                          children: [
+                                            Expanded(
+                                              child: Center(
+                                                child: Text(
+                                                  'https://www.youtube.com/clip/UgkxF00z2lyZjE9JCsEdLVP8TtqV6jlIAAyy',
+                                                  style: TextStyle(
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      decoration:
+                                                          TextDecoration.none,
+                                                      color: Colors.black,
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.normal),
+                                                ),
+                                              ),
+                                            ),
+                                            Icon(Icons.copy_all)
+                                          ],
+                                        )),
+                                    const SizedBox(
+                                      height: 15,
+                                    ),
+                                    Row(
+                                      //chia se qua mang xa hoi
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Image.network(
+                                          'https://pngimg.com/uploads/facebook_logos/facebook_logos_PNG19757.png',
+                                          height: 40,
+                                          width: 40,
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Image.network(
+                                          'https://imagepng.org/wp-content/uploads/2017/08/instagram-icone-icon-2.png',
+                                          height: 40,
+                                          width: 40,
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Image.network(
+                                          'https://cdn.freebiesupply.com/logos/large/2x/zalo-1-logo-png-transparent.png',
+                                          height: 40,
+                                          width: 40,
+                                        )
+                                      ],
+                                    )
+                                  ]),
+                                ),
+                              ));
+                    },
                     child: Container(
                       height: 35,
                       width: 35,
