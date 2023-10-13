@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:myjobapp/Classes/home_jobs_class.dart';
 import 'package:myjobapp/utils/colors.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:share_plus/share_plus.dart';
 
 class JobsDetailScr extends StatefulWidget {
   const JobsDetailScr({required this.data, super.key});
@@ -96,10 +97,13 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                                                 ClipboardData(text: textCopy));
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(const SnackBar(
+                                                    behavior: SnackBarBehavior
+                                                        .floating,
                                                     content: Text(
-                                              'Đã sao chép link',
-                                              style: TextStyle(fontSize: 20),
-                                            )));
+                                                      'Đã sao chép link',
+                                                      style: TextStyle(
+                                                          fontSize: 20),
+                                                    )));
                                           },
                                           child: const Row(
                                             children: [
@@ -131,27 +135,57 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Image.network(
-                                          'https://pngimg.com/uploads/facebook_logos/facebook_logos_PNG19757.png',
-                                          height: 40,
-                                          width: 40,
+                                        GestureDetector(
+                                          onTap: () {
+                                            Share.share(
+                                                'https://www.facebook.com/sharer/sharer.php?u=https://www.youtube.com/clip/UgkxF00z2lyZjE9JCsEdLVP8TtqV6jlIAAyy');
+                                          },
+                                          child: SizedBox(
+                                            height: 40,
+                                            width: 40,
+                                            child: Image.network(
+                                              'https://pngimg.com/uploads/facebook_logos/facebook_logos_PNG19757.png',
+                                              height: 40,
+                                              width: 40,
+                                            ),
+                                          ),
                                         ),
                                         const SizedBox(
                                           width: 10,
                                         ),
-                                        Image.network(
-                                          'https://imagepng.org/wp-content/uploads/2017/08/instagram-icone-icon-2.png',
-                                          height: 40,
-                                          width: 40,
+                                        GestureDetector(
+                                          onTap: () {
+                                            Share.share(
+                                                'https://www.instagram.com/share?url=https://www.youtube.com/clip/UgkxF00z2lyZjE9JCsEdLVP8TtqV6jlIAAyy');
+                                          },
+                                          child: SizedBox(
+                                            height: 40,
+                                            width: 40,
+                                            child: Image.network(
+                                              'https://imagepng.org/wp-content/uploads/2017/08/instagram-icone-icon-2.png',
+                                              height: 40,
+                                              width: 40,
+                                            ),
+                                          ),
                                         ),
                                         const SizedBox(
                                           width: 10,
                                         ),
-                                        Image.network(
-                                          'https://cdn.freebiesupply.com/logos/large/2x/zalo-1-logo-png-transparent.png',
-                                          height: 40,
-                                          width: 40,
-                                        )
+                                        GestureDetector(
+                                          onTap: () {
+                                            Share.share(
+                                                'https://zalo.me/share?text=https://www.youtube.com/clip/UgkxF00z2lyZjE9JCsEdLVP8TtqV6jlIAAyy');
+                                          },
+                                          child: SizedBox(
+                                            height: 40,
+                                            width: 40,
+                                            child: Image.network(
+                                              'https://cdn.freebiesupply.com/logos/large/2x/zalo-1-logo-png-transparent.png',
+                                              height: 40,
+                                              width: 40,
+                                            ),
+                                          ),
+                                        ),
                                       ],
                                     )
                                   ]),

@@ -84,14 +84,63 @@ class _JSecAppBarState extends State<JSecAppBar> {
   }
 
   void getLocation() async {
-    PermissionStatus status = await Permission.location.request();
-    if (status.isGranted) {
-      print('da duoc cap phep');
-    } else if (status.isDenied) {
-      print('bi huy');
-    } else if (status.isPermanentlyDenied) {
+    Map<Permission, PermissionStatus> status = await [
+      Permission.location,
+      Permission.camera,
+      Permission.microphone
+    ].request();
+    if (status[Permission.location]!.isGranted) {
+      print('Thành công vị trí');
+    } else if (status[Permission.location]!.isDenied) {
+      print('Huỷ');
+    } else if (status[Permission.location]!.isPermanentlyDenied) {
+      print('Cự tuyệt');
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('Vị trí đã bị tắt, bạn có muốn bật lại?'),
+        behavior: SnackBarBehavior.floating,
+        content: const Text(
+          'Định vị đã tắt, bạn có muốn bật lại?',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        action: SnackBarAction(
+          label: 'Đến Setting',
+          onPressed: () {
+            AppSettings.openAppSettings();
+          },
+        ),
+      ));
+    }
+    if (status[Permission.camera]!.isGranted) {
+      print('Thành công Camera');
+    } else if (status[Permission.camera]!.isDenied) {
+      print('Huỷ');
+    } else if (status[Permission.camera]!.isPermanentlyDenied) {
+      print('Cự tuyệt');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        behavior: SnackBarBehavior.floating,
+        content: const Text(
+          'Camera đã tắt, bạn có muốn bật lại?',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        action: SnackBarAction(
+          label: 'Đến Setting',
+          onPressed: () {
+            AppSettings.openAppSettings();
+          },
+        ),
+      ));
+    }
+    if (status[Permission.microphone]!.isGranted) {
+      print('Thành công Micro');
+    } else if (status[Permission.microphone]!.isDenied) {
+      print('Huỷ');
+    } else if (status[Permission.microphone]!.isPermanentlyDenied) {
+      print('Cự tuyệt');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        behavior: SnackBarBehavior.floating,
+        content: const Text(
+          'Micro đã tắt, bạn có muốn bật lại?',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
         action: SnackBarAction(
           label: 'Đến Setting',
           onPressed: () {
