@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:app_settings/app_settings.dart';
 
 class JSecAppBar extends StatefulWidget {
   const JSecAppBar({super.key, required this.onpresssearch});
@@ -74,8 +76,31 @@ class _JSecAppBarState extends State<JSecAppBar> {
     'Vĩnh Phúc',
     'Yên Bái'
   ];
-  int selectedPosition = 0;
   String selectedText = 'Hồ Chí Minh';
+  @override
+  void initState() {
+    super.initState();
+    getLocation();
+  }
+
+  void getLocation() async {
+    PermissionStatus status = await Permission.location.request();
+    if (status.isGranted) {
+      print('da duoc cap phep');
+    } else if (status.isDenied) {
+      print('bi huy');
+    } else if (status.isPermanentlyDenied) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('Vị trí đã bị tắt, bạn có muốn bật lại?'),
+        action: SnackBarAction(
+          label: 'Đến Setting',
+          onPressed: () {
+            AppSettings.openAppSettings();
+          },
+        ),
+      ));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -119,11 +144,6 @@ class _JSecAppBarState extends State<JSecAppBar> {
                                     ),
                                   ))
                               .toList(),
-                          onSelectedItemChanged: (value) {
-                            setState(() {
-                              selectedPosition = value;
-                            });
-                          },
                         )),
                   ));
         },
@@ -133,10 +153,12 @@ class _JSecAppBarState extends State<JSecAppBar> {
           color: Colors.black,
         ),
       ),
-      title: const Text(
-        'THỊ TRƯỜNG VIỆC LÀM',
-        style: TextStyle(
-            color: Colors.black, fontWeight: FontWeight.w300, fontSize: 18),
+      title: const Center(
+        child: Text(
+          'THỊ TRƯỜNG VIỆC LÀM',
+          style: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.w300, fontSize: 18),
+        ),
       ),
       flexibleSpace: FlexibleSpaceBar(
         background: Container(

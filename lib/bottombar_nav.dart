@@ -35,7 +35,7 @@ class _BottomBarNavState extends State<BottomBarNav> {
               },
               child: _Pages.elementAt(_pageindex)),
           Align(
-            alignment: const Alignment(0, 1.05),
+            alignment: const Alignment(0, 1.0),
             child: AnimatedOpacity(
               opacity: _visible ? 1 : 0,
               duration: const Duration(milliseconds: 500),

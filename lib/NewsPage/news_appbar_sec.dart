@@ -14,10 +14,12 @@ class AppBarNSec extends StatelessWidget {
         size: 30,
         color: Colors.black,
       ),
-      title: const Text(
-        'TIN TỨC',
-        style: TextStyle(
-            color: Colors.black, fontWeight: FontWeight.w300, fontSize: 18),
+      title: const Center(
+        child: Text(
+          'TIN TỨC',
+          style: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.w300, fontSize: 18),
+        ),
       ),
       flexibleSpace: FlexibleSpaceBar(
         background: Container(
