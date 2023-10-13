@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:myjobapp/Classes/home_jobs_class.dart';
 import 'package:myjobapp/utils/colors.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class JobsDetailScr extends StatefulWidget {
   const JobsDetailScr({required this.data, super.key});
@@ -62,12 +64,12 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                                     const SizedBox(
                                       height: 20,
                                     ),
-                                    Image.network(
-                                      // hinh qr code
-                                      'https://th.bing.com/th/id/OIP.AzGsz6YA4Aup3paQ_poIAwHaHa?pid=ImgDet&rs=1',
-                                      width: 200,
-                                      height: 200,
-                                    ),
+                                    QrImageView(
+                                        // tao ma qr code
+                                        version: QrVersions.auto,
+                                        size: 200,
+                                        data:
+                                            'https://www.youtube.com/clip/UgkxF00z2lyZjE9JCsEdLVP8TtqV6jlIAAyy'),
                                     const Text(
                                       'Link to share',
                                       style: TextStyle(
@@ -86,26 +88,40 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                                             color: Colors.black12,
                                             borderRadius:
                                                 BorderRadius.circular(15)),
-                                        child: const Row(
-                                          children: [
-                                            Expanded(
-                                              child: Center(
-                                                child: Text(
-                                                  'https://www.youtube.com/clip/UgkxF00z2lyZjE9JCsEdLVP8TtqV6jlIAAyy',
-                                                  style: TextStyle(
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      decoration:
-                                                          TextDecoration.none,
-                                                      color: Colors.black,
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.normal),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            final String textCopy =
+                                                'https://www.youtube.com/clip/UgkxF00z2lyZjE9JCsEdLVP8TtqV6jlIAAyy';
+                                            Clipboard.setData(
+                                                ClipboardData(text: textCopy));
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(const SnackBar(
+                                                    content: Text(
+                                              'Đã sao chép link',
+                                              style: TextStyle(fontSize: 20),
+                                            )));
+                                          },
+                                          child: const Row(
+                                            children: [
+                                              Expanded(
+                                                child: Center(
+                                                  child: Text(
+                                                    'https://www.youtube.com/clip/UgkxF00z2lyZjE9JCsEdLVP8TtqV6jlIAAyy',
+                                                    style: TextStyle(
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        decoration:
+                                                            TextDecoration.none,
+                                                        color: Colors.black,
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.normal),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                            Icon(Icons.copy_all)
-                                          ],
+                                              Icon(Icons.copy_all)
+                                            ],
+                                          ),
                                         )),
                                     const SizedBox(
                                       height: 15,
