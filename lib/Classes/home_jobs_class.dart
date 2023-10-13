@@ -1,4 +1,5 @@
 class JobsClass {
+  String id;
   String date;
   String position;
   String salary;
@@ -11,6 +12,7 @@ class JobsClass {
   List<String> yeucaucv;
   JobsClass(
       {required this.motacv,
+      required this.id,
       required this.yeucaucv,
       required this.date,
       required this.position,
@@ -31,6 +33,7 @@ class JobsClass {
         motacv: finalmotacvList,
         yeucaucv: finalyeucaucvList,
         date: data['date'],
+        id: data['id'],
         position: data['position'],
         image: data['image'],
         khuvuchuyen: data['khuvuchuyen'],

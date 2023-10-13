@@ -1,17 +1,19 @@
 [
     {
-         "date":"30-09-2023",
-         "position":"Nhân công sản xuất",
-         "salary":"10 - 14",
-         "khuvuctinh":"Bình Dương",
-         "khuvuchuyen":"Bến Cát",
-         "tencty":"Công ty TNHH Đại Nghĩa",
-         "logocty":"https://daitam.vn/wp-content/uploads/2021/10/Dại-Tâm-Logo-final-Copy.png",
-         "image":"https://static.chotot.com/storage/chotot-kinhnghiem/c2c/2020/08/cong-nhan-san-xuat1.jpg",
-         "motacv":["Tham gia vào các hoạt động sản xuất hàng ngày","Chuẩn bị và thiết lập máy móc","Kiểm tra chất lượng sản phẩm và bảo dưỡng các thiết bị"],
-         "yeucaucv":["Hồ sơ xin việc","Có CCCD/CMND","Độ tuổi từ 18 - 40"]
+        "id":"1",
+        "position":"Nhân công sản xuất",
+        "salary":"10 - 14",
+        "date":"30-09-2023",
+        "khuvuctinh":"Bình Dương",
+        "khuvuchuyen":"Bến Cát",
+        "tencty":"Công ty TNHH Đại Nghĩa",
+        "logocty":"https://daitam.vn/wp-content/uploads/2021/10/Dại-Tâm-Logo-final-Copy.png",
+        "image":"https://static.chotot.com/storage/chotot-kinhnghiem/c2c/2020/08/cong-nhan-san-xuat1.jpg",
+        "motacv":["Tham gia vào các hoạt động sản xuất hàng ngày","Chuẩn bị và thiết lập máy móc","Kiểm tra chất lượng sản phẩm và bảo dưỡng các thiết bị"],
+        "yeucaucv":["Hồ sơ xin việc","Có CCCD/CMND","Độ tuổi từ 18 - 40"]
     },
     {
+        "id":"2",
         "date":"30-09-2023",
         "position":"Thợ sơn",
         "salary":"13 - 17",
@@ -25,6 +27,7 @@
 
     },    
    {
+        "id":"3",
         "date":"30-09-2023",
         "position":"Lao động phổ thông",
         "salary":"9 - 13",
@@ -38,6 +41,7 @@
 
     },
     {
+        "id":"4",
         "date":"30-09-2023",
         "position":"Thư ký",
         "salary":"12 - 20",
@@ -51,6 +55,7 @@
 
     },
     {
+        "id":"5",
         "date":"30-09-2023",
         "position":"Kỹ sư điện lạnh",
         "salary":"12 - 18",
@@ -64,6 +69,7 @@
 
     },
     {
+        "id":"6",
         "date":"30-09-2023",
         "position":"Nhân viên quán",
         "salary":"6 - 9",
