@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:myjobapp/HomePage/home_tincanbiet_section.dart';
-import 'package:myjobapp/HomePage/home_tinlaodong_section.dart';
-import 'package:myjobapp/HomePage/home_tinnoibat_section.dart';
-import 'package:myjobapp/HomePage/home_top_sec.dart';
-import 'package:myjobapp/HomePage/home_viecmoinhat_section.dart';
+import 'package:myjobapp/Pages/HomePage/home_tincanbiet_section.dart';
+import 'package:myjobapp/Pages/HomePage/home_tinlaodong_section.dart';
+import 'package:myjobapp/Pages/HomePage/home_tinnoibat_section.dart';
+import 'package:myjobapp/Pages/HomePage/home_top_sec.dart';
+import 'package:myjobapp/Pages/HomePage/home_viecmoinhat_section.dart';
 import 'package:myjobapp/utils/colors_texts_style.dart';
 
 class HomePage extends StatelessWidget {

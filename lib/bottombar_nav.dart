@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:myjobapp/HomePage/home_page.dart';
-import 'package:myjobapp/JobsPage/jobs_page.dart';
-import 'package:myjobapp/NewsPage/news_page.dart';
+import 'package:myjobapp/Pages/HomePage/home_page.dart';
+import 'package:myjobapp/Pages/JobsPage/jobs_page.dart';
+import 'package:myjobapp/Pages/NewsPage/news_page.dart';
 
 class BottomBarNav extends StatefulWidget {
   const BottomBarNav({super.key});

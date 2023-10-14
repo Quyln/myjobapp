@@ -1,21 +1,45 @@
-import 'package:flutter/material.dart';
-import 'package:myjobapp/Login_Reg_Page/login_sceen.dart';
-import 'package:myjobapp/utils/list_tinh_huyen_cv.dart';
+import 'dart:async';
+import 'package:after_layout/after_layout.dart';
 
-class RegScreen extends StatefulWidget {
-  const RegScreen({super.key});
+import 'package:flutter/material.dart';
+import 'package:myjobapp/Login_Reg_Screen/forgotpass_screen.dart';
+import 'package:myjobapp/Login_Reg_Screen/reg_screen.dart';
+import 'package:myjobapp/bottombar_nav.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<RegScreen> createState() => _RegScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _RegScreenState extends State<RegScreen> {
+class _LoginScreenState extends State<LoginScreen>
+    with AfterLayoutMixin<LoginScreen> {
   final _idcontroller = TextEditingController();
   final _passcontroller = TextEditingController();
-  final _phonecontroller = TextEditingController();
 
   bool showpassword = true;
-  String? selectedValue;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  FutureOr<void> afterFirstLayout(BuildContext context) {
+    checkloginSH(context);
+  }
+
+  void checkloginSH(BuildContext context) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    bool? checklogin = pref.getBool('checklogin');
+    if (checklogin == true) {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: ((context) => const BottomBarNav())));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +51,7 @@ class _RegScreenState extends State<RegScreen> {
               padding: const EdgeInsets.only(
                   top: 100, left: 10, right: 10, bottom: 30),
               child: Image.asset(
-                height: 200,
+                height: 250,
                 fit: BoxFit.contain,
                 'images/login.png',
               ),
@@ -46,7 +70,7 @@ class _RegScreenState extends State<RegScreen> {
                       Icons.person,
                       color: Colors.black,
                     ),
-                    hintText: 'Tên đăng nhập...',
+                    hintText: 'Your ID...',
                     border: InputBorder.none),
               ),
             ),
@@ -67,7 +91,7 @@ class _RegScreenState extends State<RegScreen> {
                     Icons.key,
                     color: Colors.black,
                   ),
-                  hintText: 'Mật khẩu...',
+                  hintText: 'Your Password...',
                   border: InputBorder.none,
                   suffixIcon: InkWell(
                     onTap: () {
@@ -83,80 +107,19 @@ class _RegScreenState extends State<RegScreen> {
                 obscureText: showpassword,
               ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            Container(
-              height: 50,
-              width: 300,
-              decoration: const BoxDecoration(
-                  color: Colors.black12,
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
-              child: TextField(
-                controller: _phonecontroller,
-                textAlignVertical: TextAlignVertical.center,
-                decoration: const InputDecoration(
-                    prefixIcon: Icon(
-                      Icons.phone,
-                      color: Colors.black,
-                    ),
-                    hintText: 'Số điện thoại...',
-                    border: InputBorder.none),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Container(
-              padding: const EdgeInsets.all(10),
-              height: 50,
-              width: 300,
-              decoration: const BoxDecoration(
-                  color: Colors.black12,
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
-              child: Row(
-                children: [
-                  const Icon(Icons.work),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton(
-                          menuMaxHeight: 400,
-                          borderRadius: BorderRadius.circular(25),
-                          value: selectedValue,
-                          onChanged: (value) {
-                            setState(() {
-                              selectedValue = value;
-                            });
-                          },
-                          isExpanded: true,
-                          hint: const Text('Chọn việc gần nhất...'),
-                          items: listcongviec
-                              .map((e) => DropdownMenuItem(
-                                  value: e,
-                                  child: Text(
-                                    e,
-                                    style: const TextStyle(
-                                        fontSize: 16, color: Colors.black),
-                                  )))
-                              .toList()),
-                    ),
-                  ),
-                ],
-              ),
-            ),
             Padding(
-              padding: const EdgeInsets.only(top: 15, right: 30, bottom: 15),
+              padding: const EdgeInsets.only(top: 20, right: 30, bottom: 20),
               child: InkWell(
                   onTap: () {
-                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ForgotPass()));
                   },
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text('Quay lại đăng nhập...'),
+                      Text('Quên mật khẩu?'),
                     ],
                   )),
             ),
@@ -165,23 +128,50 @@ class _RegScreenState extends State<RegScreen> {
               children: [
                 InkWell(
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        behavior: SnackBarBehavior.floating,
-                        content: Text('Bạn đã đăng ký thành công')));
-                    Navigator.pushReplacement(
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const LoginScreen()));
+                            builder: (context) => const RegScreen()));
                   },
                   child: Container(
                     height: 50,
-                    width: 150,
+                    width: 110,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: Colors.green),
                     child: const Center(
                       child: Text(
                         'ĐĂNG KÝ',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () async {
+                    bool result = true;
+                    if (result == true) {
+                      SharedPreferences pref =
+                          await SharedPreferences.getInstance();
+                      await pref.setBool('checklogin', true);
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => BottomBarNav())));
+                    }
+                  },
+                  child: Container(
+                    height: 50,
+                    width: 130,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.blue),
+                    child: const Center(
+                      child: Text(
+                        'ĐĂNG NHẬP',
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,

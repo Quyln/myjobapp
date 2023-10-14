@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:myjobapp/Provider/Home_list_provider.dart';
 import 'package:provider/provider.dart';
 import '../JobsPage/jobs_detail_screen.dart';
-import '../utils/colors_texts_style.dart';
+import '../../utils/colors_texts_style.dart';
 
 class ViecmoinhatHSec extends StatefulWidget {
   const ViecmoinhatHSec({super.key});
@@ -69,7 +69,7 @@ class _ViecmoinhatHSecState extends State<ViecmoinhatHSec> {
                                   style: const TextStyle(
                                       color: Colors.yellow,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 15),
+                                      fontSize: 14),
                                 ),
                               ]),
                         ),
@@ -83,10 +83,7 @@ class _ViecmoinhatHSecState extends State<ViecmoinhatHSec> {
                               width: 135,
                               decoration: const BoxDecoration(
                                   gradient: LinearGradient(
-                                      colors: [
-                                        Colors.transparent,
-                                        Colors.white
-                                      ],
+                                      colors: [Colors.black54, Colors.red],
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter),
                                   borderRadius: BorderRadius.only(
@@ -105,7 +102,7 @@ class _ViecmoinhatHSecState extends State<ViecmoinhatHSec> {
                                     style: const TextStyle(
                                         color: Colors.yellow,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 15),
+                                        fontSize: 14),
                                   ),
                                 ],
                               ),

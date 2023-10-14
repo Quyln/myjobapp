@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myjobapp/OnboardingPages/page1.dart';
 import 'package:myjobapp/OnboardingPages/page2.dart';
 import 'package:myjobapp/OnboardingPages/page3.dart';
-import 'package:myjobapp/Login_Reg_Page/login_sceen.dart';
+import 'package:myjobapp/Login_Reg_Screen/login_sceen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingScr extends StatefulWidget {

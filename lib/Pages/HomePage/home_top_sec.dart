@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myjobapp/Login_Reg_Page/login_sceen.dart';
+import 'package:myjobapp/Login_Reg_Screen/login_sceen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HSecAppBar extends StatelessWidget {

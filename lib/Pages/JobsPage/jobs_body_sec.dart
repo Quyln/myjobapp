@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/home_jobs_class.dart';
-import 'package:myjobapp/JobsPage/jobs_detail_screen.dart';
+import 'package:myjobapp/Pages/JobsPage/jobs_detail_screen.dart';
 import 'package:myjobapp/utils/colors_texts_style.dart';
 
 class ShowJSec extends StatefulWidget {
@@ -65,7 +65,7 @@ class _ShowJSecState extends State<ShowJSec> {
                                     style: const TextStyle(
                                         color: Colors.yellow,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 15),
+                                        fontSize: 14),
                                   ),
                                 ]),
                           ),
@@ -76,13 +76,10 @@ class _ShowJSecState extends State<ShowJSec> {
                             children: [
                               Container(
                                 height: 30,
-                                width: 135,
+                                width: 120,
                                 decoration: const BoxDecoration(
                                     gradient: LinearGradient(
-                                        colors: [
-                                          Colors.transparent,
-                                          Colors.white
-                                        ],
+                                        colors: [Colors.black54, Colors.red],
                                         begin: Alignment.topCenter,
                                         end: Alignment.bottomCenter),
                                     borderRadius: BorderRadius.only(
@@ -101,7 +98,7 @@ class _ShowJSecState extends State<ShowJSec> {
                                       style: const TextStyle(
                                           color: Colors.yellow,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 15),
+                                          fontSize: 14),
                                     ),
                                   ],
                                 ),

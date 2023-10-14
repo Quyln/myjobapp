@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:myjobapp/JobsPage/jobs_appbar_sec.dart';
-import 'package:myjobapp/JobsPage/jobs_body_sec.dart';
+import 'package:myjobapp/Pages/JobsPage/jobs_appbar_sec.dart';
+import 'package:myjobapp/Pages/JobsPage/jobs_body_sec.dart';
 import 'package:http/http.dart' as http;
 
-import '../Classes/home_jobs_class.dart';
+import '../../Classes/home_jobs_class.dart';
 
 class JobsPage extends StatefulWidget {
   const JobsPage({super.key});
