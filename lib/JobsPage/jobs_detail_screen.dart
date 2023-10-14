@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myjobapp/Classes/home_jobs_class.dart';
-import 'package:myjobapp/utils/colors.dart';
+import 'package:myjobapp/utils/colors_texts_style.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -56,7 +56,7 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                                   margin: const EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 20),
                                   height: 380,
-                                  width: 350,
+                                  width: 310,
                                   decoration: const BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.all(
@@ -91,10 +91,11 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                                                 BorderRadius.circular(15)),
                                         child: GestureDetector(
                                           onTap: () {
-                                            final String textCopy =
+                                            const String textCopy =
                                                 'https://www.youtube.com/clip/UgkxF00z2lyZjE9JCsEdLVP8TtqV6jlIAAyy';
                                             Clipboard.setData(
-                                                ClipboardData(text: textCopy));
+                                                const ClipboardData(
+                                                    text: textCopy));
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(const SnackBar(
                                                     behavior: SnackBarBehavior
@@ -117,7 +118,7 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                                                         decoration:
                                                             TextDecoration.none,
                                                         color: Colors.black,
-                                                        fontSize: 18,
+                                                        fontSize: 17,
                                                         fontWeight:
                                                             FontWeight.normal),
                                                   ),
@@ -205,8 +206,8 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
               ),
             ),
             Container(
-              height: 250,
-              width: 330,
+              height: 200,
+              width: 300,
               decoration: BoxDecoration(
                 color: Colors.blue,
                 borderRadius: BorderRadius.circular(20),
@@ -215,7 +216,7 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                 borderRadius: BorderRadius.circular(20),
                 child: Image.network(
                   widget.data.image,
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
@@ -224,7 +225,7 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
             ),
             Text(
               widget.data.position,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10, bottom: 10),
@@ -259,7 +260,7 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                         child: Text(
                           'Mô tả công việc:',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 19),
+                              fontWeight: FontWeight.bold, fontSize: 17),
                         ),
                       ),
                       Column(
@@ -284,7 +285,7 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                                     child: Text(
                                       widget.data.motacv[i],
                                       style: const TextStyle(
-                                          fontSize: 16, color: Colors.black54),
+                                          fontSize: 15, color: Colors.black54),
                                     ),
                                   ),
                                 ],
@@ -297,7 +298,7 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                         child: Text(
                           'Yêu cầu:',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 19),
+                              fontWeight: FontWeight.bold, fontSize: 17),
                         ),
                       ),
                       Column(
@@ -322,7 +323,7 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                                     child: Text(
                                       widget.data.yeucaucv[i],
                                       style: const TextStyle(
-                                          fontSize: 16, color: Colors.black54),
+                                          fontSize: 15, color: Colors.black54),
                                     ),
                                   ),
                                 ],
@@ -338,13 +339,13 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                           children: [
                             const Icon(
                               Icons.favorite_border_outlined,
-                              size: 30,
+                              size: 25,
                             ),
                             InkWell(
                               onTap: () {},
                               child: Container(
-                                height: 60,
-                                width: 200,
+                                height: 50,
+                                width: 160,
                                 decoration: BoxDecoration(
                                     color: Colors.green,
                                     borderRadius: BorderRadius.circular(25)),
@@ -352,7 +353,7 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                                     child: Text(
                                   'ỨNG TUYỂN',
                                   style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 18,
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold),
                                 )),

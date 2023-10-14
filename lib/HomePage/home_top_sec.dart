@@ -17,7 +17,7 @@ class HSecAppBar extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 15),
             child: CircleAvatar(
-              radius: 28,
+              radius: 20,
               backgroundColor: Colors.white,
               child: Image.network(
                   'https://www.premadegraphics.com/img_1/23/Female-Avatar-2.png'),
@@ -34,14 +34,14 @@ class HSecAppBar extends StatelessWidget {
                 'Trần Khả Như',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 20,
+                    fontSize: 18,
                     color: Colors.black),
               ),
               Text(
                 'Quản trị viên',
                 style: TextStyle(
                     fontStyle: FontStyle.normal,
-                    fontSize: 16,
+                    fontSize: 14,
                     color: Colors.black),
               ),
             ],
@@ -56,9 +56,9 @@ class HSecAppBar extends StatelessWidget {
               const Text(
                 '1,500',
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.normal,
                     color: Colors.red,
-                    fontSize: 20),
+                    fontSize: 16),
               ),
               InkWell(
                 onTap: () async {
@@ -72,7 +72,7 @@ class HSecAppBar extends StatelessWidget {
                           builder: (context) => const LoginScreen()));
                 },
                 child: Image.network(
-                  'https://th.bing.com/th/id/R.8e15a553c79945c426b3c80bd90f53b6?rik=xEtinSHRUR0Lyg&riu=http%3a%2f%2fupload.wikimedia.org%2fwikipedia%2fcommons%2fd%2fd6%2fGold_coin_icon.png&ehk=TPjFkVPmWqsKBkvQ60u9VfBVF%2fVfwjQcMsd%2fHaA6rrk%3d&risl=&pid=ImgRaw&r=0',
+                  'https://th.bing.com/th/id/R.cef7ade7807f8c0d60886922e91316c2?rik=vM3X8FUbkNUInw&pid=ImgRaw&r=0',
                   width: 30,
                   height: 30,
                 ),

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/home_tintuc_class.dart';
 import 'package:http/http.dart' as http;
 
+import '../utils/colors_texts_style.dart';
+
 class TinlaodongHSec extends StatefulWidget {
   const TinlaodongHSec({super.key});
 
@@ -41,10 +43,11 @@ class _TinlaodongHSecState extends State<TinlaodongHSec> {
         itemCount: tinLaoDongdata.length,
         itemBuilder: (context, index, _) {
           return Container(
+            width: 300,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
               image: DecorationImage(
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
                 image: NetworkImage(tinLaoDongdata[index].image),
               ),
             ),
@@ -66,10 +69,7 @@ class _TinlaodongHSecState extends State<TinlaodongHSec> {
                   children: [
                     Text(
                       tinLaoDongdata[index].title,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                          color: Colors.white),
+                      style: tTitle,
                     ),
                     const SizedBox(
                       height: 5,
@@ -87,6 +87,7 @@ class _TinlaodongHSecState extends State<TinlaodongHSec> {
           );
         },
         options: CarouselOptions(
+            height: 170,
             aspectRatio: 16 / 9,
             enableInfiniteScroll: false,
             enlargeCenterPage: true,

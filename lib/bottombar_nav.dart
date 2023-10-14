@@ -40,6 +40,7 @@ class _BottomBarNavState extends State<BottomBarNav> {
               opacity: _visible ? 1 : 0,
               duration: const Duration(milliseconds: 500),
               child: BottomNavigationBar(
+                selectedLabelStyle: const TextStyle(fontSize: 14),
                 selectedItemColor: Colors.black,
                 unselectedItemColor: Colors.black54,
                 backgroundColor: Colors.white,

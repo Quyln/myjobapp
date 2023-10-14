@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:myjobapp/utils/colors_texts_style.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/home_tintuc_class.dart';
@@ -41,10 +42,11 @@ class _TincanbietHSecState extends State<TincanbietHSec> {
         itemCount: tinCanBietdata.length,
         itemBuilder: (context, index, _) {
           return Container(
+            width: 300,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
               image: DecorationImage(
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
                 image: NetworkImage(tinCanBietdata[index].image),
               ),
             ),
@@ -66,10 +68,7 @@ class _TincanbietHSecState extends State<TincanbietHSec> {
                   children: [
                     Text(
                       tinCanBietdata[index].title,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                          color: Colors.white),
+                      style: tTitle,
                     ),
                     const SizedBox(
                       height: 5,
@@ -87,6 +86,7 @@ class _TincanbietHSecState extends State<TincanbietHSec> {
           );
         },
         options: CarouselOptions(
+            height: 170,
             aspectRatio: 16 / 9,
             enableInfiniteScroll: false,
             enlargeCenterPage: true,

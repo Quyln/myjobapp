@@ -41,10 +41,11 @@ class _TinNoiBatHSecState extends State<TinNoiBatHSec> {
         itemCount: tinNoiBatHomedata.length,
         itemBuilder: (context, index, _) {
           return Container(
+            width: 300,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
               image: DecorationImage(
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
                 image: NetworkImage(tinNoiBatHomedata[index].image),
               ),
             ),
@@ -68,7 +69,7 @@ class _TinNoiBatHSecState extends State<TinNoiBatHSec> {
                       tinNoiBatHomedata[index].title,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                          fontSize: 16,
                           color: Colors.white),
                     ),
                     const SizedBox(
@@ -87,6 +88,7 @@ class _TinNoiBatHSecState extends State<TinNoiBatHSec> {
           );
         },
         options: CarouselOptions(
+            height: 170,
             aspectRatio: 16 / 9,
             enableInfiniteScroll: false,
             enlargeCenterPage: true,

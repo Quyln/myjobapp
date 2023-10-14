@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:myjobapp/Classes/home_tintuc_class.dart';
+import 'package:myjobapp/utils/colors_texts_style.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class ShowNSec extends StatefulWidget {
@@ -46,12 +47,13 @@ class _ShowNSecState extends State<ShowNSec> {
     return SliverList(
         delegate: SliverChildBuilderDelegate(
             (context, index) => Padding(
-                  padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                   child: Container(
-                    height: 230,
+                    height: 180,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                          fit: BoxFit.fill,
+                          fit: BoxFit.cover,
                           image: NetworkImage(
                             allnewdata[index].image,
                           )),
@@ -78,14 +80,11 @@ class _ShowNSecState extends State<ShowNSec> {
                               children: [
                                 Text(
                                   allnewdata[index].title,
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
+                                  style: tTitle,
                                 ),
                                 Image.network(
                                   allnewdata[index].author,
-                                  height: 20,
+                                  height: 15,
                                   width: 60,
                                   fit: BoxFit.contain,
                                 )

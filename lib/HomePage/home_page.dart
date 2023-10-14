@@ -4,6 +4,7 @@ import 'package:myjobapp/HomePage/home_tinlaodong_section.dart';
 import 'package:myjobapp/HomePage/home_tinnoibat_section.dart';
 import 'package:myjobapp/HomePage/home_top_sec.dart';
 import 'package:myjobapp/HomePage/home_viecmoinhat_section.dart';
+import 'package:myjobapp/utils/colors_texts_style.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -28,8 +29,7 @@ class HomePage extends StatelessWidget {
                     padding: EdgeInsets.only(left: 20, bottom: 10),
                     child: Text(
                       'Tin nổi bật',
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.w300),
+                      style: tHeadline,
                     ),
                   ),
                   TinNoiBatHSec(),
@@ -37,8 +37,7 @@ class HomePage extends StatelessWidget {
                     padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
                     child: Text(
                       'Cộng đồng lao động',
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.w300),
+                      style: tHeadline,
                     ),
                   ),
                   TinlaodongHSec(),
@@ -46,8 +45,7 @@ class HomePage extends StatelessWidget {
                     padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
                     child: Text(
                       'Tin cần thiết',
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.w300),
+                      style: tHeadline,
                     ),
                   ),
                   TincanbietHSec(),
@@ -55,13 +53,12 @@ class HomePage extends StatelessWidget {
                     padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
                     child: Text(
                       'Việc làm mới nhất',
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.w300),
+                      style: tHeadline,
                     ),
                   ),
                   ViecmoinhatHSec(),
                   SizedBox(
-                    height: 10,
+                    height: 100,
                   )
                 ],
               ),

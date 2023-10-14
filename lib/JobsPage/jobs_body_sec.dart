@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/home_jobs_class.dart';
 import 'package:myjobapp/JobsPage/jobs_detail_screen.dart';
+import 'package:myjobapp/utils/colors_texts_style.dart';
 
 class ShowJSec extends StatefulWidget {
   const ShowJSec({required this.alljobdata, super.key});
@@ -15,9 +16,10 @@ class _ShowJSecState extends State<ShowJSec> {
     return SliverList(
         delegate: SliverChildBuilderDelegate(
             (context, index) => Padding(
-                  padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                   child: Container(
-                    height: 180,
+                    height: 150,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                           fit: BoxFit.cover,
@@ -56,17 +58,14 @@ class _ShowJSecState extends State<ShowJSec> {
                                 children: [
                                   Text(
                                     widget.alljobdata[index].position,
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
+                                    style: tTitle,
                                   ),
                                   Text(
                                     '${widget.alljobdata[index].salary} triệu',
                                     style: const TextStyle(
                                         color: Colors.yellow,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 16),
+                                        fontSize: 15),
                                   ),
                                 ]),
                           ),
@@ -102,7 +101,7 @@ class _ShowJSecState extends State<ShowJSec> {
                                       style: const TextStyle(
                                           color: Colors.yellow,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 16),
+                                          fontSize: 15),
                                     ),
                                   ],
                                 ),

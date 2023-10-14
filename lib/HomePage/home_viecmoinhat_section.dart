@@ -6,6 +6,7 @@ import 'package:myjobapp/Classes/home_jobs_class.dart';
 import 'package:http/http.dart' as http;
 
 import '../JobsPage/jobs_detail_screen.dart';
+import '../utils/colors_texts_style.dart';
 
 class ViecmoinhatHSec extends StatefulWidget {
   const ViecmoinhatHSec({super.key});
@@ -43,11 +44,11 @@ class _ViecmoinhatHSecState extends State<ViecmoinhatHSec> {
         itemCount: viecMoiNhatdata.length,
         itemBuilder: (context, index, _) {
           return Container(
-            width: double.infinity,
+            width: 300,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
               image: DecorationImage(
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
                 image: NetworkImage(viecMoiNhatdata[index].image),
               ),
             ),
@@ -80,17 +81,14 @@ class _ViecmoinhatHSecState extends State<ViecmoinhatHSec> {
                         children: [
                           Text(
                             viecMoiNhatdata[index].position,
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold),
+                            style: tTitle,
                           ),
                           Text(
                             '${viecMoiNhatdata[index].salary} triệu',
                             style: const TextStyle(
                                 color: Colors.yellow,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 16),
+                                fontSize: 15),
                           ),
                         ]),
                   ),
@@ -123,7 +121,7 @@ class _ViecmoinhatHSecState extends State<ViecmoinhatHSec> {
                               style: const TextStyle(
                                   color: Colors.yellow,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 16),
+                                  fontSize: 15),
                             ),
                           ],
                         ),
@@ -136,6 +134,7 @@ class _ViecmoinhatHSecState extends State<ViecmoinhatHSec> {
           );
         },
         options: CarouselOptions(
+            height: 170,
             aspectRatio: 16 / 9,
             enableInfiniteScroll: false,
             enlargeCenterPage: true,

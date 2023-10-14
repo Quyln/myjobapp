@@ -18,7 +18,7 @@ class AppBarNSec extends StatelessWidget {
         child: Text(
           'TIN TỨC',
           style: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.w300, fontSize: 18),
+              color: Colors.black, fontWeight: FontWeight.normal, fontSize: 18),
         ),
       ),
       flexibleSpace: FlexibleSpaceBar(
@@ -26,13 +26,13 @@ class AppBarNSec extends StatelessWidget {
           color: Colors.white,
         ),
       ),
-      actions: const [
+      actions: [
         Padding(
-          padding: EdgeInsets.only(right: 15),
+          padding: const EdgeInsets.only(right: 15),
           child: CircleAvatar(
-            radius: 25,
+            radius: 20,
             backgroundColor: Colors.white,
-            backgroundImage: NetworkImage(
+            child: Image.network(
                 'https://www.premadegraphics.com/img_1/23/Female-Avatar-2.png'),
           ),
         ),

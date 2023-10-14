@@ -85,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen>
               textAlignVertical: TextAlignVertical.center,
               decoration: InputDecoration(
                 prefixIcon: const Icon(
-                  Icons.person,
+                  Icons.key,
                   color: Colors.black,
                 ),
                 hintText: 'Your Password...',
