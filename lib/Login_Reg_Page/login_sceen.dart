@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:after_layout/after_layout.dart';
 
 import 'package:flutter/material.dart';
+import 'package:myjobapp/Login_Reg_Page/forgotpass_screen.dart';
 import 'package:myjobapp/Login_Reg_Page/reg_screen.dart';
 import 'package:myjobapp/bottombar_nav.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -109,7 +110,12 @@ class _LoginScreenState extends State<LoginScreen>
             Padding(
               padding: const EdgeInsets.only(top: 20, right: 30, bottom: 20),
               child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ForgotPass()));
+                  },
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [

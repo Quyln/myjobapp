@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/home_jobs_class.dart';
+import 'package:myjobapp/JobsPage/Add_Jobs/add_job.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:app_settings/app_settings.dart';
 
-import '../utils/list_tinhthanh.dart';
+import '../utils/list_tinh_huyen_cv.dart';
 
 class JSecAppBar extends StatefulWidget {
   const JSecAppBar(
@@ -39,7 +40,7 @@ class _JSecAppBarState extends State<JSecAppBar> {
         behavior: SnackBarBehavior.floating,
         content: const Text(
           'Định vị đã tắt, bạn có muốn bật lại?',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
         ),
         action: SnackBarAction(
           label: 'Đến Setting',
@@ -281,7 +282,10 @@ class _JSecAppBarState extends State<JSecAppBar> {
         Padding(
             padding: const EdgeInsets.only(right: 15),
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const AddJobPage()));
+              },
               icon: const Icon(
                 Icons.add_circle_outline,
                 color: Colors.black,

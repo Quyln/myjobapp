@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Login_Reg_Page/login_sceen.dart';
-import 'package:myjobapp/utils/list_tinhthanh.dart';
+import 'package:myjobapp/utils/list_tinh_huyen_cv.dart';
 
 class RegScreen extends StatefulWidget {
   const RegScreen({super.key});
@@ -168,7 +168,7 @@ class _RegScreenState extends State<RegScreen> {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         behavior: SnackBarBehavior.floating,
                         content: Text('Bạn đã đăng ký thành công')));
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const LoginScreen()));

@@ -15,6 +15,8 @@ class JobsDetailScr extends StatefulWidget {
 }
 
 class _JobsDetailScrState extends State<JobsDetailScr> {
+  bool savejob = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -337,10 +339,18 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            const Icon(
-                              Icons.favorite_border_outlined,
-                              size: 25,
-                            ),
+                            InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    savejob = !savejob;
+                                  });
+                                },
+                                child: savejob
+                                    ? const Icon(Icons.favorite_border_outlined)
+                                    : const Icon(
+                                        Icons.favorite_rounded,
+                                        color: Colors.pink,
+                                      )),
                             InkWell(
                               onTap: () {},
                               child: Container(

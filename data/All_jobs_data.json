@@ -1,7 +1,7 @@
 [
     {
         "id":"1",
-        "position":"Nhân công sản xuất",
+        "position":"Công nhân sản xuất",
         "salary":"10 - 14",
         "date":"30-09-2023",
         "khuvuctinh":"Bình Dương",
@@ -60,7 +60,7 @@
         "position":"Kỹ sư điện lạnh",
         "salary":"12 - 18",
         "khuvuctinh":"Bình Dương",
-        "khuvuchuyen":"Quận 7",
+        "khuvuchuyen":"Tân Uyên",
         "tencty":"Tập Đoàn VinGroup",
         "logocty":"https://daitam.vn/wp-content/uploads/2021/10/Dại-Tâm-Logo-final-Copy.png",
         "image":"https://airpro.ph/uploads/projects/051821091025VHqi1.jpg",
@@ -71,10 +71,10 @@
     {
         "id":"6",
         "date":"30-09-2023",
-        "position":"Nhân viên quán",
+        "position":"Nhân viên phục vụ",
         "salary":"6 - 9",
         "khuvuctinh":"Hồ Chí Minh",
-        "khuvuchuyen":"Quận 7",
+        "khuvuchuyen":"Quận 1",
         "tencty":"Nhà Hàng HappyTime",
         "logocty":"https://daitam.vn/wp-content/uploads/2021/10/Dại-Tâm-Logo-final-Copy.png",
         "image":"https://tasteofshanghai.com.au/wp-content/uploads/2019/11/TOS-Hurstville-new.jpg",
