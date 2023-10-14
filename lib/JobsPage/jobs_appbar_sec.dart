@@ -1,82 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:myjobapp/Classes/home_jobs_class.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:app_settings/app_settings.dart';
 
-class JSecAppBar extends StatefulWidget {
-  const JSecAppBar({super.key, required this.onpresssearch});
-  final Function(String) onpresssearch;
+import '../utils/list_tinhthanh.dart';
 
+class JSecAppBar extends StatefulWidget {
+  const JSecAppBar(
+      {super.key, required this.onpresssearch, required this.data});
+  final Function(String, String) onpresssearch;
+  final List<JobsClass> data;
   @override
   State<JSecAppBar> createState() => _JSecAppBarState();
 }
 
 class _JSecAppBarState extends State<JSecAppBar> {
-  List<String> listkhuvuc = [
-    'An Giang',
-    'Bắc Giang',
-    'Bắc Kạn',
-    'Bạc Liêu',
-    'Bắc Ninh',
-    'Bến Tre',
-    'Bình Định',
-    'Bình Dương',
-    'Bình Phước',
-    'Bình Thuận',
-    'Cà Mau',
-    'Cần Thơ',
-    'Cao Bằng',
-    'Đà Nẵng',
-    'Đắk Lắk',
-    'Đắk Nông',
-    'Điện Biên',
-    'Đồng Nai',
-    'Đồng Tháp',
-    'Gia Lai',
-    'Hà Giang',
-    'Hà Nam',
-    'Hà Nội',
-    'Hà Tĩnh',
-    'Hải Dương',
-    'Hải Phòng',
-    'Hậu Giang',
-    'Hồ Chí Minh',
-    'Hòa Bình',
-    'Huế',
-    'Hưng Yên',
-    'Khánh Hòa',
-    'Kiên Giang',
-    'Kon Tum',
-    'Lai Châu',
-    'Lâm Đồng',
-    'Lạng Sơn',
-    'Lào Cai',
-    'Long An',
-    'Nam Định',
-    'Nghệ An',
-    'Ninh Bình',
-    'Ninh Thuận',
-    'Phú Thọ',
-    'Phú Yên',
-    'Quảng Bình',
-    'Quảng Nam',
-    'Quảng Ngãi',
-    'Quảng Ninh',
-    'Quảng Trị',
-    'Sóc Trăng',
-    'Sơn La',
-    'Tây Ninh',
-    'Thái Bình',
-    'Thái Nguyên',
-    'Thanh Hóa',
-    'Tiền Giang',
-    'Trà Vinh',
-    'Tuyên Quang',
-    'Vũng Tàu',
-    'Vĩnh Long',
-    'Vĩnh Phúc',
-    'Yên Bái'
-  ];
   String selectedText = 'Hồ Chí Minh';
+  String kvHuyen = 'Bến Cát';
   @override
   void initState() {
     super.initState();
@@ -157,49 +97,172 @@ class _JSecAppBarState extends State<JSecAppBar> {
       floating: true,
       pinned: false,
       backgroundColor: Colors.white,
-      leading: IconButton(
-        onPressed: () {
-          showGeneralDialog(
-              barrierColor: Colors.black87,
-              barrierDismissible: true,
-              barrierLabel: 'Chon khu vuc',
-              context: context,
-              pageBuilder: (context, _, __) => Center(
-                    child: Container(
-                        height: 400,
-                        margin: const EdgeInsets.symmetric(horizontal: 20),
-                        decoration:
-                            const BoxDecoration(color: Colors.transparent),
-                        child: ListWheelScrollView(
-                          physics: const FixedExtentScrollPhysics(),
-                          diameterRatio: 1.3,
-                          itemExtent: 100,
-                          children: listkhuvuc
-                              .map((e) => GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        selectedText = e;
-                                      });
-                                      widget.onpresssearch(selectedText);
-                                      Navigator.pop(context);
-                                    },
-                                    child: Text(
-                                      e,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w800,
-                                          fontSize: 50,
-                                          color: Colors.white,
-                                          decoration: TextDecoration.none),
-                                    ),
-                                  ))
-                              .toList(),
-                        )),
-                  ));
-        },
-        icon: const Icon(
-          Icons.location_on_outlined,
-          size: 30,
-          color: Colors.black,
+      leading: Padding(
+        padding: const EdgeInsets.only(left: 15),
+        child: IconButton(
+          onPressed: () {
+            showGeneralDialog(
+                barrierColor: Colors.black87,
+                barrierDismissible: true,
+                barrierLabel: 'Chon khu vuc',
+                context: context,
+                pageBuilder: (context, _, __) => Center(
+                      child: Container(
+                          height: 400,
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
+                          decoration:
+                              const BoxDecoration(color: Colors.transparent),
+                          child: ListWheelScrollView(
+                            physics: const FixedExtentScrollPhysics(),
+                            diameterRatio: 1.3,
+                            itemExtent: 100,
+                            children: listKvTinh
+                                .map((e) => GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          selectedText = e;
+                                        });
+                                        Navigator.pop(context);
+                                        for (var element in widget.data) {
+                                          if (selectedText ==
+                                              element.khuvuctinh) {
+                                            showGeneralDialog(
+                                                barrierColor: Colors.black87,
+                                                barrierLabel: 'chon huyen',
+                                                barrierDismissible: true,
+                                                context: context,
+                                                pageBuilder:
+                                                    (context, _, __) => Center(
+                                                          child: Container(
+                                                            height: 400,
+                                                            margin:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        20),
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                                    color: Colors
+                                                                        .transparent),
+                                                            child:
+                                                                ListWheelScrollView(
+                                                              physics:
+                                                                  const FixedExtentScrollPhysics(),
+                                                              diameterRatio:
+                                                                  1.3,
+                                                              itemExtent: 100,
+                                                              children: listKvHuyentheoTinh[
+                                                                      selectedText]!
+                                                                  .map((i) =>
+                                                                      GestureDetector(
+                                                                        onTap:
+                                                                            () {
+                                                                          setState(
+                                                                              () {
+                                                                            kvHuyen =
+                                                                                i;
+
+                                                                            widget.onpresssearch(selectedText,
+                                                                                kvHuyen);
+                                                                          });
+
+                                                                          Navigator.pop(
+                                                                              context);
+                                                                        },
+                                                                        child:
+                                                                            Text(
+                                                                          i,
+                                                                          style: const TextStyle(
+                                                                              fontWeight: FontWeight.w800,
+                                                                              fontSize: 40,
+                                                                              color: Colors.white,
+                                                                              decoration: TextDecoration.none),
+                                                                        ),
+                                                                      ))
+                                                                  .toList(),
+                                                            ),
+                                                          ),
+                                                        ));
+                                          } else {
+                                            showGeneralDialog(
+                                                barrierColor: Colors.black87,
+                                                barrierLabel: 'chon huyen',
+                                                barrierDismissible: true,
+                                                context: context,
+                                                pageBuilder:
+                                                    (context, _, __) => Center(
+                                                          child: Container(
+                                                            height: 400,
+                                                            margin:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        20),
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                                    color: Colors
+                                                                        .transparent),
+                                                            child:
+                                                                ListWheelScrollView(
+                                                              physics:
+                                                                  const FixedExtentScrollPhysics(),
+                                                              diameterRatio:
+                                                                  1.3,
+                                                              itemExtent: 100,
+                                                              children: listKvHuyentheoTinh[
+                                                                      selectedText]!
+                                                                  .map((i) =>
+                                                                      GestureDetector(
+                                                                        onTap:
+                                                                            () {
+                                                                          setState(
+                                                                              () {
+                                                                            kvHuyen =
+                                                                                i;
+
+                                                                            widget.onpresssearch(selectedText,
+                                                                                kvHuyen);
+                                                                          });
+
+                                                                          Navigator.pop(
+                                                                              context);
+                                                                        },
+                                                                        child:
+                                                                            Text(
+                                                                          i,
+                                                                          style: const TextStyle(
+                                                                              fontWeight: FontWeight.w800,
+                                                                              fontSize: 40,
+                                                                              color: Colors.white,
+                                                                              decoration: TextDecoration.none),
+                                                                        ),
+                                                                      ))
+                                                                  .toList(),
+                                                            ),
+                                                          ),
+                                                        ));
+                                          }
+                                          break;
+                                        }
+                                      },
+                                      child: Text(
+                                        e,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w800,
+                                            fontSize: 40,
+                                            color: Colors.white,
+                                            decoration: TextDecoration.none),
+                                      ),
+                                    ))
+                                .toList(),
+                          )),
+                    ));
+          },
+          icon: const Icon(
+            Icons.location_on_outlined,
+            size: 30,
+            color: Colors.black,
+          ),
         ),
       ),
       title: const Center(
@@ -216,14 +279,15 @@ class _JSecAppBarState extends State<JSecAppBar> {
       ),
       actions: [
         Padding(
-          padding: const EdgeInsets.only(right: 15),
-          child: CircleAvatar(
-            radius: 20,
-            backgroundColor: Colors.white,
-            child: Image.network(
-                'https://www.premadegraphics.com/img_1/23/Female-Avatar-2.png'),
-          ),
-        ),
+            padding: const EdgeInsets.only(right: 15),
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.add_circle_outline,
+                color: Colors.black,
+                size: 30,
+              ),
+            )),
       ],
     );
   }

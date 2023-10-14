@@ -39,9 +39,10 @@ class _JobsPageState extends State<JobsPage> {
     }
   }
 
-  void onpresssearch(String selectedText) {
+  void onpresssearch(String selectedText, String kvHuyen) {
     filterJobData = alljobdata.where((element) {
-      return element.khuvuctinh == selectedText;
+      return element.khuvuctinh == selectedText &&
+          element.khuvuchuyen == kvHuyen;
     }).toList();
     setState(() {
       filterJobData;
@@ -55,6 +56,7 @@ class _JobsPageState extends State<JobsPage> {
         body: CustomScrollView(
           slivers: [
             JSecAppBar(
+              data: alljobdata,
               onpresssearch: onpresssearch,
             ),
             ShowJSec(
