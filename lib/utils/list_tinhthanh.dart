@@ -63,6 +63,7 @@ List<String> listKvTinh = [
   'Vĩnh Phúc',
   'Yên Bái'
 ];
+
 Map<String, List<String>> listKvHuyentheoTinh = {
   'An Giang': [
     'An Phú',
@@ -896,3 +897,41 @@ Map<String, List<String>> listKvHuyentheoTinh = {
     'Yên Bình',
   ],
 };
+
+List<String> listcongviec = [
+  'Công nhân sản xuất',
+  'Lao động phổ thông',
+  'Thư ký',
+  'Kế toán',
+  'Bảo vệ',
+  'Nhân viên phục vụ',
+  'Giao vận',
+  'Nhân viên bán hàng',
+  'Phụ bếp',
+  'Đầu bếp',
+  'Kiểm kê hàng hoá',
+  'Nhân viên kinh doanh',
+  'Nhân viên chăm sóc khách hàng',
+  'Lễ tân',
+  'Cộng tác viên',
+  'Nhân viên văn phòng',
+  'Y tá điều dưỡng',
+  'Telesales',
+  'Thợ sơn',
+  'Tài xế lái xe',
+  'Shipper',
+  'Hành chính - Nhân sự',
+  'Data Analyst',
+  'Designer',
+  'Giúp việc',
+  'Tạp vụ',
+  'Nhân viên PR',
+  'Nhân viên kho',
+  'Nhân viên thu ngân',
+  'Kỹ sư xây dựng',
+  'Thợ điện',
+  'Thợ nước',
+  'Công nhân may',
+  'Luật sư',
+  'Khác'
+];

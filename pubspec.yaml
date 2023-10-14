@@ -49,6 +49,7 @@ dependencies:
   permission_handler: ^11.0.1
   app_settings: ^5.1.1
   provider: ^6.0.5
+  dropdown_button2: ^2.3.9
 
 dev_dependencies:
   flutter_test:
