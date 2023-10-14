@@ -25,7 +25,7 @@ class OnboardingPage2 extends StatelessWidget {
               'Đảm bảo quyền lợi người lao động \nKhông thu phí dưới mọi hình thức',
               textAlign: TextAlign.start,
               style: TextStyle(
-                  fontSize: 35,
+                  fontSize: 25,
                   fontWeight: FontWeight.bold,
                   color: Colors.white),
             ),

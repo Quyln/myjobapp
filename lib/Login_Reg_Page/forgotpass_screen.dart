@@ -57,9 +57,9 @@ class _ForgotPassState extends State<ForgotPass> {
               child: TextField(
                 controller: _phonecontroller,
                 textAlignVertical: TextAlignVertical.center,
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(
-                    Icons.key,
+                decoration: const InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.phone,
                     color: Colors.black,
                   ),
                   hintText: 'Số điện thoại...',

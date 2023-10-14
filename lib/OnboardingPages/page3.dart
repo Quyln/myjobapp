@@ -25,7 +25,7 @@ class OnboardingPage3 extends StatelessWidget {
               'Đội ngũ năng động\nHỗ trợ nhiệt tình\nNhận việc nhanh chóng',
               textAlign: TextAlign.start,
               style: TextStyle(
-                  fontSize: 35,
+                  fontSize: 25,
                   fontWeight: FontWeight.bold,
                   color: Colors.white),
             ),

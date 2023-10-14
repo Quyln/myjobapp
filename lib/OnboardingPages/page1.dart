@@ -25,7 +25,7 @@ class OnboardingPage1 extends StatelessWidget {
               'Mỗi ngày với hơn 200 việc làm mới và hàng trăm lao động nhận việc.',
               textAlign: TextAlign.start,
               style: TextStyle(
-                  fontSize: 35,
+                  fontSize: 25,
                   fontWeight: FontWeight.bold,
                   color: Colors.white),
             ),
