@@ -4,8 +4,8 @@ import 'package:myjobapp/Pages/JobsPage/jobs_detail_screen.dart';
 import 'package:myjobapp/utils/colors_texts_style.dart';
 
 class ShowJSec extends StatefulWidget {
-  const ShowJSec({required this.alljobdata, super.key});
-  final List<JobsClass> alljobdata;
+  const ShowJSec({required this.filterJobData, super.key});
+  final List<JobsClass> filterJobData;
   @override
   State<ShowJSec> createState() => _ShowJSecState();
 }
@@ -24,7 +24,7 @@ class _ShowJSecState extends State<ShowJSec> {
                       image: DecorationImage(
                           fit: BoxFit.cover,
                           image: NetworkImage(
-                            widget.alljobdata[index].image,
+                            widget.filterJobData[index].image,
                           )),
                       color: Colors.black,
                       borderRadius: BorderRadius.circular(25),
@@ -35,7 +35,7 @@ class _ShowJSecState extends State<ShowJSec> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => JobsDetailScr(
-                                data: widget.alljobdata[index],
+                                data: widget.filterJobData[index],
                               ),
                             ));
                       },
@@ -57,11 +57,11 @@ class _ShowJSecState extends State<ShowJSec> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Text(
-                                    widget.alljobdata[index].position,
+                                    widget.filterJobData[index].position,
                                     style: tTitle,
                                   ),
                                   Text(
-                                    '${widget.alljobdata[index].salary} triệu',
+                                    widget.filterJobData[index].salary,
                                     style: const TextStyle(
                                         color: Colors.yellow,
                                         fontWeight: FontWeight.bold,
@@ -94,7 +94,7 @@ class _ShowJSecState extends State<ShowJSec> {
                                       color: Colors.yellow,
                                     ),
                                     Text(
-                                      widget.alljobdata[index].khuvuctinh,
+                                      widget.filterJobData[index].khuvuctinh,
                                       style: const TextStyle(
                                           color: Colors.yellow,
                                           fontWeight: FontWeight.bold,
@@ -110,6 +110,6 @@ class _ShowJSecState extends State<ShowJSec> {
                     ),
                   ),
                 ),
-            childCount: widget.alljobdata.length));
+            childCount: widget.filterJobData.length));
   }
 }

@@ -938,3 +938,14 @@ List<String> listcongviec = [
   'Luật sư',
   'Khác'
 ];
+
+List<String> mucluong = [
+  '5 - 7 triệu',
+  '7 - 9 triệu',
+  '9 - 11 triệu',
+  '11 - 13 triệu',
+  '13 - 15 triệu',
+  '15 - 20 triệu',
+  '20 - 30 triệu',
+  'Thương lượng',
+];

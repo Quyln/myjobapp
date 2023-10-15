@@ -29,7 +29,7 @@ class _JobsPageState extends State<JobsPage> {
                     onpresssearch: value.onpresssearch,
                   ),
                   ShowJSec(
-                    alljobdata: value.filterJobData,
+                    filterJobData: value.filterJobData,
                   ),
                 ],
               ));

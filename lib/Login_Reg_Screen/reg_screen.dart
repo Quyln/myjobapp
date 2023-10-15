@@ -132,7 +132,7 @@ class _RegScreenState extends State<RegScreen> {
                             });
                           },
                           isExpanded: true,
-                          hint: const Text('Chọn việc gần nhất...'),
+                          hint: const Text('Việc làm gần nhất...'),
                           items: listcongviec
                               .map((e) => DropdownMenuItem(
                                   value: e,

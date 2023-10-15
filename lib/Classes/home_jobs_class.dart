@@ -42,4 +42,20 @@ class JobsClass {
         logocty: data['logocty'],
         tencty: data['tencty']);
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'date': date,
+      'position': position,
+      'salary': salary,
+      'khuvuctinh': khuvuctinh,
+      'khuvuchuyen': khuvuchuyen,
+      'tencty': tencty,
+      'logocty': logocty,
+      'image': image,
+      'motacv': motacv,
+      'yeucaucv': yeucaucv
+    };
+  }
 }
