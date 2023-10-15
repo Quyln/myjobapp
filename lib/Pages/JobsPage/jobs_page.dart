@@ -1,9 +1,8 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Pages/JobsPage/jobs_appbar_sec.dart';
 import 'package:myjobapp/Pages/JobsPage/jobs_body_sec.dart';
-import 'package:http/http.dart' as http;
-import '../../Classes/home_jobs_class.dart';
+import 'package:myjobapp/Provider/Job_list_provider.dart';
+import 'package:provider/provider.dart';
 
 class JobsPage extends StatefulWidget {
   const JobsPage({super.key});
@@ -13,54 +12,29 @@ class JobsPage extends StatefulWidget {
 }
 
 class _JobsPageState extends State<JobsPage> {
-  List<JobsClass> alljobdata = [];
-  List<JobsClass> filterJobData = [];
-
-  @override
-  void initState() {
-    super.initState();
-    getnewlist();
-  }
-
-  void getnewlist() async {
-    var url = Uri.parse(
-        'https://raw.githubusercontent.com/Quyln/myjobapp/main/data/All_jobs_data.json');
-    var response = await http.get(url);
-
-    if (response.statusCode == 200) {
-      List<dynamic> dataList = jsonDecode(response.body);
-      alljobdata = dataList.map((e) => JobsClass.fromJson(e)).toList();
-      setState(() {
-        alljobdata;
-        filterJobData = alljobdata;
-      });
-    }
-  }
-
-  void onpresssearch(String selectedText, String kvHuyen) {
-    filterJobData = alljobdata.where((element) {
-      return element.khuvuctinh == selectedText &&
-          element.khuvuchuyen == kvHuyen;
-    }).toList();
-    setState(() {
-      filterJobData;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.white,
-        body: CustomScrollView(
-          slivers: [
-            JSecAppBar(
-              data: alljobdata,
-              onpresssearch: onpresssearch,
-            ),
-            ShowJSec(
-              alljobdata: filterJobData,
-            ),
-          ],
-        ));
+    return ChangeNotifierProvider<JobsProvider>(
+      create: (context) {
+        return JobsProvider();
+      },
+      child: Consumer<JobsProvider>(
+        builder: (context, value, child) {
+          return Scaffold(
+              backgroundColor: Colors.white,
+              body: CustomScrollView(
+                slivers: [
+                  JSecAppBar(
+                    data: value.alljobdata,
+                    onpresssearch: value.onpresssearch,
+                  ),
+                  ShowJSec(
+                    alljobdata: value.filterJobData,
+                  ),
+                ],
+              ));
+        },
+      ),
+    );
   }
 }

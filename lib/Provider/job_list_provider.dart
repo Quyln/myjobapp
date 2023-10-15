@@ -2,10 +2,9 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-
 import '../Classes/home_jobs_class.dart';
 
-class JobDataPro extends ChangeNotifier {
+class JobsProvider extends ChangeNotifier {
   List<JobsClass> alljobdata = [];
   List<JobsClass> filterJobData = [];
   String selectedText = '';
@@ -18,6 +17,7 @@ class JobDataPro extends ChangeNotifier {
     if (response.statusCode == 200) {
       List<dynamic> dataList = jsonDecode(response.body);
       alljobdata = dataList.map((e) => JobsClass.fromJson(e)).toList();
+      filterJobData = alljobdata;
       notifyListeners();
     }
   }
@@ -30,7 +30,7 @@ class JobDataPro extends ChangeNotifier {
     notifyListeners();
   }
 
-  JobDataPro() {
+  JobsProvider() {
     getnewlist();
     onpresssearch(selectedText, kvHuyen);
   }

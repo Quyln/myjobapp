@@ -1,99 +1,70 @@
-import 'dart:convert';
-import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:myjobapp/Classes/home_tintuc_class.dart';
 import 'package:myjobapp/utils/colors_texts_style.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class ShowNSec extends StatefulWidget {
-  const ShowNSec({super.key});
-
+  const ShowNSec({super.key, required this.data, required this.randomtoppics});
+  final List<TinTucClass> data;
+  final Function randomtoppics;
   @override
   State<ShowNSec> createState() => _ShowNSecState();
 }
 
 class _ShowNSecState extends State<ShowNSec> {
-  List<TinTucClass> allnewdata = [];
-
-  @override
-  void initState() {
-    super.initState();
-    getnewlist();
-  }
-
-  void randomtopics() {
-    setState(() {
-      allnewdata.shuffle(Random());
-    });
-  }
-
-  void getnewlist() async {
-    var response = await http.get(Uri.parse(
-        'https://raw.githubusercontent.com/Quyln/myjobapp/main/data/All_news_data.json'));
-
-    if (response.statusCode == 200) {
-      List<dynamic> dataList = jsonDecode(response.body);
-      allnewdata = dataList.map((e) => TinTucClass.fromJson(e)).toList();
-      setState(() {
-        allnewdata;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    randomtopics();
+    final randomnews = widget.randomtoppics;
+    randomnews();
     return SliverList(
-        delegate: SliverChildBuilderDelegate(
-            (context, index) => Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                  child: Container(
-                    height: 180,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(
-                            allnewdata[index].image,
-                          )),
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    child: InkWell(
-                      onTap: () {
-                        launchUrlString(allnewdata[index].link);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25),
-                          gradient: const LinearGradient(
-                              colors: [Colors.transparent, Colors.black],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text(
-                                  allnewdata[index].title,
-                                  style: tTitle,
-                                ),
-                                Image.network(
-                                  allnewdata[index].author,
-                                  height: 15,
-                                  width: 60,
-                                  fit: BoxFit.contain,
-                                )
-                              ]),
-                        ),
+        delegate: SliverChildBuilderDelegate((context, index) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+        child: Container(
+          height: 180,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.cover,
+                image: NetworkImage(
+                  widget.data[index].image,
+                )),
+            color: Colors.black,
+            borderRadius: BorderRadius.circular(25),
+          ),
+          child: InkWell(
+            onTap: () {
+              launchUrlString(widget.data[index].link);
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
+                gradient: const LinearGradient(
+                    colors: [Colors.transparent, Colors.black],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        widget.data[index].title,
+                        style: tTitle,
                       ),
-                    ),
-                  ),
-                ),
-            childCount: allnewdata.length));
+                      Image.network(
+                        widget.data[index].author,
+                        height: 15,
+                        width: 60,
+                        fit: BoxFit.contain,
+                      )
+                    ]),
+              ),
+            ),
+          ),
+        ),
+      );
+    }, childCount: widget.data.length));
   }
 }
