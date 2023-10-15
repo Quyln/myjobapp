@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/home_jobs_class.dart';
 import 'package:myjobapp/Pages/JobsPage/Add_Jobs/add_job.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:app_settings/app_settings.dart';
+// import 'package:app_settings/app_settings.dart';
 
 import '../../utils/list_tinh_huyen_cv.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../Provider/Home_list_provider.dart';
+import '../../../Provider/home_list_provider.dart';
 import '../../../utils/colors_texts_style.dart';
 import '../../JobsPage/jobs_detail_screen.dart';
 

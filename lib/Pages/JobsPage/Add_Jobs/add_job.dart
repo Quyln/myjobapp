@@ -33,14 +33,13 @@ class _AddJobPageState extends State<AddJobPage> {
           style: TextStyle(
               color: Colors.black, fontWeight: FontWeight.normal, fontSize: 18),
         ),
-        actions: [
+        actions: const [
           Padding(
-            padding: const EdgeInsets.only(right: 15),
+            padding: EdgeInsets.only(right: 15),
             child: CircleAvatar(
               radius: 20,
               backgroundColor: Colors.white,
-              child: Image.network(
-                  'https://www.premadegraphics.com/img_1/23/Female-Avatar-2.png'),
+              backgroundImage: avatar,
             ),
           ),
         ],
