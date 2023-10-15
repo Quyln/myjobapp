@@ -31,24 +31,21 @@ class _JSecAppBarState extends State<JSecAppBar> {
       Permission.microphone
     ].request();
     if (status[Permission.location]!.isGranted) {
-      print('Thành công vị trí');
     } else if (status[Permission.location]!.isDenied) {
-      print('Huỷ');
     } else if (status[Permission.location]!.isPermanentlyDenied) {
-      print('Cự tuyệt');
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        behavior: SnackBarBehavior.floating,
-        content: const Text(
-          'Định vị đã tắt, bạn có muốn bật lại?',
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-        ),
-        action: SnackBarAction(
-          label: 'Đến Setting',
-          onPressed: () {
-            AppSettings.openAppSettings();
-          },
-        ),
-      ));
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //   behavior: SnackBarBehavior.floating,
+      //   content: const Text(
+      //     'Định vị đã tắt, bạn có muốn bật lại?',
+      //     style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+      //   ),
+      //   action: SnackBarAction(
+      //     label: 'Đến Setting',
+      //     onPressed: () {
+      //       AppSettings.openAppSettings();
+      //     },
+      //   ),
+      // ));
     }
     // if (status[Permission.camera]!.isGranted) {
     //   print('Thành công Camera');

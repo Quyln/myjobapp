@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myjobapp/utils/colors_texts_style.dart';
 
 class AppBarNSec extends StatelessWidget {
   const AppBarNSec({super.key});
@@ -26,14 +27,13 @@ class AppBarNSec extends StatelessWidget {
           color: Colors.white,
         ),
       ),
-      actions: [
+      actions: const [
         Padding(
-          padding: const EdgeInsets.only(right: 15),
+          padding: EdgeInsets.only(right: 15),
           child: CircleAvatar(
             radius: 20,
             backgroundColor: Colors.white,
-            child: Image.network(
-                'https://www.premadegraphics.com/img_1/23/Female-Avatar-2.png'),
+            backgroundImage: avatar,
           ),
         ),
       ],

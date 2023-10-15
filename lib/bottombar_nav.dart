@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:myjobapp/Pages/ChatPage/chat_page.dart';
 import 'package:myjobapp/Pages/HomePage/home_page.dart';
 import 'package:myjobapp/Pages/JobsPage/jobs_page.dart';
 import 'package:myjobapp/Pages/NewsPage/news_page.dart';
+import 'package:myjobapp/Pages/PersonPage/person_page.dart';
 
 class BottomBarNav extends StatefulWidget {
   const BottomBarNav({super.key});
@@ -11,11 +13,13 @@ class BottomBarNav extends StatefulWidget {
 }
 
 class _BottomBarNavState extends State<BottomBarNav> {
-  int _pageindex = 0;
-  List<Widget> _Pages = [
-    const HomePage(),
+  int _pageindex = 2;
+  final List<Widget> _pages = [
     const NewsPage(),
     const JobsPage(),
+    const HomePage(),
+    const ChatPage(),
+    const PersonPage()
   ];
 
   bool _visible = true;
@@ -33,7 +37,7 @@ class _BottomBarNavState extends State<BottomBarNav> {
                 }
                 return false;
               },
-              child: _Pages.elementAt(_pageindex)),
+              child: _pages.elementAt(_pageindex)),
           Align(
             alignment: const Alignment(0, 1.0),
             child: AnimatedOpacity(
@@ -54,18 +58,26 @@ class _BottomBarNavState extends State<BottomBarNav> {
                 },
                 items: const [
                   BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.home,
-                    ),
-                    label: 'Trang Chủ',
-                  ),
-                  BottomNavigationBarItem(
                     icon: Icon(Icons.newspaper),
                     label: 'Tin Tức',
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(Icons.work),
                     label: 'Việc Làm',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.home,
+                    ),
+                    label: 'Trang Chủ',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.chat),
+                    label: 'Chat',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.person),
+                    label: 'Tài Khoản',
                   ),
                 ],
               ),

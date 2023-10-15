@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Login_Reg_Screen/login_sceen.dart';
+import 'package:myjobapp/utils/colors_texts_style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HSecAppBar extends StatelessWidget {
@@ -12,21 +13,20 @@ class HSecAppBar extends StatelessWidget {
       pinned: false,
       backgroundColor: Colors.white,
       leadingWidth: 220,
-      leading: Row(
+      leading: const Row(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 15),
+            padding: EdgeInsets.only(left: 15),
             child: CircleAvatar(
               radius: 20,
               backgroundColor: Colors.white,
-              child: Image.network(
-                  'https://www.premadegraphics.com/img_1/23/Female-Avatar-2.png'),
+              backgroundImage: avatar,
             ),
           ),
-          const SizedBox(
+          SizedBox(
             width: 10,
           ),
-          const Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

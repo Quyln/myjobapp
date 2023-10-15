@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
-        slivers: <Widget>[
+        slivers: [
           const HSecAppBar(),
           SliverList(
               delegate: SliverChildListDelegate([
