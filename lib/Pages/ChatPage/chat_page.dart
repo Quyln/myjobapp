@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -20,10 +21,12 @@ class _ChatPageState extends State<ChatPage> {
           Icons.arrow_back_ios_new,
           color: Colors.grey,
         ),
-        title: const Text(
-          'GIẢI TRÍ',
-          style: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
+        title: const Center(
+          child: Text(
+            'GIẢI TRÍ',
+            style: TextStyle(
+                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
+          ),
         ),
         actions: [
           IconButton(
@@ -97,70 +100,92 @@ class _ChatPageState extends State<ChatPage> {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: SizedBox(
-                        height: 80,
-                        width: double.infinity,
-                        child: Row(children: [
-                          Stack(
-                            children: [
-                              Container(
-                                  height: 60,
-                                  width: 60,
-                                  decoration: BoxDecoration(
+                      child: Slidable(
+                        endActionPane: ActionPane(
+                          motion: const StretchMotion(),
+                          children: [
+                            SlidableAction(
+                              onPressed: (context) {},
+                              icon: Icons.call,
+                              backgroundColor: Colors.green,
+                            ),
+                            SlidableAction(
+                              onPressed: (context) {},
+                              icon: Icons.video_call_sharp,
+                              backgroundColor: Colors.blue,
+                            ),
+                            SlidableAction(
+                              onPressed: (context) {},
+                              icon: Icons.delete,
+                              backgroundColor: Colors.red,
+                            ),
+                          ],
+                        ),
+                        child: SizedBox(
+                          height: 80,
+                          width: double.infinity,
+                          child: Row(children: [
+                            Stack(
+                              children: [
+                                Container(
+                                    height: 60,
+                                    width: 60,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25),
+                                        color: Colors.black),
+                                    child: ClipRRect(
                                       borderRadius: BorderRadius.circular(25),
-                                      color: Colors.black),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(25),
-                                    child: Image.network(
-                                      'https://keomoi.com/wp-content/uploads/2019/05/anh-gai-xinh-nhat-ban-2019-hinh-6.jpg',
-                                      fit: BoxFit.cover,
+                                      child: Image.network(
+                                        'https://keomoi.com/wp-content/uploads/2019/05/anh-gai-xinh-nhat-ban-2019-hinh-6.jpg',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    )),
+                                Positioned(
+                                  right: 2,
+                                  bottom: 3,
+                                  child: Container(
+                                    height: 10,
+                                    width: 10,
+                                    decoration: BoxDecoration(
+                                        color: Colors.green,
+                                        shape: BoxShape.circle,
+                                        border: Border.all(
+                                            width: 3,
+                                            color: Colors.white,
+                                            strokeAlign:
+                                                BorderSide.strokeAlignOutside)),
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const SizedBox(
+                                width: 220,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Khả Như',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16),
                                     ),
-                                  )),
-                              Positioned(
-                                right: 2,
-                                bottom: 3,
-                                child: Container(
-                                  height: 10,
-                                  width: 10,
-                                  decoration: BoxDecoration(
-                                      color: Colors.green,
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                          width: 3,
-                                          color: Colors.white,
-                                          strokeAlign:
-                                              BorderSide.strokeAlignOutside)),
-                                ),
-                              )
-                            ],
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          const SizedBox(
-                              width: 220,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Khả Như',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16),
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    'Hẹn gặp lại nhé',
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(fontSize: 14),
-                                  ),
-                                ],
-                              )),
-                          const Expanded(child: Text('12:30'))
-                        ]),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      'Hẹn gặp lại nhé',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(fontSize: 14),
+                                    ),
+                                  ],
+                                )),
+                            const Expanded(child: Text('12:30'))
+                          ]),
+                        ),
                       ),
                     );
                   }),
