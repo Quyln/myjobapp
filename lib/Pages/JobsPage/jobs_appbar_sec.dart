@@ -224,6 +224,8 @@ class _JSecAppBarState extends State<JSecAppBar> {
 
                                                                           Navigator.pop(
                                                                               context);
+                                                                          ScaffoldMessenger.of(context)
+                                                                              .showSnackBar(const SnackBar(content: Text('Hiện tại chưa có việc đăng tuyển ở khu vực này')));
                                                                         },
                                                                         child:
                                                                             Text(
@@ -281,7 +283,9 @@ class _JSecAppBarState extends State<JSecAppBar> {
             child: IconButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const AddJobPage()));
+                    builder: (context) => AddJobPage(
+                          alljobdata: widget.data,
+                        )));
               },
               icon: const Icon(
                 Icons.add_circle_outline,

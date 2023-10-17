@@ -18,4 +18,13 @@ class TinTucClass {
         link: data['link'],
         author: data['author']);
   }
+
+  static Map<String, dynamic> toJson(TinTucClass tintuc) {
+    return {
+      'image': tintuc.image,
+      'title': tintuc.title,
+      'link': tintuc.link,
+      'author': tintuc.author
+    };
+  }
 }

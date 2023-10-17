@@ -6,8 +6,8 @@ import 'package:myjobapp/utils/list_tinh_huyen_cv.dart';
 import 'package:provider/provider.dart';
 
 class AddJobPage extends StatefulWidget {
-  const AddJobPage({super.key});
-
+  const AddJobPage({super.key, required this.alljobdata});
+  final List<JobsClass> alljobdata;
   @override
   State<AddJobPage> createState() => _AddJobPageState();
 }
@@ -24,11 +24,11 @@ class _AddJobPageState extends State<AddJobPage> {
   List<String> yeucaucv = [];
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<UploadTopPro>(
+    return ChangeNotifierProvider<UpdatedataToGit>(
       create: (context) {
-        return UploadTopPro();
+        return UpdatedataToGit();
       },
-      child: Consumer<UploadTopPro>(builder: (context, value, child) {
+      child: Consumer<UpdatedataToGit>(builder: (context, value, child) {
         return Scaffold(
           appBar: AppBar(
             leading: IconButton(
@@ -67,6 +67,7 @@ class _AddJobPageState extends State<AddJobPage> {
                       height: 20,
                     ),
                     Container(
+                      //title
                       padding: const EdgeInsets.only(
                           left: 10, right: 10, bottom: 10),
                       width: 300,
@@ -92,6 +93,7 @@ class _AddJobPageState extends State<AddJobPage> {
                       height: 10,
                     ),
                     Container(
+                      //position
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       height: 40,
                       width: 300,
@@ -117,6 +119,7 @@ class _AddJobPageState extends State<AddJobPage> {
                       height: 10,
                     ),
                     Container(
+                      //salary
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       height: 40,
                       width: 300,
@@ -158,6 +161,7 @@ class _AddJobPageState extends State<AddJobPage> {
                       height: 10,
                     ),
                     Row(
+                      //kv Tinh va Huyen
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
@@ -249,6 +253,7 @@ class _AddJobPageState extends State<AddJobPage> {
                       height: 10,
                     ),
                     Container(
+                      //name
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       height: 40,
                       width: 300,
@@ -273,6 +278,7 @@ class _AddJobPageState extends State<AddJobPage> {
                       height: 10,
                     ),
                     Container(
+                      //motacv
                       padding: const EdgeInsets.only(
                           left: 10, right: 10, bottom: 10),
                       width: 300,
@@ -302,6 +308,7 @@ class _AddJobPageState extends State<AddJobPage> {
                       height: 10,
                     ),
                     Container(
+                      //yeucaucv
                       padding: const EdgeInsets.only(
                           left: 10, right: 10, bottom: 10),
                       width: 300,
@@ -331,6 +338,7 @@ class _AddJobPageState extends State<AddJobPage> {
                       height: 10,
                     ),
                     InkWell(
+                      //Dang Bai button
                       onTap: () {
                         if (newJobData['motacv'] != null &&
                             newJobData['yeucaucv'] != null &&
@@ -352,7 +360,7 @@ class _AddJobPageState extends State<AddJobPage> {
                               tencty: newJobData['name'],
                               logocty: '');
 
-                          final addjob = value.addtoppictoJson(newJob);
+                          final addjob = value.updateDataOnGitHub(newJob);
                           addjob;
                           _titlecontroller.clear();
                           _positioncontroller.clear();

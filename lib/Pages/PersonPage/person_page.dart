@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Pages/PersonPage/Tabbar_List/save_tabbar.dart';
+import 'package:myjobapp/bottombar_nav.dart';
 import 'package:myjobapp/utils/colors_texts_style.dart';
 
 import 'Tabbar_List/done_tabbar.dart';
@@ -23,7 +24,13 @@ class _PersonPageState extends State<PersonPage> {
               SliverAppBar(
                 backgroundColor: Colors.transparent,
                 leading: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const BottomBarNav(pageindex: 2)));
+                  },
                   icon: Image.network(
                     'https://th.bing.com/th/id/R.cef7ade7807f8c0d60886922e91316c2?rik=vM3X8FUbkNUInw&pid=ImgRaw&r=0',
                     width: 30,

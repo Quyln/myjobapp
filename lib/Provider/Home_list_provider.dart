@@ -1,12 +1,14 @@
 import 'dart:convert';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:myjobapp/utils/app_database.dart';
 import '../Classes/home_jobs_class.dart';
 import '../Classes/home_tintuc_class.dart';
 
 class HTinnoiboPro extends ChangeNotifier {
   List<TinTucClass> tinNoiBatHomedata = [];
-
+  AppDataBase appDataBase = AppDataBase();
   void getnewlist() async {
     var url = Uri.parse(
         'https://raw.githubusercontent.com/Quyln/myjobapp/main/data/home_tinnoibat.json');
@@ -15,12 +17,33 @@ class HTinnoiboPro extends ChangeNotifier {
     if (response.statusCode == 200) {
       List<dynamic> dataList = jsonDecode(response.body);
       tinNoiBatHomedata = dataList.map((e) => TinTucClass.fromJson(e)).toList();
+      for (var element in tinNoiBatHomedata) {
+        appDataBase.insertNews(element);
+      }
+      loadOldlist();
       notifyListeners();
     }
   }
 
   HTinnoiboPro() {
-    getnewlist();
+    checknetwork();
+  }
+  Future loadOldlist() async {
+    var dataList = await appDataBase.queryNew();
+    print(dataList);
+    tinNoiBatHomedata = dataList.map((e) => TinTucClass.fromJson(e)).toList();
+    notifyListeners();
+  }
+
+  Future checknetwork() async {
+    await appDataBase.initDB();
+
+    final connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.none) {
+      loadOldlist();
+    } else {
+      getnewlist();
+    }
   }
 }
 
@@ -40,7 +63,7 @@ class HTinlaodongPro extends ChangeNotifier {
   }
 
   HTinlaodongPro() {
-    getnewlist();
+    // getnewlist();
   }
 }
 
@@ -60,7 +83,7 @@ class HtincanbietPro extends ChangeNotifier {
   }
 
   HtincanbietPro() {
-    getnewlist();
+    // getnewlist();
   }
 }
 
@@ -80,6 +103,6 @@ class HviecmoinhatPro extends ChangeNotifier {
   }
 
   HviecmoinhatPro() {
-    getnewlist();
+    // getnewlist();
   }
 }

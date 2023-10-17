@@ -6,8 +6,8 @@ import 'package:myjobapp/Pages/NewsPage/news_page.dart';
 import 'package:myjobapp/Pages/PersonPage/person_page.dart';
 
 class BottomBarNav extends StatefulWidget {
-  const BottomBarNav({super.key});
-
+  const BottomBarNav({super.key, required this.pageindex});
+  final int pageindex;
   @override
   State<BottomBarNav> createState() => _BottomBarNavState();
 }
@@ -21,6 +21,11 @@ class _BottomBarNavState extends State<BottomBarNav> {
     const ChatPage(),
     const PersonPage()
   ];
+  @override
+  void initState() {
+    super.initState();
+    _pageindex = widget.pageindex;
+  }
 
   bool _visible = true;
   @override

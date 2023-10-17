@@ -35,8 +35,10 @@ class _LoginScreenState extends State<LoginScreen>
     SharedPreferences pref = await SharedPreferences.getInstance();
     bool? checklogin = pref.getBool('checklogin');
     if (checklogin == true) {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: ((context) => const BottomBarNav())));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: ((context) => const BottomBarNav(
+                pageindex: 2,
+              ))));
     }
   }
 
@@ -160,7 +162,9 @@ class _LoginScreenState extends State<LoginScreen>
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: ((context) => BottomBarNav())));
+                              builder: ((context) => const BottomBarNav(
+                                    pageindex: 2,
+                                  ))));
                     }
                   },
                   child: Container(

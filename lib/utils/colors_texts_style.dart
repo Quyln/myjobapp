@@ -10,3 +10,5 @@ const TextStyle tHeadline =
     TextStyle(fontSize: 18, fontWeight: FontWeight.w300, color: Colors.black87);
 const TextStyle tnormal =
     TextStyle(fontWeight: FontWeight.normal, fontSize: 14, color: Colors.black);
+
+const TextStyle tChatName = TextStyle();
