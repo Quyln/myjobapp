@@ -19,6 +19,7 @@ class _DoneTabbarState extends State<DoneTabbar> {
       create: (context) => HviecmoinhatPro(),
       child: Consumer<HviecmoinhatPro>(
         builder: (context, value, child) => ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: value.viecMoiNhatdata.length,
             itemBuilder: (context, index) => Padding(
                   padding: const EdgeInsets.only(

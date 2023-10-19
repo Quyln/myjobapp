@@ -63,7 +63,7 @@ class HTinlaodongPro extends ChangeNotifier {
   }
 
   HTinlaodongPro() {
-    // getnewlist();
+    getnewlist();
   }
 }
 
@@ -83,7 +83,7 @@ class HtincanbietPro extends ChangeNotifier {
   }
 
   HtincanbietPro() {
-    // getnewlist();
+    getnewlist();
   }
 }
 
@@ -103,6 +103,6 @@ class HviecmoinhatPro extends ChangeNotifier {
   }
 
   HviecmoinhatPro() {
-    // getnewlist();
+    getnewlist();
   }
 }

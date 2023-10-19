@@ -19,6 +19,7 @@ class _SaveTabbarState extends State<SaveTabbar> {
       create: (context) => HviecmoinhatPro(),
       child: Consumer<HviecmoinhatPro>(
         builder: (context, value, child) => ListView.builder(
+            physics: const BouncingScrollPhysics(),
             itemCount: value.viecMoiNhatdata.length,
             itemBuilder: (context, index) => Padding(
                   padding: const EdgeInsets.only(
