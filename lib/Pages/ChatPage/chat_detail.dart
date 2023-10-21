@@ -1,7 +1,8 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/chat_class.dart';
-import 'package:myjobapp/utils/colors_texts_style.dart';
+import 'package:myjobapp/Pages/ChatPage/message.dart';
+import 'package:image_picker/image_picker.dart';
 
 class DetailChatPage extends StatefulWidget {
   const DetailChatPage({super.key});
@@ -97,41 +98,12 @@ class _DetailChatPageState extends State<DetailChatPage> {
               itemCount: demoChatMessage.length,
               itemBuilder: (context, index) {
                 final ChatMessage message = demoChatMessage[index];
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    mainAxisAlignment: message.isSender
-                        ? MainAxisAlignment.end
-                        : MainAxisAlignment.start,
-                    children: [
-                      if (!message.isSender) ...[
-                        const CircleAvatar(
-                          radius: 20,
-                          backgroundColor: Colors.grey,
-                          backgroundImage: NetworkImage(
-                              'https://keomoi.com/wp-content/uploads/2019/05/anh-gai-xinh-nhat-ban-2019-hinh-6.jpg'),
-                        )
-                      ],
-                      Container(
-                          decoration: BoxDecoration(
-                              color: message.isSender
-                                  ? Colors.green
-                                  : Colors.black45,
-                              borderRadius: BorderRadius.circular(30)),
-                          margin: const EdgeInsets.all(10),
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 10),
-                          child: Text(
-                            demoChatMessage[index].text,
-                            style: TextStyle(color: Colors.white),
-                          )),
-                    ],
-                  ),
-                );
+                return Message(message: message);
               },
             )),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              //Chat input
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: Colors.white,
@@ -143,13 +115,16 @@ class _DetailChatPageState extends State<DetailChatPage> {
                   ]),
               child: SafeArea(
                 child: Row(children: [
-                  const Icon(
-                    Icons.image_outlined,
-                    color: Colors.black,
-                    size: 25,
-                  ),
-                  const SizedBox(
-                    width: 10,
+                  IconButton(
+                    onPressed: () async {
+                      await ImagePicker()
+                          .pickImage(source: ImageSource.gallery);
+                    },
+                    icon: const Icon(
+                      Icons.image_outlined,
+                      color: Colors.black,
+                      size: 25,
+                    ),
                   ),
                   const Icon(
                     Icons.mic_none_outlined,
