@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Pages/HomePage/home_tincanbiet_section.dart';
-import 'package:myjobapp/Pages/HomePage/home_tinlaodong_section.dart';
 import 'package:myjobapp/Pages/HomePage/home_tinnoibat_section.dart';
 import 'package:myjobapp/Pages/HomePage/home_top_sec.dart';
 import 'package:myjobapp/Pages/HomePage/home_viecmoinhat_section.dart';
@@ -33,14 +32,14 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   TinNoiBatHSec(),
-                  Padding(
-                    padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
-                    child: Text(
-                      'Cộng đồng lao động',
-                      style: tHeadline,
-                    ),
-                  ),
-                  TinlaodongHSec(),
+                  // Padding(
+                  //   padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
+                  //   child: Text(
+                  //     'Cộng đồng lao động',
+                  //     style: tHeadline,
+                  //   ),
+                  // ),
+                  // TinlaodongHSec(),
                   Padding(
                     padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
                     child: Text(

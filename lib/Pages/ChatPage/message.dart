@@ -25,7 +25,7 @@ class Message extends StatelessWidget {
         case ChatMessageType.video:
           return VideoMessage(message: message);
         default:
-          return SizedBox();
+          return const SizedBox();
       }
     }
 

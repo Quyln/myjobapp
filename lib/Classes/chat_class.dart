@@ -30,7 +30,7 @@ List demoChatMessage = [
       text: '',
       messageType: ChatMessageType.video,
       messageStatus: MessageStatus.viewed,
-      isSender: true),
+      isSender: false),
   ChatMessage(
       text: 'Bị gì rồi à?',
       messageType: ChatMessageType.text,

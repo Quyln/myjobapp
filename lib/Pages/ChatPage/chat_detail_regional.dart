@@ -4,14 +4,15 @@ import 'package:myjobapp/Classes/chat_class.dart';
 import 'package:myjobapp/Pages/ChatPage/message.dart';
 import 'package:image_picker/image_picker.dart';
 
-class DetailChatPage extends StatefulWidget {
-  const DetailChatPage({super.key});
+class DetailRegionalChatPage extends StatefulWidget {
+  const DetailRegionalChatPage({super.key, required this.kvTinh});
+  final String kvTinh;
 
   @override
-  State<DetailChatPage> createState() => _DetailChatPageState();
+  State<DetailRegionalChatPage> createState() => _DetailRegionalChatPageState();
 }
 
-class _DetailChatPageState extends State<DetailChatPage> {
+class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,28 +45,31 @@ class _DetailChatPageState extends State<DetailChatPage> {
                         radius: 20,
                         backgroundColor: Colors.grey,
                         backgroundImage: NetworkImage(
-                            'https://keomoi.com/wp-content/uploads/2019/05/anh-gai-xinh-nhat-ban-2019-hinh-6.jpg'),
+                            'https://th.bing.com/th/id/R.7a64084ef8e328bd73ca5fe1fe5d8a24?rik=NzvRfVeFDPErog&pid=ImgRaw&r=0'),
                       )),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 5),
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        'Khả Như',
+                      const Text(
+                        'Cộng đồng khu vực',
                         style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.normal,
+                            fontSize: 14),
+                      ),
+                      const SizedBox(
+                        height: 2,
+                      ),
+                      Text(
+                        widget.kvTinh,
+                        style: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                             fontSize: 16),
-                      ),
-                      Text(
-                        '+84 983 456 789',
-                        style: TextStyle(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.normal,
-                            fontSize: 14),
                       ),
                     ],
                   ),
@@ -74,19 +78,14 @@ class _DetailChatPageState extends State<DetailChatPage> {
             ),
           ),
           actions: const [
-            Icon(
-              Icons.call,
-              color: Colors.black,
-            ),
-            SizedBox(
-              width: 20,
-            ),
-            Icon(
-              Icons.video_call,
-              color: Colors.black,
-            ),
-            SizedBox(
-              width: 20,
+            Padding(
+              padding: EdgeInsets.only(right: 10),
+              child: Align(
+                child: Text(
+                  "(5433/10000)",
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
             )
           ],
         ),
