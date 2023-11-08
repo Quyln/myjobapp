@@ -1,8 +1,6 @@
-class JobsClass {
-  int id;
+class AddJobDto {
   String user;
   String title;
-  String date;
   String position;
   String salary;
   String khuvuctinh;
@@ -12,13 +10,11 @@ class JobsClass {
   String image;
   List<String> motacv;
   List<String> yeucaucv;
-  JobsClass(
+  AddJobDto(
       {required this.motacv,
-      required this.id,
       required this.title,
       required this.user,
       required this.yeucaucv,
-      required this.date,
       required this.position,
       required this.image,
       required this.khuvuchuyen,
@@ -27,17 +23,15 @@ class JobsClass {
       required this.tencty,
       required this.logocty});
 
-  static JobsClass fromJson(dynamic data) {
+  static AddJobDto fromJson(dynamic data) {
     List<dynamic> motacvList = data['motacv'];
     List<String> finalmotacvList = motacvList.map((e) => e.toString()).toList();
     List<dynamic> yeucaucv = data['yeucaucv'];
     List<String> finalyeucaucvList = yeucaucv.map((e) => e.toString()).toList();
 
-    return JobsClass(
+    return AddJobDto(
         motacv: finalmotacvList,
         yeucaucv: finalyeucaucvList,
-        date: data['date'],
-        id: data['id'],
         title: data['title'],
         user: data['user'],
         position: data['position'],
@@ -51,10 +45,8 @@ class JobsClass {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'title': title,
       'user': user,
-      'date': date,
       'position': position,
       'salary': salary,
       'khuvuctinh': khuvuctinh,

@@ -1,6 +1,8 @@
 [
     {
-        "id":"1",
+        "id":1,
+        "user": "MrQuy",
+        "title": "Tuyển dụng công nhân sản xuất",
         "position":"Công nhân sản xuất",
         "salary":"10 - 14 triệu",
         "date":"30-09-2023",
@@ -13,7 +15,9 @@
         "yeucaucv":["Hồ sơ xin việc","Có CCCD/CMND","Độ tuổi từ 18 - 40"]
     },
     {
-        "id":"2",
+        "id":2,
+        "user": "MrQuy",
+        "title": "Tuyển dụng thợ sơn",
         "date":"30-09-2023",
         "position":"Thợ sơn",
         "salary":"13 - 17 triệu",
@@ -24,10 +28,12 @@
         "image":"https://baoanhpaint.com/wp-content/uploads/2019/10/tho-son.jpg",
         "motacv":["Sơn khung cửa","Chuẩn bị và thiết lập máy móc","Kiểm tra chất lượng sản phẩm và bảo dưỡng các thiết bị"],
         "yeucaucv":["Hồ sơ xin việc","Có CCCD/CMND","Độ tuổi từ 18 - 35"]
-
+  
     },    
    {
-        "id":"3",
+        "id":3,
+        "user": "MrQuy",
+        "title": "Tuyển dụng lao động phổ thông",
         "date":"30-09-2023",
         "position":"Lao động phổ thông",
         "salary":"9 - 13 triệu",
@@ -38,10 +44,12 @@
         "image":"https://timviec365.vn/pictures/images/lao-dong-pho-thong-min.jpg",
         "motacv":["Tham gia vào các hoạt động sản xuất hàng ngày","Chuẩn bị và thiết lập máy móc","Kiểm tra chất lượng sản phẩm và bảo dưỡng các thiết bị"],
         "yeucaucv":["Hồ sơ xin việc","Có CCCD/CMND","Độ tuổi từ 18 - 40"]
-
+  
     },
     {
-        "id":"4",
+        "id":4,
+        "user": "MrQuy",
+        "title": "Tuyển dụng Thư ký",
         "date":"30-09-2023",
         "position":"Thư ký",
         "salary":"12 - 20 triệu",
@@ -52,10 +60,12 @@
         "image":"https://kinhcansg.com/wp-content/uploads/2019/04/kinh-can-nhan-vien-van-phong.jpg",
         "motacv":["Chuẩn bị hồ sơ hằng ngày","Đi công tác thường xuyên","Quản lý văn phòng"],
         "yeucaucv":["Hồ sơ xin việc","Có CCCD/CMND","Độ tuổi từ 18 - 40"]
-
+  
     },
     {
-        "id":"5",
+        "id":5,
+        "user": "MrQuy",
+        "title": "Tuyển dụng Kỹ sư điện lạnh",
         "date":"30-09-2023",
         "position":"Kỹ sư điện lạnh",
         "salary":"12 - 18 triệu",
@@ -66,10 +76,12 @@
         "image":"https://airpro.ph/uploads/projects/051821091025VHqi1.jpg",
         "motacv":["Tham gia vào các hoạt động sản xuất hàng ngày","Chuẩn bị và thiết lập máy móc","Kiểm tra chất lượng sản phẩm và bảo dưỡng các thiết bị"],
         "yeucaucv":["Hồ sơ xin việc","Có CCCD/CMND","Độ tuổi từ 18 - 40"]
-
+  
     },
     {
-        "id":"6",
+        "id":6,
+        "user": "MrQuy",
+        "title": "Tuyển dụng công nhân sản xuất",
         "date":"30-09-2023",
         "position":"Nhân viên phục vụ",
         "salary":"6 - 9 triệu",
@@ -80,6 +92,6 @@
         "image":"https://tasteofshanghai.com.au/wp-content/uploads/2019/11/TOS-Hurstville-new.jpg",
         "motacv":["Phục vụ bàn tiệc","Hỗ trợ setup bàn tiệc","Tiếp thị bia"],
         "yeucaucv":["Nhanh nhẹn, năng động, tháo vác","Có CCCD/CMND","Độ tuổi từ 18 - 25"]
-
+  
     }
   ]

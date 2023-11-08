@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:myjobapp/Pages/ChatPage/Tabbars/group.dart';
 import 'package:myjobapp/Pages/ChatPage/Tabbars/person.dart';
 import 'package:myjobapp/Pages/ChatPage/Tabbars/regional.dart';
 
@@ -14,7 +13,7 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return const DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(
@@ -35,17 +34,17 @@ class _ChatPageState extends State<ChatPage> {
                       Icons.location_city,
                     ),
                   ),
-                  Tab(
-                    icon: Icon(
-                      Icons.group,
-                    ),
-                  ),
+                  // Tab(
+                  //   icon: Icon(
+                  //     Icons.group,
+                  //   ),
+                  // ),
                 ]),
             Expanded(
               child: TabBarView(children: [
                 ChatTbPerson(),
                 ChatTbRegional(),
-                ChatTbGroup(),
+                // ChatTbGroup(),
               ]),
             )
           ]),
