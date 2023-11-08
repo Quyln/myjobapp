@@ -26,8 +26,8 @@ class _AddJobPageState extends State<AddJobPage> {
   void postCreateJob(Map<String, dynamic> requestBody) async {
     var url = Uri.parse('http://localhost:3000/jobs/');
     var response = await http.post(url, body: requestBody);
-    if (response.statusCode == 200) {
-      print('post thanh cong' + response.body);
+    if (response.statusCode == 201) {
+      print('post thanh cong');
     } else {
       print('post that bai');
     }
@@ -289,8 +289,9 @@ class _AddJobPageState extends State<AddJobPage> {
                   child: TextField(
                     onChanged: (value) {
                       setState(() {
+                        motacv.clear();
                         motacv.add(value);
-                        newJobData['motacv'] = motacv;
+                        newJobData['motacv'] = List<String>.from(motacv);
                       });
                     },
                     textAlign: TextAlign.start,
@@ -319,8 +320,9 @@ class _AddJobPageState extends State<AddJobPage> {
                   child: TextField(
                     onChanged: (value) {
                       setState(() {
+                        yeucaucv.clear();
                         yeucaucv.add(value);
-                        newJobData['yeucaucv'] = yeucaucv;
+                        newJobData['yeucaucv'] = List<String>.from(yeucaucv);
                       });
                     },
                     textAlign: TextAlign.start,
@@ -349,10 +351,10 @@ class _AddJobPageState extends State<AddJobPage> {
                         newJobData['salary'] != null &&
                         newJobData['name'] != null) {
                       AddJobDto newJob = AddJobDto(
-                          title: '',
+                          title: newJobData['title'],
                           user: 'MrQuy',
-                          motacv: newJobData['motacv'],
-                          yeucaucv: newJobData['yeucaucv'],
+                          motacv: newJobData['motacv'].join(','),
+                          yeucaucv: newJobData['yeucaucv'].join(','),
                           position: newJobData['position'],
                           image: '',
                           khuvuchuyen: newJobData['khuvuchuyen'],

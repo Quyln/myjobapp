@@ -8,8 +8,8 @@ class AddJobDto {
   String tencty;
   String logocty;
   String image;
-  List<String> motacv;
-  List<String> yeucaucv;
+  String motacv;
+  String yeucaucv;
   AddJobDto(
       {required this.motacv,
       required this.title,
@@ -30,8 +30,8 @@ class AddJobDto {
     List<String> finalyeucaucvList = yeucaucv.map((e) => e.toString()).toList();
 
     return AddJobDto(
-        motacv: finalmotacvList,
-        yeucaucv: finalyeucaucvList,
+        motacv: data['motacv'],
+        yeucaucv: data['yeucaucv'],
         title: data['title'],
         user: data['user'],
         position: data['position'],

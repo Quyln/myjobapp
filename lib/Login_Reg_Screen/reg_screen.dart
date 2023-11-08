@@ -13,6 +13,7 @@ class _RegScreenState extends State<RegScreen> {
   final _idcontroller = TextEditingController();
   final _passcontroller = TextEditingController();
   final _phonecontroller = TextEditingController();
+  final _fullnamecontroller = TextEditingController();
 
   bool showpassword = true;
   String? selectedValue;
@@ -39,6 +40,27 @@ class _RegScreenState extends State<RegScreen> {
                   color: Colors.black12,
                   borderRadius: BorderRadius.all(Radius.circular(20))),
               child: TextField(
+                controller: _fullnamecontroller,
+                textAlignVertical: TextAlignVertical.center,
+                decoration: const InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.person,
+                      color: Colors.black,
+                    ),
+                    hintText: 'Họ và tên',
+                    border: InputBorder.none),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+              height: 50,
+              width: 300,
+              decoration: const BoxDecoration(
+                  color: Colors.black12,
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+              child: TextField(
                 controller: _idcontroller,
                 textAlignVertical: TextAlignVertical.center,
                 decoration: const InputDecoration(
@@ -46,12 +68,12 @@ class _RegScreenState extends State<RegScreen> {
                       Icons.person,
                       color: Colors.black,
                     ),
-                    hintText: 'Tên đăng nhập...',
+                    hintText: 'ID đăng nhập...',
                     border: InputBorder.none),
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             Container(
               height: 50,
@@ -84,7 +106,7 @@ class _RegScreenState extends State<RegScreen> {
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             Container(
               height: 50,
@@ -105,7 +127,7 @@ class _RegScreenState extends State<RegScreen> {
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             Container(
               padding: const EdgeInsets.all(10),

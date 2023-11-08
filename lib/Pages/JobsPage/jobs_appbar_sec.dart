@@ -121,129 +121,61 @@ class _JSecAppBarState extends State<JSecAppBar> {
                                           selectedText = e;
                                         });
                                         Navigator.pop(context);
-                                        for (var element in widget.data) {
-                                          if (selectedText ==
-                                              element.khuvuctinh) {
-                                            showGeneralDialog(
-                                                barrierColor: Colors.black87,
-                                                barrierLabel: 'chon huyen',
-                                                barrierDismissible: true,
-                                                context: context,
-                                                pageBuilder:
-                                                    (context, _, __) => Center(
-                                                          child: Container(
-                                                            height: 400,
-                                                            margin:
-                                                                const EdgeInsets
-                                                                        .symmetric(
-                                                                    horizontal:
-                                                                        20),
-                                                            decoration:
-                                                                const BoxDecoration(
-                                                                    color: Colors
-                                                                        .transparent),
-                                                            child:
-                                                                ListWheelScrollView(
-                                                              physics:
-                                                                  const FixedExtentScrollPhysics(),
-                                                              diameterRatio:
-                                                                  1.3,
-                                                              itemExtent: 100,
-                                                              children: listKvHuyentheoTinh[
-                                                                      selectedText]!
-                                                                  .map((i) =>
-                                                                      GestureDetector(
-                                                                        onTap:
-                                                                            () {
-                                                                          setState(
-                                                                              () {
-                                                                            kvHuyen =
-                                                                                i;
-
-                                                                            widget.onpresssearch(selectedText,
-                                                                                kvHuyen);
-                                                                          });
-
-                                                                          Navigator.pop(
-                                                                              context);
-                                                                        },
-                                                                        child:
-                                                                            Text(
-                                                                          i,
-                                                                          style: const TextStyle(
-                                                                              fontWeight: FontWeight.w800,
-                                                                              fontSize: 40,
-                                                                              color: Colors.white,
-                                                                              decoration: TextDecoration.none),
-                                                                        ),
-                                                                      ))
-                                                                  .toList(),
-                                                            ),
-                                                          ),
-                                                        ));
-                                          } else {
-                                            showGeneralDialog(
-                                                barrierColor: Colors.black87,
-                                                barrierLabel: 'chon huyen',
-                                                barrierDismissible: true,
-                                                context: context,
-                                                pageBuilder:
-                                                    (context, _, __) => Center(
-                                                          child: Container(
-                                                            height: 400,
-                                                            margin:
-                                                                const EdgeInsets
-                                                                        .symmetric(
-                                                                    horizontal:
-                                                                        20),
-                                                            decoration:
-                                                                const BoxDecoration(
-                                                                    color: Colors
-                                                                        .transparent),
-                                                            child:
-                                                                ListWheelScrollView(
-                                                              physics:
-                                                                  const FixedExtentScrollPhysics(),
-                                                              diameterRatio:
-                                                                  1.3,
-                                                              itemExtent: 100,
-                                                              children: listKvHuyentheoTinh[
-                                                                      selectedText]!
-                                                                  .map((i) =>
-                                                                      GestureDetector(
-                                                                        onTap:
-                                                                            () {
-                                                                          setState(
-                                                                              () {
-                                                                            kvHuyen =
-                                                                                i;
-
-                                                                            widget.onpresssearch(selectedText,
-                                                                                kvHuyen);
-                                                                          });
-
-                                                                          Navigator.pop(
-                                                                              context);
-                                                                          ScaffoldMessenger.of(context)
-                                                                              .showSnackBar(const SnackBar(content: Text('Hiện tại chưa có việc đăng tuyển ở khu vực này')));
-                                                                        },
-                                                                        child:
-                                                                            Text(
-                                                                          i,
-                                                                          style: const TextStyle(
-                                                                              fontWeight: FontWeight.w800,
-                                                                              fontSize: 40,
-                                                                              color: Colors.white,
-                                                                              decoration: TextDecoration.none),
-                                                                        ),
-                                                                      ))
-                                                                  .toList(),
-                                                            ),
-                                                          ),
-                                                        ));
-                                          }
-                                          break;
-                                        }
+                                        showGeneralDialog(
+                                            barrierColor: Colors.black87,
+                                            barrierLabel: 'chon huyen',
+                                            barrierDismissible: true,
+                                            context: context,
+                                            pageBuilder: (context, _, __) =>
+                                                Center(
+                                                  child: Container(
+                                                    height: 400,
+                                                    margin: const EdgeInsets
+                                                            .symmetric(
+                                                        horizontal: 20),
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                            color: Colors
+                                                                .transparent),
+                                                    child: ListWheelScrollView(
+                                                      physics:
+                                                          const FixedExtentScrollPhysics(),
+                                                      diameterRatio: 1.3,
+                                                      itemExtent: 100,
+                                                      children:
+                                                          listKvHuyentheoTinh[
+                                                                  selectedText]!
+                                                              .map((i) =>
+                                                                  GestureDetector(
+                                                                    onTap: () {
+                                                                      setState(
+                                                                          () {
+                                                                        kvHuyen =
+                                                                            i;
+                                                                        widget.onpresssearch(
+                                                                            selectedText,
+                                                                            kvHuyen);
+                                                                      });
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    },
+                                                                    child: Text(
+                                                                      i,
+                                                                      style: const TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .w800,
+                                                                          fontSize:
+                                                                              40,
+                                                                          color: Colors
+                                                                              .white,
+                                                                          decoration:
+                                                                              TextDecoration.none),
+                                                                    ),
+                                                                  ))
+                                                              .toList(),
+                                                    ),
+                                                  ),
+                                                ));
                                       },
                                       child: Text(
                                         e,
