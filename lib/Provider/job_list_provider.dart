@@ -10,8 +10,7 @@ class JobsProvider extends ChangeNotifier {
   String selectedText = '';
   String kvHuyen = '';
   void getnewlist() async {
-    var url = Uri.parse(
-        'https://raw.githubusercontent.com/Quyln/myjobapp/main/data/All_jobs_data.json');
+    var url = Uri.parse('http://localhost:3000/jobs/');
     var response = await http.get(url);
 
     if (response.statusCode == 200) {

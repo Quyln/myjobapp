@@ -91,8 +91,7 @@ class HviecmoinhatPro extends ChangeNotifier {
   List<JobsClass> viecMoiNhatdata = [];
 
   void getnewlist() async {
-    var url = Uri.parse(
-        'https://raw.githubusercontent.com/Quyln/myjobapp/main/data/home_viecmoinhat.json');
+    var url = Uri.parse('http://localhost:3000/jobs/');
     var response = await http.get(url);
 
     if (response.statusCode == 200) {

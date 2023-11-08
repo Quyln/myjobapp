@@ -23,10 +23,10 @@ class _AddJobPageState extends State<AddJobPage> {
   List<String> motacv = [];
   List<String> yeucaucv = [];
 
-  void postCreateJob(AddJobDto newjob) async {
-    var url = Uri.parse('http://localhost:3000/jobs');
-    var response = await http.post(url, body: newjob);
-    if (response.statusCode == 201) {
+  void postCreateJob(Map<String, dynamic> requestBody) async {
+    var url = Uri.parse('http://localhost:3000/jobs/');
+    var response = await http.post(url, body: requestBody);
+    if (response.statusCode == 200) {
       print('post thanh cong' + response.body);
     } else {
       print('post that bai');
@@ -360,7 +360,9 @@ class _AddJobPageState extends State<AddJobPage> {
                           salary: newJobData['salary'],
                           tencty: newJobData['name'],
                           logocty: '');
-                      postCreateJob(newJob);
+                      Map<String, dynamic> requestBody = newJob.toJson();
+                      postCreateJob(requestBody);
+
                       _titlecontroller.clear();
                       _positioncontroller.clear();
                       _namecontroller.clear();
