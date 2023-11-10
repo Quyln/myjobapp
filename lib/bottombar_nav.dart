@@ -6,7 +6,10 @@ import 'package:myjobapp/Pages/NewsPage/news_page.dart';
 import 'package:myjobapp/Pages/PersonPage/person_page.dart';
 
 class BottomBarNav extends StatefulWidget {
-  const BottomBarNav({super.key, required this.pageindex});
+  const BottomBarNav({
+    super.key,
+    required this.pageindex,
+  });
   final int pageindex;
   @override
   State<BottomBarNav> createState() => _BottomBarNavState();

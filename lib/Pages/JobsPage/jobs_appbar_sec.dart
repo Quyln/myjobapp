@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/home_jobs_class.dart';
 import 'package:myjobapp/Pages/JobsPage/Add_Jobs/add_job.dart';
+import 'package:myjobapp/Provider/users_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 // import 'package:app_settings/app_settings.dart';
 
 import '../../utils/list_tinh_huyen_cv.dart';
@@ -91,141 +93,161 @@ class _JSecAppBarState extends State<JSecAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    return SliverAppBar(
-      floating: true,
-      pinned: false,
-      backgroundColor: Colors.white,
-      leading: Padding(
-        padding: const EdgeInsets.only(left: 15),
-        child: IconButton(
-          onPressed: () {
-            showGeneralDialog(
-                barrierColor: Colors.black87,
-                barrierDismissible: true,
-                barrierLabel: 'Chon khu vuc',
-                context: context,
-                pageBuilder: (context, _, __) => Center(
-                      child: Container(
-                          height: 400,
-                          margin: const EdgeInsets.symmetric(horizontal: 20),
-                          decoration:
-                              const BoxDecoration(color: Colors.transparent),
-                          child: ListWheelScrollView(
-                            physics: const FixedExtentScrollPhysics(),
-                            diameterRatio: 1.3,
-                            itemExtent: 100,
-                            children: listKvTinh
-                                .map((e) => GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          selectedText = e;
-                                        });
-                                        Navigator.pop(context);
-                                        showGeneralDialog(
-                                            barrierColor: Colors.black87,
-                                            barrierLabel: 'chon huyen',
-                                            barrierDismissible: true,
-                                            context: context,
-                                            pageBuilder: (context, _, __) =>
-                                                Center(
-                                                  child: Container(
-                                                    height: 400,
-                                                    margin: const EdgeInsets
-                                                            .symmetric(
-                                                        horizontal: 20),
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                            color: Colors
-                                                                .transparent),
-                                                    child: ListWheelScrollView(
-                                                      physics:
-                                                          const FixedExtentScrollPhysics(),
-                                                      diameterRatio: 1.3,
-                                                      itemExtent: 100,
-                                                      children:
-                                                          listKvHuyentheoTinh[
-                                                                  selectedText]!
-                                                              .map((i) =>
-                                                                  GestureDetector(
-                                                                    onTap: () {
-                                                                      setState(
-                                                                          () {
-                                                                        kvHuyen =
-                                                                            i;
-                                                                        widget.onpresssearch(
-                                                                            selectedText,
-                                                                            kvHuyen);
-                                                                      });
-                                                                      Navigator.pop(
-                                                                          context);
-                                                                    },
-                                                                    child: Text(
-                                                                      i,
-                                                                      style: const TextStyle(
-                                                                          fontWeight: FontWeight
-                                                                              .w800,
-                                                                          fontSize:
-                                                                              40,
-                                                                          color: Colors
-                                                                              .white,
-                                                                          decoration:
-                                                                              TextDecoration.none),
-                                                                    ),
-                                                                  ))
-                                                              .toList(),
-                                                    ),
-                                                  ),
-                                                ));
-                                      },
-                                      child: Text(
-                                        e,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w800,
-                                            fontSize: 40,
-                                            color: Colors.white,
-                                            decoration: TextDecoration.none),
-                                      ),
-                                    ))
-                                .toList(),
-                          )),
-                    ));
-          },
-          icon: const Icon(
-            Icons.location_on_outlined,
-            size: 30,
-            color: Colors.black,
-          ),
-        ),
-      ),
-      title: const Center(
-        child: Text(
-          'THỊ TRƯỜNG VIỆC LÀM',
-          style: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.normal, fontSize: 18),
-        ),
-      ),
-      flexibleSpace: FlexibleSpaceBar(
-        background: Container(
-          color: Colors.white,
-        ),
-      ),
-      actions: [
-        Padding(
-            padding: const EdgeInsets.only(right: 15),
-            child: IconButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => AddJobPage(
-                          alljobdata: widget.data,
-                        )));
-              },
-              icon: const Icon(
-                Icons.add_circle_outline,
-                color: Colors.black,
-                size: 30,
+    return ChangeNotifierProvider<UsersProvider>(
+      create: (context) {
+        return UsersProvider();
+      },
+      child: Consumer<UsersProvider>(
+        builder: (context, value, child) {
+          return SliverAppBar(
+            floating: true,
+            pinned: false,
+            backgroundColor: Colors.white,
+            leading: Padding(
+              padding: const EdgeInsets.only(left: 15),
+              child: IconButton(
+                onPressed: () {
+                  showGeneralDialog(
+                      barrierColor: Colors.black87,
+                      barrierDismissible: true,
+                      barrierLabel: 'Chon khu vuc',
+                      context: context,
+                      pageBuilder: (context, _, __) => Center(
+                            child: Container(
+                                height: 400,
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                decoration: const BoxDecoration(
+                                    color: Colors.transparent),
+                                child: ListWheelScrollView(
+                                  physics: const FixedExtentScrollPhysics(),
+                                  diameterRatio: 1.3,
+                                  itemExtent: 100,
+                                  children: listKvTinh
+                                      .map((e) => GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                selectedText = e;
+                                              });
+                                              Navigator.pop(context);
+                                              showGeneralDialog(
+                                                  barrierColor: Colors.black87,
+                                                  barrierLabel: 'chon huyen',
+                                                  barrierDismissible: true,
+                                                  context: context,
+                                                  pageBuilder:
+                                                      (context, _, __) =>
+                                                          Center(
+                                                            child: Container(
+                                                              height: 400,
+                                                              margin: const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      20),
+                                                              decoration:
+                                                                  const BoxDecoration(
+                                                                      color: Colors
+                                                                          .transparent),
+                                                              child:
+                                                                  ListWheelScrollView(
+                                                                physics:
+                                                                    const FixedExtentScrollPhysics(),
+                                                                diameterRatio:
+                                                                    1.3,
+                                                                itemExtent: 100,
+                                                                children: listKvHuyentheoTinh[
+                                                                        selectedText]!
+                                                                    .map((i) =>
+                                                                        GestureDetector(
+                                                                          onTap:
+                                                                              () {
+                                                                            setState(() {
+                                                                              kvHuyen = i;
+                                                                              widget.onpresssearch(selectedText, kvHuyen);
+                                                                            });
+                                                                            Navigator.pop(context);
+                                                                          },
+                                                                          child:
+                                                                              Text(
+                                                                            i,
+                                                                            style: const TextStyle(
+                                                                                fontWeight: FontWeight.w800,
+                                                                                fontSize: 40,
+                                                                                color: Colors.white,
+                                                                                decoration: TextDecoration.none),
+                                                                          ),
+                                                                        ))
+                                                                    .toList(),
+                                                              ),
+                                                            ),
+                                                          ));
+                                            },
+                                            child: Text(
+                                              e,
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.w800,
+                                                  fontSize: 40,
+                                                  color: Colors.white,
+                                                  decoration:
+                                                      TextDecoration.none),
+                                            ),
+                                          ))
+                                      .toList(),
+                                )),
+                          ));
+                },
+                icon: const Icon(
+                  Icons.search_outlined,
+                  size: 30,
+                  color: Colors.black,
+                ),
               ),
-            )),
-      ],
+            ),
+            title: const Center(
+              child: Text(
+                'THỊ TRƯỜNG VIỆC LÀM',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 18),
+              ),
+            ),
+            flexibleSpace: FlexibleSpaceBar(
+              background: Container(
+                color: Colors.white,
+              ),
+            ),
+            actions: [
+              Padding(
+                  padding: const EdgeInsets.only(right: 15),
+                  child: value.user.position == 'Nhà tuyển dụng'
+                      ? IconButton(
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => AddJobPage(
+                                      alljobdata: widget.data,
+                                    )));
+                          },
+                          icon: const Icon(
+                            Icons.add_circle_outline,
+                            color: Colors.black,
+                            size: 30,
+                          ),
+                        )
+                      : IconButton(
+                          onPressed: () {
+                            print('định vị tìm việc bán kính 10km trở lại');
+                          },
+                          icon: const Icon(
+                            Icons.location_on_outlined,
+                            color: Colors.black,
+                            size: 30,
+                          ),
+                        )),
+            ],
+          );
+        },
+      ),
     );
   }
 }

@@ -29,4 +29,17 @@ class User {
         avatar: data['avatar'],
         position: data['position']);
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'password': password,
+      'fullname': fullname,
+      'phone': phone,
+      'lastjob': lastjob,
+      'token': token,
+      'avatar': avatar,
+      'position': position
+    };
+  }
 }

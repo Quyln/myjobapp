@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/person_class.dart';
@@ -24,11 +25,6 @@ class _LoginScreenState extends State<LoginScreen>
   bool showpassword = true;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   FutureOr<void> afterFirstLayout(BuildContext context) {
     checkloginSH(context);
   }
@@ -38,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen>
     bool? checklogin = pref.getBool('checklogin');
     if (checklogin == true) {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: ((context) => const BottomBarNav(
+          builder: ((context) => BottomBarNav(
                 pageindex: 2,
               ))));
     }
@@ -166,17 +162,18 @@ class _LoginScreenState extends State<LoginScreen>
                           String id = _idcontroller.text;
                           String password = _passcontroller.text;
                           User user = await value.signInUser(id, password);
-
                           if (user.id.isNotEmpty || user.password.isNotEmpty) {
                             SharedPreferences pref =
                                 await SharedPreferences.getInstance();
+                            String userJson = jsonEncode(user.toJson());
                             await pref.setBool('checklogin', true);
+                            await pref.setString('user', userJson);
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                 content: const Text('Đăng nhập thành công')));
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: ((context) => const BottomBarNav(
+                                    builder: ((context) => BottomBarNav(
                                           pageindex: 2,
                                         ))));
                           } else {

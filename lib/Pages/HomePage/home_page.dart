@@ -6,8 +6,9 @@ import 'package:myjobapp/Pages/HomePage/home_viecmoinhat_section.dart';
 import 'package:myjobapp/utils/colors_texts_style.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
+  const HomePage({
+    super.key,
+  });
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,8 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:myjobapp/Classes/person_class.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UsersProvider extends ChangeNotifier {
   String id = '';
@@ -25,14 +25,29 @@ class UsersProvider extends ChangeNotifier {
     });
     if (response.statusCode == 201) {
       var data = jsonDecode(response.body);
-      var user = User.fromJson(data);
+      user = User.fromJson(data);
+      notifyListeners();
       return user;
     } else {
       throw Exception('Loi dang nhap');
     }
   }
 
+  Future<User> sharePreGetUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userJson = prefs.getString('user');
+    if (userJson != null) {
+      user = User.fromJson(jsonDecode(userJson));
+      notifyListeners();
+      return user;
+    } else {
+      throw Exception('Khong co du lieu');
+    }
+  }
+
   UsersProvider() {
     signInUser(id, password);
+    sharePreGetUser();
+    notifyListeners();
   }
 }
