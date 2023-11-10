@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Login_Reg_Screen/login_sceen.dart';
-import 'package:myjobapp/Provider/users_provider.dart';
+import 'package:myjobapp/Provider/login_getuser_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../Classes/person_class.dart';
+import '../../Classes/user_class.dart';
 
 class HSecAppBar extends StatefulWidget {
   const HSecAppBar({super.key});
@@ -23,6 +23,8 @@ class _HSecAppBarState extends State<HSecAppBar> {
     phone: '',
     position: '',
     token: 1,
+    companyname: '',
+    companytax: '',
   );
   @override
   Widget build(BuildContext context) {
@@ -58,7 +60,9 @@ class _HSecAppBarState extends State<HSecAppBar> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      value.user.fullname,
+                      value.user.position == 'Thành viên'
+                          ? value.user.fullname
+                          : value.user.companyname,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,

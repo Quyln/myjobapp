@@ -1,8 +1,9 @@
 import 'dart:convert';
+import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import '../Classes/home_jobs_class.dart';
+import 'package:myjobapp/Classes/jobs_class.dart';
 
 class JobsProvider extends ChangeNotifier {
   List<JobsClass> alljobdata = [];
@@ -29,8 +30,16 @@ class JobsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<Position> getCurrentLocation() async {
+    Position position = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+    );
+    return position;
+  }
+
   JobsProvider() {
     getnewlist();
     onpresssearch(selectedText, kvHuyen);
+    getCurrentLocation();
   }
 }

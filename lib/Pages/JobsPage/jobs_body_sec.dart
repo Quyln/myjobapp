@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myjobapp/Classes/home_jobs_class.dart';
+import 'package:myjobapp/Classes/jobs_class.dart';
 import 'package:myjobapp/Pages/JobsPage/jobs_detail_screen.dart';
 import 'package:myjobapp/utils/colors_texts_style.dart';
 

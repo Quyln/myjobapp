@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:myjobapp/Classes/person_class.dart';
+import 'package:myjobapp/Classes/user_class.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UsersProvider extends ChangeNotifier {
@@ -16,6 +16,8 @@ class UsersProvider extends ChangeNotifier {
     phone: '',
     position: '',
     token: 1,
+    companyname: '',
+    companytax: '',
   );
   Future<User> signInUser(String id, String password) async {
     var url = Uri.parse('http://localhost:3000/users/signin');

@@ -24,11 +24,6 @@ class AddJobDto {
       required this.logocty});
 
   static AddJobDto fromJson(dynamic data) {
-    List<dynamic> motacvList = data['motacv'];
-    List<String> finalmotacvList = motacvList.map((e) => e.toString()).toList();
-    List<dynamic> yeucaucv = data['yeucaucv'];
-    List<String> finalyeucaucvList = yeucaucv.map((e) => e.toString()).toList();
-
     return AddJobDto(
         motacv: data['motacv'],
         yeucaucv: data['yeucaucv'],

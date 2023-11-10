@@ -1,4 +1,4 @@
-class User {
+class CreateUserDto {
   String id;
   String password;
   String fullname;
@@ -6,9 +6,11 @@ class User {
   String lastjob;
   String avatar;
   String phone;
-  int token;
+  String token;
+  String companyname;
+  String companytax;
 
-  User({
+  CreateUserDto({
     required this.id,
     required this.avatar,
     required this.fullname,
@@ -17,9 +19,11 @@ class User {
     required this.phone,
     required this.position,
     required this.token,
+    required this.companyname,
+    required this.companytax,
   });
-  static User fromJson(dynamic data) {
-    return User(
+  static CreateUserDto fromJson(dynamic data) {
+    return CreateUserDto(
         id: data['id'],
         password: data['password'],
         fullname: data['fullname'],
@@ -27,7 +31,9 @@ class User {
         lastjob: data['lastjob'],
         token: data['token'],
         avatar: data['avatar'],
-        position: data['position']);
+        position: data['position'],
+        companyname: data['companyname'],
+        companytax: data['companytax']);
   }
 
   Map<String, dynamic> toJson() {
@@ -39,7 +45,9 @@ class User {
       'lastjob': lastjob,
       'token': token,
       'avatar': avatar,
-      'position': position
+      'position': position,
+      'companyname': companyname,
+      'companytax': companytax,
     };
   }
 }

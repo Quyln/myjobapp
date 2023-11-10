@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:myjobapp/Classes/home_jobs_class.dart';
+import 'package:myjobapp/Classes/jobs_class.dart';
 import 'package:myjobapp/Pages/JobsPage/Add_Jobs/add_job.dart';
-import 'package:myjobapp/Provider/users_provider.dart';
+import 'package:myjobapp/Provider/login_getuser_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 // import 'package:app_settings/app_settings.dart';
