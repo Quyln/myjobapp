@@ -159,6 +159,12 @@ class _LoginScreenState extends State<LoginScreen>
                       ),
                       InkWell(
                         onTap: () async {
+                          if (_idcontroller.text.isEmpty ||
+                              _passcontroller.text.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                behavior: SnackBarBehavior.floating,
+                                content: Text('Vui lòng nhập ID/Password')));
+                          }
                           String id = _idcontroller.text;
                           String password = _passcontroller.text;
                           User user = await value.signInUser(id, password);

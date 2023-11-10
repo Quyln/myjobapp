@@ -218,32 +218,40 @@ class _JSecAppBarState extends State<JSecAppBar> {
               ),
             ),
             actions: [
-              Padding(
-                  padding: const EdgeInsets.only(right: 15),
-                  child: value.user.position == 'Nhà tuyển dụng'
-                      ? IconButton(
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => AddJobPage(
-                                      alljobdata: widget.data,
-                                    )));
-                          },
-                          icon: const Icon(
-                            Icons.add_circle_outline,
-                            color: Colors.black,
-                            size: 30,
+              value.user.position == 'Nhà tuyển dụng'
+                  ? Padding(
+                      padding: const EdgeInsets.only(right: 15),
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => AddJobPage(
+                                    alljobdata: widget.data,
+                                  )));
+                        },
+                        icon: const Icon(
+                          Icons.add_circle_outline,
+                          color: Colors.black,
+                          size: 30,
+                        ),
+                      ),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.only(right: 15),
+                      child: Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              print('định vị tìm việc bán kính 10km trở lại');
+                            },
+                            icon: const Icon(
+                              Icons.location_on_outlined,
+                              color: Colors.black,
+                              size: 30,
+                            ),
                           ),
-                        )
-                      : IconButton(
-                          onPressed: () {
-                            print('định vị tìm việc bán kính 10km trở lại');
-                          },
-                          icon: const Icon(
-                            Icons.location_on_outlined,
-                            color: Colors.black,
-                            size: 30,
-                          ),
-                        )),
+                        ],
+                      ),
+                    ),
             ],
           );
         },

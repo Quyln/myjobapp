@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/create_user_class.dart';
-import 'package:myjobapp/Classes/user_class.dart';
 import 'package:myjobapp/Login_Reg_Screen/login_sceen.dart';
 import 'package:myjobapp/Provider/reg_users_provider.dart';
 import 'package:myjobapp/utils/list_tinh_huyen_cv.dart';
