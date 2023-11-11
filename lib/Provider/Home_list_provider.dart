@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:myjobapp/Classes/tintuc_class.dart';
 import 'package:myjobapp/utils/app_database.dart';
 import '../Classes/jobs_class.dart';
-import '../Classes/home_tintuc_class.dart';
 
 class HTinnoiboPro extends ChangeNotifier {
   List<TinTucClass> tinNoiBatHomedata = [];

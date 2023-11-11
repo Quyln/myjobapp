@@ -42,9 +42,7 @@ class AppBarNSec extends StatelessWidget {
                 child: CircleAvatar(
                   radius: 20,
                   backgroundColor: Colors.white,
-                  child: Image.network(
-                    value.user.avatar,
-                  ),
+                  backgroundImage: NetworkImage(value.user.avatar),
                 ),
               ),
             ],

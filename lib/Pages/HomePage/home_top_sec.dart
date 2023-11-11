@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:myjobapp/Login_Reg_Screen/login_sceen.dart';
 import 'package:myjobapp/Provider/login_getuser_provider.dart';
 import 'package:provider/provider.dart';
@@ -34,6 +35,7 @@ class _HSecAppBarState extends State<HSecAppBar> {
       },
       child: Consumer<UsersProvider>(
         builder: (context, value, child) {
+          final token = NumberFormat('#,###').format(value.user.token);
           return SliverAppBar(
             floating: true,
             pinned: false,
@@ -65,7 +67,7 @@ class _HSecAppBarState extends State<HSecAppBar> {
                           : value.user.companyname,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                          fontSize: 16,
                           color: Colors.black),
                     ),
                     Text(
@@ -85,7 +87,7 @@ class _HSecAppBarState extends State<HSecAppBar> {
                 child: Row(
                   children: [
                     Text(
-                      '${value.user.token}',
+                      token,
                       style: const TextStyle(
                           fontWeight: FontWeight.normal,
                           color: Colors.red,

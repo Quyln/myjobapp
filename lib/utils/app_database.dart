@@ -1,4 +1,4 @@
-import 'package:myjobapp/Classes/home_tintuc_class.dart';
+import 'package:myjobapp/Classes/tintuc_class.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 

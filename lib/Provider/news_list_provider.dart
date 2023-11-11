@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import '../Classes/home_tintuc_class.dart';
+import 'package:myjobapp/Classes/tintuc_class.dart';
 
 class NewsProvider extends ChangeNotifier {
   List<TinTucClass> allnewdata = [];

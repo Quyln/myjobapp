@@ -1,5 +1,5 @@
 class JobsClass {
-  int id;
+  String id;
   String user;
   String title;
   String date;
