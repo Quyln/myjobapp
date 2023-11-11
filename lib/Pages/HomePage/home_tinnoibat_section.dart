@@ -14,12 +14,13 @@ class TinNoiBatHSec extends StatefulWidget {
 class _TinNoiBatHSecState extends State<TinNoiBatHSec> {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<HTinnoiboPro>(
+    return ChangeNotifierProvider<HTinnoibatPro>(
       create: (context) {
-        return HTinnoiboPro();
+        return HTinnoibatPro();
       },
-      child: Consumer<HTinnoiboPro>(
+      child: Consumer<HTinnoibatPro>(
         builder: (context, value, child) {
+          value.randomNews();
           return CarouselSlider.builder(
               itemCount: value.tinNoiBatHomedata.length,
               itemBuilder: (context, index, _) {
@@ -29,7 +30,10 @@ class _TinNoiBatHSecState extends State<TinNoiBatHSec> {
                     borderRadius: BorderRadius.circular(30),
                     image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: NetworkImage(value.tinNoiBatHomedata[index].image),
+                      image: value.tinNoiBatHomedata[index].image.isNotEmpty
+                          ? NetworkImage(value.tinNoiBatHomedata[index].image)
+                              as ImageProvider
+                          : const AssetImage('images/loading.gif'),
                     ),
                   ),
                   child: InkWell(
@@ -58,12 +62,14 @@ class _TinNoiBatHSecState extends State<TinNoiBatHSec> {
                           const SizedBox(
                             height: 5,
                           ),
-                          Image.network(
-                            value.tinNoiBatHomedata[index].author,
-                            width: 60,
-                            height: 10,
-                            fit: BoxFit.fill,
-                          )
+                          value.tinNoiBatHomedata[index].author.isNotEmpty
+                              ? Image.network(
+                                  value.tinNoiBatHomedata[index].author,
+                                  width: 60,
+                                  height: 10,
+                                  fit: BoxFit.fill,
+                                )
+                              : Image.asset('images/loading.gif')
                         ],
                       ),
                     ),

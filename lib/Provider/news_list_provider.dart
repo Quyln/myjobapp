@@ -12,8 +12,7 @@ class NewsProvider extends ChangeNotifier {
   }
 
   void getnewlist() async {
-    var response = await http.get(Uri.parse(
-        'https://raw.githubusercontent.com/Quyln/myjobapp/main/data/All_news_data.json'));
+    var response = await http.get(Uri.parse('http://localhost:3000/news/'));
 
     if (response.statusCode == 200) {
       List<dynamic> dataList = jsonDecode(response.body);

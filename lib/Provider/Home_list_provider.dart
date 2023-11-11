@@ -1,50 +1,54 @@
 import 'dart:convert';
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:myjobapp/Classes/tintuc_class.dart';
-import 'package:myjobapp/utils/app_database.dart';
 import '../Classes/jobs_class.dart';
 
-class HTinnoiboPro extends ChangeNotifier {
+class HTinnoibatPro extends ChangeNotifier {
   List<TinTucClass> tinNoiBatHomedata = [];
-  AppDataBase appDataBase = AppDataBase();
+  // AppDataBase appDataBase = AppDataBase();
+  void randomNews() {
+    tinNoiBatHomedata.shuffle(Random());
+  }
+
   void getnewlist() async {
-    var url = Uri.parse(
-        'https://raw.githubusercontent.com/Quyln/myjobapp/main/data/home_tinnoibat.json');
+    var url = Uri.parse('http://localhost:3000/news/');
     var response = await http.get(url);
 
     if (response.statusCode == 200) {
       List<dynamic> dataList = jsonDecode(response.body);
       tinNoiBatHomedata = dataList.map((e) => TinTucClass.fromJson(e)).toList();
-      for (var element in tinNoiBatHomedata) {
-        appDataBase.insertNews(element);
-      }
-      loadOldlist();
+      // for (var element in tinNoiBatHomedata) {
+      // appDataBase.insertNews(element);
+      // }
+      // loadOldlist();
       notifyListeners();
     }
   }
 
-  HTinnoiboPro() {
-    checknetwork();
+  HTinnoibatPro() {
+    getnewlist();
+    randomNews();
+    // checknetwork();
   }
-  Future loadOldlist() async {
-    var dataList = await appDataBase.queryNew();
-    print(dataList);
-    tinNoiBatHomedata = dataList.map((e) => TinTucClass.fromJson(e)).toList();
-    notifyListeners();
-  }
+  // Future loadOldlist() async {
+  //   var dataList = await appDataBase.queryNew();
+  //   print(dataList);
+  //   tinNoiBatHomedata = dataList.map((e) => TinTucClass.fromJson(e)).toList();
+  //   notifyListeners();
+  // }
 
-  Future checknetwork() async {
-    await appDataBase.initDB();
+  // Future checknetwork() async {
+  //   await appDataBase.initDB();
 
-    final connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.none) {
-      loadOldlist();
-    } else {
-      getnewlist();
-    }
-  }
+  //   final connectivityResult = await (Connectivity().checkConnectivity());
+  //   if (connectivityResult == ConnectivityResult.none) {
+  //     loadOldlist();
+  //   } else {
+  //     getnewlist();
+  //   }
+  // }
 }
 
 class HTinlaodongPro extends ChangeNotifier {

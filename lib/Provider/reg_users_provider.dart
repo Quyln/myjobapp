@@ -7,9 +7,9 @@ class RegUserProvider extends ChangeNotifier {
     var response = await http.post(url, body: user);
 
     if (response.statusCode == 201) {
-      print('tao tk thanh cong');
+      print('Tạo tài khoản thành công');
     } else {
-      throw Exception('Tao tk ko thanh cong');
+      throw Exception('Tạo tài khoản thất bại');
     }
   }
 }

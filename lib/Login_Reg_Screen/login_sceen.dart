@@ -161,9 +161,11 @@ class _LoginScreenState extends State<LoginScreen>
                         onTap: () async {
                           if (_idcontroller.text.isEmpty ||
                               _passcontroller.text.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                behavior: SnackBarBehavior.floating,
-                                content: Text('Vui lòng nhập ID/Password')));
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    behavior: SnackBarBehavior.floating,
+                                    content:
+                                        Text('Vui lòng nhập ID/Password')));
                           }
                           String id = _idcontroller.text;
                           String password = _passcontroller.text;
@@ -179,12 +181,12 @@ class _LoginScreenState extends State<LoginScreen>
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: ((context) => BottomBarNav(
+                                    builder: ((context) => const BottomBarNav(
                                           pageindex: 2,
                                         ))));
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Lỗi đăng nhập')));
+                                const SnackBar(content: Text('Lỗi đăng nhập')));
                           }
                         },
                         child: Container(

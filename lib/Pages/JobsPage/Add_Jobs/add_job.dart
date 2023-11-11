@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myjobapp/Classes/add_job_class.dart';
+import 'package:myjobapp/Classes/component/add_job_class.dart';
 import 'package:myjobapp/Classes/jobs_class.dart';
 import 'package:myjobapp/utils/colors_texts_style.dart';
 import 'package:myjobapp/utils/list_tinh_huyen_cv.dart';

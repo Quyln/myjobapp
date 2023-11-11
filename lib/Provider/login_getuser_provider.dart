@@ -31,7 +31,7 @@ class UsersProvider extends ChangeNotifier {
       notifyListeners();
       return user;
     } else {
-      throw Exception('Loi dang nhap');
+      throw Exception('Lỗi đăng nhập');
     }
   }
 
@@ -43,7 +43,7 @@ class UsersProvider extends ChangeNotifier {
       notifyListeners();
       return user;
     } else {
-      throw Exception('Khong co du lieu');
+      throw Exception('Không có dữ liệu User');
     }
   }
 
