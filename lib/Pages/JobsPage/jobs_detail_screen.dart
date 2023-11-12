@@ -211,15 +211,20 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
               height: 200,
               width: 300,
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: Colors.grey,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: Image.network(
-                  widget.data.image,
-                  fit: BoxFit.cover,
-                ),
+                child: widget.data.image != ''
+                    ? Image.network(
+                        widget.data.image,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.asset(
+                        'images/wearehiring.gif',
+                        fit: BoxFit.cover,
+                      ),
               ),
             ),
             const SizedBox(
@@ -234,9 +239,13 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    widget.data.tencty,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  SizedBox(
+                    width: 180,
+                    child: Text(
+                      widget.data.tencty,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   const Icon(
                     Icons.location_on_outlined,

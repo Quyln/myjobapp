@@ -23,9 +23,11 @@ class _ShowJSecState extends State<ShowJSec> {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: NetworkImage(
-                            widget.filterJobData[index].image,
-                          )),
+                          image: widget.filterJobData[index].image != ''
+                              ? NetworkImage(
+                                  widget.filterJobData[index].image,
+                                ) as ImageProvider
+                              : const AssetImage('images/recruitment.gif')),
                       color: Colors.black,
                       borderRadius: BorderRadius.circular(25),
                     ),

@@ -25,6 +25,7 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text('Chọn vị trí làm việc')),
       body: GoogleMap(
         onMapCreated: _onMapCreated,
         onTap: _onMapTapped,
@@ -40,6 +41,17 @@ class _MapScreenState extends State<MapScreen> {
                 )
               ])
             : Set<Marker>(),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          if (_seclectedLocation != null) {
+            double latitude = _seclectedLocation!.latitude;
+            double longitude = _seclectedLocation!.longitude;
+            Navigator.pop(
+                context, {'latitude': latitude, 'longitude': longitude});
+          }
+        },
+        child: const Icon(Icons.check),
       ),
     );
   }

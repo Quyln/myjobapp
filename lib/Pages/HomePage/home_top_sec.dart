@@ -61,14 +61,18 @@ class _HSecAppBarState extends State<HSecAppBar> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      value.user.position == 'Thành viên'
-                          ? value.user.fullname
-                          : value.user.companyname,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: Colors.black),
+                    SizedBox(
+                      width: 220,
+                      child: Text(
+                        value.user.position == 'Thành viên'
+                            ? value.user.fullname
+                            : value.user.companyname,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Colors.black),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                     Text(
                       value.user.position,
