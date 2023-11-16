@@ -30,7 +30,11 @@ class _ViecmoinhatHSecState extends State<ViecmoinhatHSec> {
                     borderRadius: BorderRadius.circular(30),
                     image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: NetworkImage(value.viecMoiNhatdata[index].image),
+                      image: value.viecMoiNhatdata[index].image != ''
+                          ? NetworkImage(
+                              value.viecMoiNhatdata[index].image,
+                            ) as ImageProvider
+                          : const AssetImage('images/recruitment.gif'),
                     ),
                   ),
                   child: InkWell(

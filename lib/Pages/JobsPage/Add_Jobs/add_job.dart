@@ -27,7 +27,7 @@ class _AddJobPageState extends State<AddJobPage> {
   List<String> yeucaucv = [];
 
   void postCreateJob(Map<String, dynamic> requestBody) async {
-    var url = Uri.parse('http://103.176.251.70:80/jobs/');
+    var url = Uri.parse('http://103.176.251.70:100/jobs/');
     var response = await http.post(url, body: requestBody);
     if (response.statusCode == 201) {
       print('post thanh cong');
@@ -38,11 +38,11 @@ class _AddJobPageState extends State<AddJobPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<UsersProvider>(
+    return ChangeNotifierProvider<GetUserProvider>(
       create: (context) {
-        return UsersProvider();
+        return GetUserProvider();
       },
-      child: Consumer<UsersProvider>(
+      child: Consumer<GetUserProvider>(
         builder: (context, value, child) {
           return Scaffold(
             appBar: AppBar(

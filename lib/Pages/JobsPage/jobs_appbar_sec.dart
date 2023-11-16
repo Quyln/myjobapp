@@ -1,3 +1,4 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/jobs_class.dart';
 import 'package:myjobapp/Pages/JobsPage/Add_Jobs/add_job.dart';
@@ -32,19 +33,19 @@ class _JSecAppBarState extends State<JSecAppBar> {
     if (status[Permission.location]!.isGranted) {
     } else if (status[Permission.location]!.isDenied) {
     } else if (status[Permission.location]!.isPermanentlyDenied) {
-      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      //   behavior: SnackBarBehavior.floating,
-      //   content: const Text(
-      //     'Định vị đã tắt, bạn có muốn bật lại?',
-      //     style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-      //   ),
-      //   action: SnackBarAction(
-      //     label: 'Đến Setting',
-      //     onPressed: () {
-      //       AppSettings.openAppSettings();
-      //     },
-      //   ),
-      // ));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        behavior: SnackBarBehavior.floating,
+        content: const Text(
+          'Định vị đã tắt, bạn có muốn bật lại?',
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+        ),
+        action: SnackBarAction(
+          label: 'Đến Setting',
+          onPressed: () {
+            AppSettings.openAppSettings();
+          },
+        ),
+      ));
     }
   }
 

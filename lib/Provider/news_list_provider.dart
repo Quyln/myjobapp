@@ -12,7 +12,7 @@ class NewsProvider extends ChangeNotifier {
   }
 
   void getnewlist() async {
-    var response = await http.get(Uri.parse('http://103.176.251.70:80/news/'));
+    var response = await http.get(Uri.parse('http://103.176.251.70:100/news/'));
 
     if (response.statusCode == 200) {
       List<dynamic> dataList = jsonDecode(response.body);

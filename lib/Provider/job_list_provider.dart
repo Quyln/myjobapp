@@ -11,7 +11,7 @@ class JobsProvider extends ChangeNotifier {
   String selectedText = '';
   String kvHuyen = '';
   void getnewlist() async {
-    var url = Uri.parse('http://103.176.251.70:80/jobs/');
+    var url = Uri.parse('http://103.176.251.70:100/jobs/');
     var response = await http.get(url);
 
     if (response.statusCode == 200) {
