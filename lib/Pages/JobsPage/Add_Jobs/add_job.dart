@@ -27,7 +27,7 @@ class _AddJobPageState extends State<AddJobPage> {
   List<String> yeucaucv = [];
 
   void postCreateJob(Map<String, dynamic> requestBody) async {
-    var url = Uri.parse('http://localhost:3000/jobs/');
+    var url = Uri.parse('http://103.176.251.70:80/jobs/');
     var response = await http.post(url, body: requestBody);
     if (response.statusCode == 201) {
       print('post thanh cong');

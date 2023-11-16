@@ -13,7 +13,7 @@ class HTinnoibatPro extends ChangeNotifier {
   }
 
   void getnewlist() async {
-    var url = Uri.parse('http://localhost:3000/news/');
+    var url = Uri.parse('http://103.176.251.70:80/news/');
     var response = await http.get(url);
 
     if (response.statusCode == 200) {
@@ -95,7 +95,7 @@ class HviecmoinhatPro extends ChangeNotifier {
   List<JobsClass> viecMoiNhatdata = [];
 
   void getnewlist() async {
-    var url = Uri.parse('http://localhost:3000/jobs/');
+    var url = Uri.parse('http://103.176.251.70:80/jobs/');
     var response = await http.get(url);
 
     if (response.statusCode == 200) {
