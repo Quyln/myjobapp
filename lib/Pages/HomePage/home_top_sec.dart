@@ -29,18 +29,18 @@ class _HSecAppBarState extends State<HSecAppBar> {
   );
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<UsersProvider>(
+    return ChangeNotifierProvider<GetUserProvider>(
       create: (context) {
-        return UsersProvider();
+        return GetUserProvider();
       },
-      child: Consumer<UsersProvider>(
+      child: Consumer<GetUserProvider>(
         builder: (context, value, child) {
           final token = NumberFormat('#,###').format(value.user.token);
           return SliverAppBar(
             floating: true,
             pinned: false,
             backgroundColor: Colors.white,
-            leadingWidth: 300,
+            leadingWidth: 290,
             leading: Row(
               children: [
                 Padding(
@@ -62,7 +62,7 @@ class _HSecAppBarState extends State<HSecAppBar> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      width: 220,
+                      width: 210,
                       child: Text(
                         value.user.position == 'Thành viên'
                             ? value.user.fullname

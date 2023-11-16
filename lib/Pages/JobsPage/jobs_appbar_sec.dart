@@ -50,11 +50,11 @@ class _JSecAppBarState extends State<JSecAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<UsersProvider>(
+    return ChangeNotifierProvider<GetUserProvider>(
       create: (context) {
-        return UsersProvider();
+        return GetUserProvider();
       },
-      child: Consumer<UsersProvider>(
+      child: Consumer<GetUserProvider>(
         builder: (context, value, child) {
           return SliverAppBar(
             floating: true,

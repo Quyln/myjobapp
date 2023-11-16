@@ -35,6 +35,26 @@ class UsersProvider extends ChangeNotifier {
     }
   }
 
+  UsersProvider() {
+    // signInUser(id, password);
+    notifyListeners();
+  }
+}
+
+class GetUserProvider extends ChangeNotifier {
+  User user = User(
+    id: '',
+    avatar: '',
+    fullname: '',
+    lastjob: '',
+    password: '',
+    phone: '',
+    position: '',
+    token: 1,
+    companyname: '',
+    companytax: '',
+  );
+
   Future<User> sharePreGetUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userJson = prefs.getString('user');
@@ -47,8 +67,7 @@ class UsersProvider extends ChangeNotifier {
     }
   }
 
-  UsersProvider() {
-    signInUser(id, password);
+  GetUserProvider() {
     sharePreGetUser();
     notifyListeners();
   }
