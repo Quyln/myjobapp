@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/component/add_job_class.dart';
 import 'package:myjobapp/Classes/jobs_class.dart';
-import 'package:myjobapp/Pages/JobsPage/Add_Jobs/get_latlog_googlemap.dart';
 import 'package:myjobapp/Pages/JobsPage/Add_Jobs/googlemap.dart';
 import 'package:myjobapp/Provider/login_getuser_provider.dart';
 import 'package:myjobapp/utils/colors_texts_style.dart';
 import 'package:myjobapp/utils/list_tinh_huyen_cv.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddJobPage extends StatefulWidget {
   const AddJobPage({super.key, required this.alljobdata});
@@ -26,7 +26,8 @@ class _AddJobPageState extends State<AddJobPage> {
   Map<String, dynamic> newJobData = {'khuvuctinh': 'Hồ Chí Minh'};
   List<String> motacv = [];
   List<String> yeucaucv = [];
-
+  String latitude = '';
+  String longitude = '';
   void postCreateJob(Map<String, dynamic> requestBody) async {
     var url = Uri.parse('http://103.176.251.70:100/jobs/');
     var response = await http.post(url, body: requestBody);
@@ -272,7 +273,7 @@ class _AddJobPageState extends State<AddJobPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => GoogleMapScreen()));
+                                  builder: (context) => const MapScreen()));
                         },
                         child: Container(
                           margin: const EdgeInsets.only(top: 10, bottom: 10),
@@ -380,13 +381,23 @@ class _AddJobPageState extends State<AddJobPage> {
                       ),
                       InkWell(
                         //Dang Bai button
-                        onTap: () {
+                        onTap: () async {
                           if (newJobData['motacv'] != null &&
                               newJobData['yeucaucv'] != null &&
                               newJobData['position'] != null &&
                               newJobData['khuvuchuyen'] != null &&
                               newJobData['khuvuctinh'] != null &&
                               newJobData['salary'] != null) {
+                            SharedPreferences pref =
+                                await SharedPreferences.getInstance();
+                            String? jobLatitude =
+                                await pref.getString('creJobLat');
+                            String? jobLongitude =
+                                await pref.getString('creJobLong');
+                            if (jobLatitude != null && jobLongitude != null) {
+                              latitude = jobLatitude;
+                              longitude = jobLongitude;
+                            }
                             AddJobDto newJob = AddJobDto(
                                 title: newJobData['title'],
                                 user: value.user.id,
@@ -396,6 +407,8 @@ class _AddJobPageState extends State<AddJobPage> {
                                 image: '',
                                 khuvuchuyen: newJobData['khuvuchuyen'],
                                 khuvuctinh: newJobData['khuvuctinh'],
+                                latitude: latitude,
+                                longitude: longitude,
                                 salary: newJobData['salary'],
                                 tencty: value.user.companyname,
                                 logocty: '');

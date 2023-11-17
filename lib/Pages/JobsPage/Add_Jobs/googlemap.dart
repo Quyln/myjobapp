@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -30,7 +31,7 @@ class _MapScreenState extends State<MapScreen> {
         onMapCreated: _onMapCreated,
         onTap: _onMapTapped,
         initialCameraPosition: CameraPosition(
-          target: LatLng(37.7749, -122.4192),
+          target: LatLng(11.081854605765315, 106.64105098559263),
           zoom: 10,
         ),
         markers: _seclectedLocation != null
@@ -43,12 +44,17 @@ class _MapScreenState extends State<MapScreen> {
             : Set<Marker>(),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
+        onPressed: () async {
           if (_seclectedLocation != null) {
             double latitude = _seclectedLocation!.latitude;
             double longitude = _seclectedLocation!.longitude;
-            Navigator.pop(
-                context, {'latitude': latitude, 'longitude': longitude});
+
+            SharedPreferences pref = await SharedPreferences.getInstance();
+            await pref.setString('creJobLat', latitude.toString());
+            await pref.setString('creJobLong', longitude.toString());
+
+            print('${latitude} , ${longitude}');
+            Navigator.pop(context);
           }
         },
         child: const Icon(Icons.check),

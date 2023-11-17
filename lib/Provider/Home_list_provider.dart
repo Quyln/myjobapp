@@ -13,7 +13,7 @@ class HTinnoibatPro extends ChangeNotifier {
   }
 
   void getnewlist() async {
-    var url = Uri.parse('http://103.176.251.70:80/news/');
+    var url = Uri.parse('http://103.176.251.70:100/news/');
     var response = await http.get(url);
 
     if (response.statusCode == 200) {

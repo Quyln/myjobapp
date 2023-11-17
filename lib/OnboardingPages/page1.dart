@@ -8,29 +8,31 @@ class OnboardingPage1 extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.orange,
       body: SafeArea(
-          child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(
-                top: 150, left: 10, right: 10, bottom: 30),
-            child: Image.asset(
-              height: 250,
-              fit: BoxFit.contain,
-              'images/jobs.png',
+          child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                  top: 150, left: 10, right: 10, bottom: 30),
+              child: Image.asset(
+                height: 250,
+                fit: BoxFit.contain,
+                'images/jobs.png',
+              ),
             ),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(left: 10, right: 10),
-            child: Text(
-              'Mỗi ngày với hơn 200 việc làm mới và hàng trăm lao động nhận việc.',
-              textAlign: TextAlign.start,
-              style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white),
+            const Padding(
+              padding: EdgeInsets.only(left: 10, right: 10),
+              child: Text(
+                'Mỗi ngày với hơn 200 việc làm mới và hàng trăm lao động nhận việc.',
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       )),
     );
   }

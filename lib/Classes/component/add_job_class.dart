@@ -5,6 +5,8 @@ class AddJobDto {
   String salary;
   String khuvuctinh;
   String khuvuchuyen;
+  String latitude;
+  String longitude;
   String tencty;
   String logocty;
   String image;
@@ -19,6 +21,8 @@ class AddJobDto {
       required this.image,
       required this.khuvuchuyen,
       required this.khuvuctinh,
+      required this.latitude,
+      required this.longitude,
       required this.salary,
       required this.tencty,
       required this.logocty});
@@ -33,6 +37,8 @@ class AddJobDto {
         image: data['image'],
         khuvuchuyen: data['khuvuchuyen'],
         khuvuctinh: data['khuvuctinh'],
+        latitude: data['latitude'],
+        longitude: data['longitude'],
         salary: data['salary'],
         logocty: data['logocty'],
         tencty: data['tencty']);
@@ -46,6 +52,8 @@ class AddJobDto {
       'salary': salary,
       'khuvuctinh': khuvuctinh,
       'khuvuchuyen': khuvuchuyen,
+      'latitude': latitude,
+      'longitude': longitude,
       'tencty': tencty,
       'logocty': logocty,
       'image': image,

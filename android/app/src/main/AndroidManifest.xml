@@ -20,10 +20,14 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-    
+        
         android:label="myjobapp"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyBLsU4FkDJQbijh4ey4VIT1elL4JC19zMQ"/>
+
         <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
          <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
          <intent-filter>
@@ -50,8 +54,7 @@
               android:resource="@style/NormalTheme"
               />
 
-            <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="AIzaSyBLsU4FkDJQbijh4ey4VIT1elL4JC19zMQ"/>
+            
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

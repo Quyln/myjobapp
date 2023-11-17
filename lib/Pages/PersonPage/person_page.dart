@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Pages/PersonPage/Tabbar_List/save_tabbar.dart';
 import 'package:myjobapp/Provider/login_getuser_provider.dart';
-import 'package:myjobapp/utils/colors_texts_style.dart';
 import 'package:provider/provider.dart';
 
 import 'Tabbar_List/done_tabbar.dart';
