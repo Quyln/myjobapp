@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:myjobapp/Classes/tintuc_class.dart';
+import 'package:myjobapp/Classes/news_class.dart';
 import '../Classes/jobs_class.dart';
 
 class HTinnoibatPro extends ChangeNotifier {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myjobapp/Classes/tintuc_class.dart';
+import 'package:myjobapp/Classes/news_class.dart';
 import 'package:myjobapp/utils/colors_texts_style.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 

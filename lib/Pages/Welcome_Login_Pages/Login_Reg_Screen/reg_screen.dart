@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:myjobapp/Login_Reg_Screen/Reg_tabbar/reg_creator_tabbar.dart';
-import 'package:myjobapp/Login_Reg_Screen/Reg_tabbar/reg_member_tabbar.dart';
+import 'package:myjobapp/Pages/Welcome_Login_Pages/Login_Reg_Screen/Reg_tabbar/reg_creator_tabbar.dart';
+import 'package:myjobapp/Pages/Welcome_Login_Pages/Login_Reg_Screen/Reg_tabbar/reg_member_tabbar.dart';
 
 class RegScreen extends StatefulWidget {
   const RegScreen({super.key});
