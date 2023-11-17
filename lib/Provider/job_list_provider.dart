@@ -40,6 +40,5 @@ class JobsProvider extends ChangeNotifier {
   JobsProvider() {
     getnewlist();
     onpresssearch(selectedText, kvHuyen);
-    getCurrentLocation();
   }
 }

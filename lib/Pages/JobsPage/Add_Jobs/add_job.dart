@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/component/add_job_class.dart';
 import 'package:myjobapp/Classes/jobs_class.dart';
+import 'package:myjobapp/Pages/JobsPage/Add_Jobs/get_latlog_googlemap.dart';
 import 'package:myjobapp/Pages/JobsPage/Add_Jobs/googlemap.dart';
 import 'package:myjobapp/Provider/login_getuser_provider.dart';
 import 'package:myjobapp/utils/colors_texts_style.dart';
@@ -271,7 +272,7 @@ class _AddJobPageState extends State<AddJobPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => MapScreen()));
+                                  builder: (context) => GoogleMapScreen()));
                         },
                         child: Container(
                           margin: const EdgeInsets.only(top: 10, bottom: 10),
