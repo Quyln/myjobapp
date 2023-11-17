@@ -5,7 +5,6 @@ import 'package:myjobapp/Pages/JobsPage/Add_Jobs/add_job.dart';
 import 'package:myjobapp/Provider/login_getuser_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-// import 'package:app_settings/app_settings.dart';
 
 import '../../utils/list_tinh_huyen_cv.dart';
 
@@ -26,28 +25,28 @@ class _JSecAppBarState extends State<JSecAppBar> {
     super.initState();
   }
 
-  void getLocation() async {
-    Map<Permission, PermissionStatus> status = await [
-      Permission.location,
-    ].request();
-    if (status[Permission.location]!.isGranted) {
-    } else if (status[Permission.location]!.isDenied) {
-    } else if (status[Permission.location]!.isPermanentlyDenied) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        behavior: SnackBarBehavior.floating,
-        content: const Text(
-          'Định vị đã tắt, bạn có muốn bật lại?',
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-        ),
-        action: SnackBarAction(
-          label: 'Đến Setting',
-          onPressed: () {
-            AppSettings.openAppSettings();
-          },
-        ),
-      ));
-    }
-  }
+  // void getLocation() async {
+  //   Map<Permission, PermissionStatus> status = await [
+  //     Permission.location,
+  //   ].request();
+  //   if (status[Permission.location]!.isGranted) {
+  //   } else if (status[Permission.location]!.isDenied) {
+  //   } else if (status[Permission.location]!.isPermanentlyDenied) {
+  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //       behavior: SnackBarBehavior.floating,
+  //       content: const Text(
+  //         'Định vị đã tắt, bạn có muốn bật lại?',
+  //         style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+  //       ),
+  //       action: SnackBarAction(
+  //         label: 'Đến Setting',
+  //         onPressed: () {
+  //           AppSettings.openAppSettings();
+  //         },
+  //       ),
+  //     ));
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

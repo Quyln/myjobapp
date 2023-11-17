@@ -30,7 +30,7 @@ class _MapScreenState extends State<MapScreen> {
       body: GoogleMap(
         onMapCreated: _onMapCreated,
         onTap: _onMapTapped,
-        initialCameraPosition: CameraPosition(
+        initialCameraPosition: const CameraPosition(
           target: LatLng(11.081854605765315, 106.64105098559263),
           zoom: 10,
         ),
@@ -43,7 +43,10 @@ class _MapScreenState extends State<MapScreen> {
               ])
             : Set<Marker>(),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.miniCenterFloat,
+      floatingActionButton: FloatingActionButton.extended(
+        label: const Text('Xác nhận vị trí'),
         onPressed: () async {
           if (_seclectedLocation != null) {
             double latitude = _seclectedLocation!.latitude;
@@ -53,11 +56,14 @@ class _MapScreenState extends State<MapScreen> {
             await pref.setString('creJobLat', latitude.toString());
             await pref.setString('creJobLong', longitude.toString());
 
-            print('${latitude} , ${longitude}');
             Navigator.pop(context);
           }
         },
-        child: const Icon(Icons.check),
+        // child: Container(
+        //   height: 50,
+        //   width: 100,
+        //   child: Text(''),
+        // ),
       ),
     );
   }

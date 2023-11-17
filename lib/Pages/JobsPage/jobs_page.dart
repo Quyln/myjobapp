@@ -31,6 +31,9 @@ class _JobsPageState extends State<JobsPage> {
                   ShowJSec(
                     filterJobData: value.filterJobData,
                   ),
+                  const SliverToBoxAdapter(
+                    child: SizedBox(height: 60),
+                  )
                 ],
               ));
         },

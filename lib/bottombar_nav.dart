@@ -49,8 +49,8 @@ class _BottomBarNavState extends State<BottomBarNav> {
           Align(
             alignment: const Alignment(0, 1.0),
             child: AnimatedOpacity(
-              opacity: _visible ? 1 : 0,
-              duration: const Duration(milliseconds: 500),
+              opacity: _visible ? 1 : 1,
+              duration: const Duration(milliseconds: 300),
               child: BottomNavigationBar(
                 selectedLabelStyle: const TextStyle(fontSize: 14),
                 selectedItemColor: Colors.black,

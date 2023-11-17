@@ -277,9 +277,7 @@ Map<String, List<String>> listKvHuyentheoTinh = {
   ],
   'Đồng Tháp': [
     'Cao Lãnh',
-    'Cao Lãnh',
     'Châu Thành',
-    'Hồng Ngự',
     'Hồng Ngự',
     'Lai Vung',
     'Lấp Vò',

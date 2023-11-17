@@ -51,26 +51,6 @@ class HTinnoibatPro extends ChangeNotifier {
   // }
 }
 
-class HTinlaodongPro extends ChangeNotifier {
-  List<TinTucClass> tinLaoDongdata = [];
-
-  void getnewlist() async {
-    var url = Uri.parse(
-        'https://raw.githubusercontent.com/Quyln/myjobapp/main/data/home_tinlaodong.json');
-    var response = await http.get(url);
-
-    if (response.statusCode == 200) {
-      List<dynamic> dataList = jsonDecode(response.body);
-      tinLaoDongdata = dataList.map((e) => TinTucClass.fromJson(e)).toList();
-      notifyListeners();
-    }
-  }
-
-  HTinlaodongPro() {
-    getnewlist();
-  }
-}
-
 class HtincanbietPro extends ChangeNotifier {
   List<TinTucClass> tinCanBietdata = [];
 
