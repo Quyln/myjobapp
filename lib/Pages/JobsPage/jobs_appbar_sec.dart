@@ -7,6 +7,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/list_tinh_huyen_cv.dart';
+import 'Add_Jobs/show_jobs_onmap.dart';
 
 class JSecAppBar extends StatefulWidget {
   const JSecAppBar(
@@ -24,29 +25,6 @@ class _JSecAppBarState extends State<JSecAppBar> {
   void initState() {
     super.initState();
   }
-
-  // void getLocation() async {
-  //   Map<Permission, PermissionStatus> status = await [
-  //     Permission.location,
-  //   ].request();
-  //   if (status[Permission.location]!.isGranted) {
-  //   } else if (status[Permission.location]!.isDenied) {
-  //   } else if (status[Permission.location]!.isPermanentlyDenied) {
-  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-  //       behavior: SnackBarBehavior.floating,
-  //       content: const Text(
-  //         'Định vị đã tắt, bạn có muốn bật lại?',
-  //         style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-  //       ),
-  //       action: SnackBarAction(
-  //         label: 'Đến Setting',
-  //         onPressed: () {
-  //           AppSettings.openAppSettings();
-  //         },
-  //       ),
-  //     ));
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -198,7 +176,11 @@ class _JSecAppBarState extends State<JSecAppBar> {
                         children: [
                           IconButton(
                             onPressed: () {
-                              print('định vị tìm việc bán kính 10km trở lại');
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ShowJobOnMap()));
                             },
                             icon: const Icon(
                               Icons.location_on_outlined,

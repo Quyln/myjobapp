@@ -46,7 +46,8 @@ class _MapScreenState extends State<MapScreen> {
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterFloat,
       floatingActionButton: FloatingActionButton.extended(
-        label: const Text('Xác nhận vị trí'),
+        icon: const Icon(Icons.done),
+        label: const Text('XÁC NHẬN'),
         onPressed: () async {
           if (_seclectedLocation != null) {
             double latitude = _seclectedLocation!.latitude;
