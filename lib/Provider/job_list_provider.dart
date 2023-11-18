@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
@@ -30,13 +28,6 @@ class JobsProvider extends ChangeNotifier {
           element.khuvuchuyen == kvHuyen;
     }).toList();
     notifyListeners();
-  }
-
-  Future<Position> getCurrentLocation() async {
-    Position position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
-    );
-    return position;
   }
 
   JobsProvider() {
