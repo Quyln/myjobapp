@@ -28,6 +28,7 @@ class _MapScreenState extends State<MapScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Chọn vị trí làm việc')),
       body: GoogleMap(
+        mapType: MapType.hybrid,
         onMapCreated: _onMapCreated,
         onTap: _onMapTapped,
         initialCameraPosition: const CameraPosition(

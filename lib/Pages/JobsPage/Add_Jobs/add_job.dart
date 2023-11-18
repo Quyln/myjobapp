@@ -28,13 +28,15 @@ class _AddJobPageState extends State<AddJobPage> {
   List<String> yeucaucv = [];
   String latitude = '';
   String longitude = '';
-  void postCreateJob(Map<String, dynamic> requestBody) async {
+  postCreateJob(Map<String, dynamic> requestBody) async {
     var url = Uri.parse('http://103.176.251.70:100/jobs/');
     var response = await http.post(url, body: requestBody);
     if (response.statusCode == 201) {
       print('post thanh cong');
+      return true;
     } else {
       print('post that bai');
+      return false;
     }
   }
 
@@ -413,17 +415,25 @@ class _AddJobPageState extends State<AddJobPage> {
                                 tencty: value.user.companyname,
                                 logocty: '');
                             Map<String, dynamic> requestBody = newJob.toJson();
-                            postCreateJob(requestBody);
-
-                            _titlecontroller.clear();
-                            _positioncontroller.clear();
-                            _namecontroller.clear();
-                            _motacvcontroller.clear();
-                            _yeucaucvcontroller.clear();
-                            // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            //     behavior: SnackBarBehavior.floating,
-                            //     content: Text(
-                            //         'Đăng thành công, bài của bạn đang được xét duyệt')));
+                            bool result = await postCreateJob(requestBody);
+                            if (result == true) {
+                              _titlecontroller.clear();
+                              _positioncontroller.clear();
+                              _namecontroller.clear();
+                              _motacvcontroller.clear();
+                              _yeucaucvcontroller.clear();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      behavior: SnackBarBehavior.floating,
+                                      content: Text(
+                                          'Đăng bài tuyển dụng thành công ')));
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      behavior: SnackBarBehavior.floating,
+                                      content: Text(
+                                          'Đăng bài thất bại. Vui lòng kiểm tra lại thông tin hoặc đường truyền kết nối')));
+                            }
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(

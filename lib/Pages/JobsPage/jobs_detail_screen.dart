@@ -251,7 +251,7 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                     Icons.location_on_outlined,
                     size: 17,
                   ),
-                  Text('${widget.data.khuvuchuyen},${widget.data.khuvuctinh}'),
+                  Text('${widget.data.khuvuchuyen}, ${widget.data.khuvuctinh}'),
                 ],
               ),
             ),
