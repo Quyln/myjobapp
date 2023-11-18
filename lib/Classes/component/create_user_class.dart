@@ -47,7 +47,7 @@ class CreateUserDto {
       'phone': phone,
       'lastjob': lastjob,
       'token': token,
-      'emmail': email,
+      'email': email,
       'avatar': avatar,
       'position': position,
       'companyname': companyname,

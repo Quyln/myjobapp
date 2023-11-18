@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:myjobapp/Classes/component/fotgot_pass_user.dart';
 
 class ForgotPass extends StatefulWidget {
   const ForgotPass({super.key});
@@ -82,11 +84,35 @@ class _ForgotPassState extends State<ForgotPass> {
               children: [
                 InkWell(
                   onTap: () async {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        behavior: SnackBarBehavior.floating,
-                        content: Text(
-                            'Mật khẩu mới đã được gửi về số điện thoại của bạn')));
-                    Navigator.pop(context);
+                    if (_idcontroller.text.isNotEmpty &&
+                        _emailcontroller.text.isNotEmpty) {
+                      ForgotPassUser getPassBody = ForgotPassUser(
+                          id: _idcontroller.text, email: _emailcontroller.text);
+                      Map<String, dynamic> getPassBodyJSON =
+                          ForgotPassUser.toJson(getPassBody);
+                      var url = Uri.parse(
+                          'http://103.176.251.70:100/users/forgot-password');
+
+                      var response =
+                          await http.post(url, body: getPassBodyJSON);
+                      if (response.statusCode == 201) {
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            behavior: SnackBarBehavior.floating,
+                            content: Text(
+                                'Mật khẩu mới đã được gửi về Email của bạn')));
+                        Navigator.pop(context);
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                behavior: SnackBarBehavior.floating,
+                                content: Text('Sai ID hoặc Email')));
+                      }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          behavior: SnackBarBehavior.floating,
+                          content: Text(
+                              'Vui lòng điền đầy đủ thông tin bạn nhé !')));
+                    }
                   },
                   child: Container(
                     height: 50,
