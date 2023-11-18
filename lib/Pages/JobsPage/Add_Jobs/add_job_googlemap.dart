@@ -62,40 +62,67 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GoogleMap(
-        mapType: MapType.hybrid,
-        onMapCreated: (controller) => _controller = controller,
-        onTap: _onMapTapped,
-        initialCameraPosition: const CameraPosition(
-          target: LatLng(11.081854605765315, 106.64105098559263),
-          zoom: 10,
+        body: Stack(
+      children: [
+        GoogleMap(
+          mapType: MapType.hybrid,
+          onMapCreated: (controller) => _controller = controller,
+          onTap: _onMapTapped,
+          initialCameraPosition: const CameraPosition(
+            target: LatLng(11.081854605765315, 106.64105098559263),
+            zoom: 10,
+          ),
+          markers: _seclectedLocation != null
+              ? Set<Marker>.from([
+                  Marker(
+                    markerId: MarkerId('selected_location'),
+                    position: _seclectedLocation!,
+                  )
+                ])
+              : Set<Marker>(),
         ),
-        markers: _seclectedLocation != null
-            ? Set<Marker>.from([
-                Marker(
-                  markerId: MarkerId('selected_location'),
-                  position: _seclectedLocation!,
-                )
-              ])
-            : Set<Marker>(),
-      ),
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.miniCenterFloat,
-      floatingActionButton: FloatingActionButton.extended(
-        icon: const Icon(Icons.done),
-        label: const Text('XÁC NHẬN'),
-        onPressed: () async {
-          if (_seclectedLocation != null) {
-            double latitude = _seclectedLocation!.latitude;
-            double longitude = _seclectedLocation!.longitude;
+        Positioned(
+            bottom: 100,
+            right: 8,
+            child: FloatingActionButton(
+              heroTag: 'tag1',
+              backgroundColor: Colors.blue.withOpacity(0.65),
+              tooltip: 'Vị trí của tôi',
+              mini: true,
+              onPressed: () {
+                getCurrentLocation();
+              },
+              child: const Icon(
+                Icons.location_on,
+                color: Colors.white,
+              ),
+            )),
+        Positioned(
+          bottom: 20,
+          left: 0,
+          right: 0,
+          child: Center(
+            child: FloatingActionButton.extended(
+              backgroundColor: Colors.blue.withOpacity(0.65),
+              heroTag: 'tag2',
+              icon: const Icon(Icons.done),
+              label: const Text('XÁC NHẬN'),
+              onPressed: () async {
+                if (_seclectedLocation != null) {
+                  double latitude = _seclectedLocation!.latitude;
+                  double longitude = _seclectedLocation!.longitude;
 
-            SharedPreferences pref = await SharedPreferences.getInstance();
-            await pref.setString('creJobLat', latitude.toString());
-            await pref.setString('creJobLong', longitude.toString());
-            Navigator.pop(context, latitude.toString());
-          }
-        },
-      ),
-    );
+                  SharedPreferences pref =
+                      await SharedPreferences.getInstance();
+                  await pref.setString('creJobLat', latitude.toString());
+                  await pref.setString('creJobLong', longitude.toString());
+                  Navigator.pop(context, latitude.toString());
+                }
+              },
+            ),
+          ),
+        )
+      ],
+    ));
   }
 }
