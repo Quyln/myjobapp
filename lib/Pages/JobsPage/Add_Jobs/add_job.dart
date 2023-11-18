@@ -273,9 +273,14 @@ class _AddJobPageState extends State<AddJobPage> {
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const MapScreen()));
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const MapScreen()))
+                              .then((value) {
+                            setState(() {
+                              latitude = value;
+                            });
+                          });
                         },
                         child: Container(
                           margin: const EdgeInsets.only(top: 10, bottom: 10),
@@ -284,12 +289,15 @@ class _AddJobPageState extends State<AddJobPage> {
                           decoration: BoxDecoration(
                               color: Colors.black12,
                               borderRadius: BorderRadius.circular(20)),
-                          child: const Row(
+                          child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(Icons.location_on_outlined),
-                                Text('Nhấp để chọn định vị trên bản đồ')
+                                const Icon(Icons.location_on_outlined),
+                                latitude.isEmpty
+                                    ? const Text(
+                                        'Nhấp để chọn định vị trên bản đồ')
+                                    : const Text('Đã lưu vị trí')
                               ]),
                         ),
                       ),
