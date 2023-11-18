@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen>
                             Icons.person,
                             color: Colors.black,
                           ),
-                          hintText: 'Your ID...',
+                          hintText: 'ID đăng nhập...',
                           border: InputBorder.none),
                     ),
                   ),
@@ -97,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen>
                           Icons.key,
                           color: Colors.black,
                         ),
-                        hintText: 'Your Password...',
+                        hintText: 'Mật khẩu...',
                         border: InputBorder.none,
                         suffixIcon: InkWell(
                           onTap: () {
@@ -115,20 +115,18 @@ class _LoginScreenState extends State<LoginScreen>
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(top: 20, right: 30, bottom: 20),
-                    child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const ForgotPass()));
-                        },
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text('Quên mật khẩu?'),
-                          ],
-                        )),
+                        const EdgeInsets.only(top: 10, right: 30, bottom: 10),
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const ForgotPass()));
+                          },
+                          child: const Text('Quên mật khẩu?')),
+                    ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,

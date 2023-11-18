@@ -8,7 +8,7 @@ class ForgotPass extends StatefulWidget {
 }
 
 class _ForgotPassState extends State<ForgotPass> {
-  final _phonecontroller = TextEditingController();
+  final _emailcontroller = TextEditingController();
   final _idcontroller = TextEditingController();
 
   @override
@@ -41,7 +41,7 @@ class _ForgotPassState extends State<ForgotPass> {
                       Icons.person,
                       color: Colors.black,
                     ),
-                    hintText: 'Tên đăng nhập...',
+                    hintText: 'ID đăng nhập...',
                     border: InputBorder.none),
               ),
             ),
@@ -55,31 +55,28 @@ class _ForgotPassState extends State<ForgotPass> {
                   color: Colors.black12,
                   borderRadius: BorderRadius.all(Radius.circular(20))),
               child: TextField(
-                controller: _phonecontroller,
+                controller: _emailcontroller,
                 textAlignVertical: TextAlignVertical.center,
                 decoration: const InputDecoration(
                   prefixIcon: Icon(
-                    Icons.phone,
+                    Icons.mail,
                     color: Colors.black,
                   ),
-                  hintText: 'Số điện thoại...',
+                  hintText: 'Email...',
                   border: InputBorder.none,
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 20, right: 30, bottom: 20),
-              child: InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text('Quay lại đăng nhập...'),
-                    ],
-                  )),
-            ),
+                padding: const EdgeInsets.only(top: 10, right: 30, bottom: 10),
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Quay lại đăng nhập...')),
+                )),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [

@@ -17,6 +17,7 @@ class _RegMemberState extends State<RegMember> {
   final _idcontroller = TextEditingController();
   final _passcontroller = TextEditingController();
   final _phonecontroller = TextEditingController();
+  final _emailcontroller = TextEditingController();
 
   bool showpassword = true;
   String? selectedValue;
@@ -118,6 +119,27 @@ class _RegMemberState extends State<RegMember> {
                         color: Colors.black12,
                         borderRadius: BorderRadius.all(Radius.circular(20))),
                     child: TextField(
+                      controller: _emailcontroller,
+                      textAlignVertical: TextAlignVertical.center,
+                      decoration: const InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.mail,
+                            color: Colors.black,
+                          ),
+                          hintText: 'Email...',
+                          border: InputBorder.none),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    height: 50,
+                    width: 300,
+                    decoration: const BoxDecoration(
+                        color: Colors.black12,
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    child: TextField(
                       controller: _phonecontroller,
                       textAlignVertical: TextAlignVertical.center,
                       decoration: const InputDecoration(
@@ -174,19 +196,16 @@ class _RegMemberState extends State<RegMember> {
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsets.only(top: 15, right: 30, bottom: 15),
-                    child: InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text('Quay lại đăng nhập...'),
-                          ],
-                        )),
-                  ),
+                      padding:
+                          const EdgeInsets.only(top: 10, right: 30, bottom: 10),
+                      child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Quay lại đăng nhập...')),
+                      )),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -195,11 +214,13 @@ class _RegMemberState extends State<RegMember> {
                           if (_fullnamecontroller.text.isNotEmpty &&
                               _idcontroller.text.isNotEmpty &&
                               _passcontroller.text.isNotEmpty &&
-                              _phonecontroller.text.isNotEmpty) {
+                              _phonecontroller.text.isNotEmpty &&
+                              _emailcontroller.text.isNotEmpty) {
                             String fullname = _fullnamecontroller.text;
                             String id = _idcontroller.text;
                             String password = _passcontroller.text;
                             String phone = _phonecontroller.text;
+                            String email = _emailcontroller.text;
                             String lastjob = selectedValue.toString();
 
                             CreateUserDto newUser = CreateUserDto(
@@ -210,6 +231,7 @@ class _RegMemberState extends State<RegMember> {
                                 lastjob: lastjob,
                                 password: password,
                                 phone: phone,
+                                email: email,
                                 position: 'Thành viên',
                                 token: '1',
                                 companyname: '',

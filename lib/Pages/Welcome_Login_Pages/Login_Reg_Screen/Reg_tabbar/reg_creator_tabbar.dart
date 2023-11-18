@@ -17,6 +17,7 @@ class _RegCreatorState extends State<RegCreator> {
   final _phonecontroller = TextEditingController();
   final _companynamecontroller = TextEditingController();
   final _companytaxcontroller = TextEditingController();
+  final _emailcontroller = TextEditingController();
 
   bool showpassword = true;
   @override
@@ -138,6 +139,27 @@ class _RegCreatorState extends State<RegCreator> {
                         color: Colors.black12,
                         borderRadius: BorderRadius.all(Radius.circular(20))),
                     child: TextField(
+                      controller: _emailcontroller,
+                      textAlignVertical: TextAlignVertical.center,
+                      decoration: const InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.person,
+                            color: Colors.black,
+                          ),
+                          hintText: 'Email...',
+                          border: InputBorder.none),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    height: 50,
+                    width: 300,
+                    decoration: const BoxDecoration(
+                        color: Colors.black12,
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    child: TextField(
                       controller: _phonecontroller,
                       textAlignVertical: TextAlignVertical.center,
                       decoration: const InputDecoration(
@@ -149,23 +171,17 @@ class _RegCreatorState extends State<RegCreator> {
                           border: InputBorder.none),
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
                   Padding(
-                    padding:
-                        const EdgeInsets.only(top: 15, right: 30, bottom: 15),
-                    child: InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text('Quay lại đăng nhập...'),
-                          ],
-                        )),
-                  ),
+                      padding:
+                          const EdgeInsets.only(top: 10, right: 30, bottom: 10),
+                      child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Quay lại đăng nhập...')),
+                      )),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -181,6 +197,7 @@ class _RegCreatorState extends State<RegCreator> {
                             String id = _idcontroller.text;
                             String password = _passcontroller.text;
                             String phone = _phonecontroller.text;
+                            String email = _emailcontroller.text;
 
                             CreateUserDto newUser = CreateUserDto(
                                 id: id,
@@ -190,6 +207,7 @@ class _RegCreatorState extends State<RegCreator> {
                                 lastjob: '',
                                 password: password,
                                 phone: phone,
+                                email: email,
                                 position: 'Nhà tuyển dụng',
                                 token: '1',
                                 companyname: companyname,

@@ -25,7 +25,7 @@ class _RegScreenState extends State<RegScreen> {
                 padding: const EdgeInsets.only(
                     top: 20, left: 10, right: 10, bottom: 20),
                 child: Image.asset(
-                  height: 200,
+                  height: 120,
                   fit: BoxFit.contain,
                   'images/login.png',
                 ),
@@ -53,7 +53,7 @@ class _RegScreenState extends State<RegScreen> {
                 ],
               ),
               const SizedBox(
-                height: 430,
+                height: 465,
                 child: TabBarView(children: [RegMember(), RegCreator()]),
               )
             ],
