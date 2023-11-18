@@ -32,11 +32,11 @@ class JobsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<LatLng> getCurrentLocation() async {
+  Future<Position> getCurrentLocation() async {
     Position position = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high,
     );
-    return LatLng(position.latitude, position.longitude);
+    return position;
   }
 
   JobsProvider() {

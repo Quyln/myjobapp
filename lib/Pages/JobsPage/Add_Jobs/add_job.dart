@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/component/add_job_class.dart';
 import 'package:myjobapp/Classes/jobs_class.dart';
-import 'package:myjobapp/Pages/JobsPage/Add_Jobs/googlemap.dart';
+import 'package:myjobapp/Pages/JobsPage/Add_Jobs/add_job_googlemap.dart';
 import 'package:myjobapp/Provider/login_getuser_provider.dart';
 import 'package:myjobapp/utils/colors_texts_style.dart';
 import 'package:myjobapp/utils/list_tinh_huyen_cv.dart';
