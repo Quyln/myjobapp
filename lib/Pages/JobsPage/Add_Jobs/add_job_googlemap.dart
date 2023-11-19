@@ -65,6 +65,7 @@ class _MapScreenState extends State<MapScreen> {
         body: Stack(
       children: [
         GoogleMap(
+          myLocationButtonEnabled: false,
           mapType: MapType.hybrid,
           onMapCreated: (controller) => _controller = controller,
           onTap: _onMapTapped,

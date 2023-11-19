@@ -119,6 +119,7 @@ class _ShowJobOnMapState extends State<ShowJobOnMap> {
           ),
           body: Stack(children: [
             GoogleMap(
+              myLocationButtonEnabled: false,
               mapType: MapType.hybrid,
               markers: markers,
               circles: {
