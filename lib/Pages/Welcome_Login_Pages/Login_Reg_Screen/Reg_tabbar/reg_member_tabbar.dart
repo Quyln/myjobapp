@@ -226,14 +226,16 @@ class _RegMemberState extends State<RegMember> {
                             CreateUserDto newUser = CreateUserDto(
                                 id: id,
                                 avatar:
-                                    'https://cdn-icons-png.flaticon.com/512/6386/6386976.png',
+                                    'https://t4.ftcdn.net/jpg/01/97/15/87/360_F_197158744_1NBB1dEAHV2j9xETSUClYqZo7SEadToU.jpg',
                                 fullname: fullname,
                                 lastjob: lastjob,
                                 password: password,
                                 phone: phone,
                                 email: email,
+                                savejobs: '',
+                                appliedjobs: '',
+                                postedjobs: '',
                                 position: 'Thành viên',
-                                token: '1',
                                 companyname: '',
                                 companytax: '');
                             Map<String, dynamic> newUserJson = newUser.toJson();

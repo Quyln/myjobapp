@@ -6,8 +6,10 @@ class CreateUserDto {
   String lastjob;
   String avatar;
   String phone;
+  String savejobs;
+  String appliedjobs;
+  String postedjobs;
   String email;
-  String token;
   String companyname;
   String companytax;
 
@@ -20,7 +22,9 @@ class CreateUserDto {
     required this.phone,
     required this.email,
     required this.position,
-    required this.token,
+    required this.savejobs,
+    required this.appliedjobs,
+    required this.postedjobs,
     required this.companyname,
     required this.companytax,
   });
@@ -31,8 +35,10 @@ class CreateUserDto {
         fullname: data['fullname'],
         phone: data['phone'],
         lastjob: data['lastjob'],
-        token: data['token'],
         email: data['email'],
+        savejobs: data['savejobs'],
+        appliedjobs: data['appliedjobs'],
+        postedjobs: data['postedjobs'],
         avatar: data['avatar'],
         position: data['position'],
         companyname: data['companyname'],
@@ -46,10 +52,12 @@ class CreateUserDto {
       'fullname': fullname,
       'phone': phone,
       'lastjob': lastjob,
-      'token': token,
       'email': email,
       'avatar': avatar,
       'position': position,
+      'savejobs': savejobs,
+      'appliedjobs': appliedjobs,
+      'postedjobs': postedjobs,
       'companyname': companyname,
       'companytax': companytax,
     };
