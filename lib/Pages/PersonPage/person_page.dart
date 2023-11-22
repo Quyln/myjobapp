@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:myjobapp/Classes/user_class.dart';
-import 'package:myjobapp/Pages/PersonPage/Tabbar_List/posted_job_tabbar.dart';
-import 'package:myjobapp/Pages/PersonPage/Tabbar_List/save_tabbar.dart';
 import 'package:myjobapp/Pages/PersonPage/person_creator_page.dart';
 import 'package:myjobapp/Pages/PersonPage/person_member_page.dart';
 import 'package:myjobapp/Provider/login_getuser_provider.dart';
 import 'package:provider/provider.dart';
-import 'Tabbar_List/done_tabbar.dart';
 
 class PersonPage extends StatefulWidget {
   const PersonPage({super.key});
