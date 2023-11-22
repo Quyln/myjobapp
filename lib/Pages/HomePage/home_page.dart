@@ -32,14 +32,6 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   TinNoiBatHSec(),
-                  // Padding(
-                  //   padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
-                  //   child: Text(
-                  //     'Tin cần thiết',
-                  //     style: tHeadline,
-                  //   ),
-                  // ),
-                  // TincanbietHSec(),
                   Padding(
                     padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
                     child: Text(

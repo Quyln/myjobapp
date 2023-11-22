@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:myjobapp/Pages/JobsPage/jobs_detail_screen.dart';
-import 'package:myjobapp/Provider/Home_list_provider.dart';
-import 'package:myjobapp/utils/colors_texts_style.dart';
+import 'package:myjobapp/Provider/home_list_provider.dart';
 import 'package:provider/provider.dart';
+import '../../../utils/colors_texts_style.dart';
+import '../../JobsPage/jobs_detail_screen.dart';
 
-class AppliedTabbar extends StatefulWidget {
-  const AppliedTabbar({super.key});
+class PostedJobTabbar extends StatefulWidget {
+  const PostedJobTabbar({super.key});
 
   @override
-  State<AppliedTabbar> createState() => _AppliedTabbarState();
+  State<PostedJobTabbar> createState() => _PostedJobTabbarState();
 }
 
-class _AppliedTabbarState extends State<AppliedTabbar> {
+class _PostedJobTabbarState extends State<PostedJobTabbar> {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<AppliedJobs>(
-      create: (context) => AppliedJobs(),
-      child: Consumer<AppliedJobs>(
+    return ChangeNotifierProvider<HviecmoinhatPro>(
+      create: (context) => HviecmoinhatPro(),
+      child: Consumer<HviecmoinhatPro>(
         builder: (context, value, child) => ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: value.appliedJob.length,
+            physics: const BouncingScrollPhysics(),
+            itemCount: value.viecMoiNhatdata.length,
             itemBuilder: (context, index) => Padding(
                   padding: const EdgeInsets.only(
                       left: 20, right: 20, bottom: 10, top: 10),
@@ -29,7 +29,7 @@ class _AppliedTabbarState extends State<AppliedTabbar> {
                       image: DecorationImage(
                           fit: BoxFit.cover,
                           image: NetworkImage(
-                            value.appliedJob[index].image,
+                            value.viecMoiNhatdata[index].image,
                           )),
                       color: Colors.black,
                       borderRadius: BorderRadius.circular(25),
@@ -40,7 +40,7 @@ class _AppliedTabbarState extends State<AppliedTabbar> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => JobsDetailScr(
-                                data: value.appliedJob[index],
+                                data: value.viecMoiNhatdata[index],
                               ),
                             ));
                       },
@@ -62,11 +62,11 @@ class _AppliedTabbarState extends State<AppliedTabbar> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Text(
-                                    value.appliedJob[index].position,
+                                    value.viecMoiNhatdata[index].position,
                                     style: tTitle,
                                   ),
                                   Text(
-                                    '${value.appliedJob[index].salary} triệu',
+                                    '${value.viecMoiNhatdata[index].salary} triệu',
                                     style: const TextStyle(
                                         color: Colors.yellow,
                                         fontWeight: FontWeight.bold,
@@ -99,7 +99,7 @@ class _AppliedTabbarState extends State<AppliedTabbar> {
                                       color: Colors.yellow,
                                     ),
                                     Text(
-                                      value.appliedJob[index].khuvuctinh,
+                                      value.viecMoiNhatdata[index].khuvuctinh,
                                       style: const TextStyle(
                                           color: Colors.yellow,
                                           fontWeight: FontWeight.bold,
