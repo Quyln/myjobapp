@@ -19,10 +19,6 @@ class JSecAppBar extends StatefulWidget {
 class _JSecAppBarState extends State<JSecAppBar> {
   String selectedText = 'Hồ Chí Minh';
   String kvHuyen = 'Bến Cát';
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

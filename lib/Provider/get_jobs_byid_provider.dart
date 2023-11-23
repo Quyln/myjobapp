@@ -7,7 +7,7 @@ import 'package:myjobapp/Classes/jobs_class.dart';
 class GetJobsByID extends ChangeNotifier {
   List<JobsClass> listJobsByID = [];
 
-  String ids = '1700207895887,1700162646118,1700301992588';
+  String ids = '';
 
   getJobs(String ids) async {
     var url = Uri.parse('http://103.176.251.70:100/jobs/$ids');
@@ -18,9 +18,8 @@ class GetJobsByID extends ChangeNotifier {
       listJobsByID = fetchData.map((e) => JobsClass.fromJson(e)).toList();
       notifyListeners();
     }
+    throw Exception('Nhận dữ liệu thất bại');
   }
 
-  GetJobsByID() {
-    getJobs(ids);
-  }
+  GetJobsByID() {}
 }

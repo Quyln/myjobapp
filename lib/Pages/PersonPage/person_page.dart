@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Pages/PersonPage/person_creator_page.dart';
 import 'package:myjobapp/Pages/PersonPage/person_member_page.dart';
-import 'package:myjobapp/Provider/get_jobs_byid.dart';
+import 'package:myjobapp/Provider/get_jobs_byid_provider.dart';
 import 'package:myjobapp/Provider/login_getuser_provider.dart';
 import 'package:provider/provider.dart';
 

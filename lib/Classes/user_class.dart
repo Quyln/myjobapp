@@ -6,9 +6,9 @@ class User {
   String lastjob;
   String avatar;
   String phone;
-  String? savejobs;
-  String? appliedjobs;
-  String? postedjobs;
+  String savejobs;
+  String appliedjobs;
+  String postedjobs;
   int token;
   String companyname;
   String companytax;

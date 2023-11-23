@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Pages/JobsPage/jobs_detail_screen.dart';
-import 'package:myjobapp/Provider/get_jobs_byid.dart';
+import 'package:myjobapp/Provider/get_jobs_byid_provider.dart';
 import 'package:myjobapp/utils/colors_texts_style.dart';
 import 'package:provider/provider.dart';
 

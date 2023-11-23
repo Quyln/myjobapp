@@ -18,6 +18,29 @@ class JobsDetailScr extends StatefulWidget {
 
 class _JobsDetailScrState extends State<JobsDetailScr> {
   bool savejob = false;
+  @override
+  void initState() {
+    super.initState();
+    // final value = Provider.of<GetUserProvider>(context, listen: false);
+    // bool checkSaveJobs(String id) {
+    //   if (value.user.savejobs != null) {
+    //     List<String> savejobList = value.user.savejobs!.split(',');
+    //     return savejobList.contains(id);
+    //   }
+    //   return false;
+    // }
+
+    // bool result = checkSaveJobs(widget.data.id);
+    // if (result == true) {
+    //   setState(() {
+    //     savejob == true;
+    //   });
+    // } else {
+    //   setState(() {
+    //     savejob == false;
+    //   });
+    // }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -377,15 +400,20 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                                 children: [
                                   InkWell(
                                       onTap: () {
+                                        if (savejob == false) {
+                                          try {
+                                            value.updateSavejobs(
+                                                value.user.id, widget.data.id);
+                                          } catch (e) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(SnackBar(
+                                                    content:
+                                                        Text(e.toString())));
+                                          }
+                                        }
+
                                         setState(() {
                                           savejob = !savejob;
-                                          if (value.user.savejobs == null) {
-                                            value.user.savejobs =
-                                                widget.data.id;
-                                          } else {
-                                            value.user.savejobs =
-                                                '${value.user.savejobs!},${widget.data.id}';
-                                          }
                                         });
                                       },
                                       child: savejob

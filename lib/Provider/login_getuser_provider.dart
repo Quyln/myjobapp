@@ -87,6 +87,37 @@ class GetUserProvider extends ChangeNotifier {
     }
   }
 
+  updateSavejobs(String id, String savejob) async {
+    var url = Uri.parse('http://103.176.251.70:100/users/$id');
+    var response = await http.patch(url, body: {"savejobs": savejob});
+
+    if (response.statusCode == 200) {
+      print('Việc làm đã được lưu');
+    }
+    throw Exception('Lưu việc làm thất bại, vui lòng kiểm tra lại kết nối !');
+  }
+
+  updateAppliedjobs(String id, String appliedjobs) async {
+    var url = Uri.parse('http://103.176.251.70:100/users/$id');
+    var response = await http.patch(url, body: {"appliedjobs": appliedjobs});
+
+    if (response.statusCode == 200) {
+      print(
+          'Ứng tuyển thành công, bạn sẽ được liên hệ trong thời gian sớm nhất');
+    }
+    throw Exception('Lưu việc làm thất bại, vui lòng kiểm tra lại kết nối !');
+  }
+
+  updatePostedjobs(String id, String postedjobs) async {
+    var url = Uri.parse('http://103.176.251.70:100/users/$id');
+    var response = await http.patch(url, body: {"postedjobs": postedjobs});
+
+    if (response.statusCode == 200) {
+      print('Việc làm đã được lưu');
+    }
+    throw Exception('Lưu việc làm thất bại, vui lòng kiểm tra lại kết nối !');
+  }
+
   GetUserProvider() {
     sharePreGetUser();
     notifyListeners();

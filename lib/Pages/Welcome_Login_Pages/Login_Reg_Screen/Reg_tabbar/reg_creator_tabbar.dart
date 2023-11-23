@@ -50,7 +50,7 @@ class _RegCreatorState extends State<RegCreator> {
                             Icons.business_rounded,
                             color: Colors.black,
                           ),
-                          hintText: 'Tên công ty...',
+                          hintText: 'Tên công ty/Cửa hàng...',
                           border: InputBorder.none),
                     ),
                   ),
