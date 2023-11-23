@@ -32,12 +32,12 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
 
     if (savejobList.contains(id)) {
       setState(() {
-        savejob == true;
+        savejob = true;
       });
       return true;
     } else {
       setState(() {
-        savejob == false;
+        savejob = false;
       });
       return false;
     }
@@ -51,8 +51,6 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
       },
       child: Consumer<GetUserProvider>(
         builder: (context, value, child) {
-          String savejobUser = value.user.savejobs;
-
           return Scaffold(
             backgroundColor: maunen,
             body: SingleChildScrollView(
