@@ -1,23 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:myjobapp/Classes/jobs_class.dart';
+import 'package:myjobapp/Classes/user_class.dart';
 import 'package:myjobapp/Provider/get_jobs_byid_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/colors_texts_style.dart';
 import '../../JobsPage/jobs_detail_screen.dart';
 
 class SaveTabbar extends StatefulWidget {
-  const SaveTabbar({super.key});
-
+  const SaveTabbar({
+    super.key,
+    required this.userData,
+  });
+  final User userData;
   @override
   State<SaveTabbar> createState() => _SaveTabbarState();
 }
 
 class _SaveTabbarState extends State<SaveTabbar> {
+  List<JobsClass> saveJobsList = [];
   @override
   Widget build(BuildContext context) {
-    return Consumer<GetJobsByID>(
-      builder: (context, value, child) => ListView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: value.listJobsByID.length,
+    return Consumer<GetSaveJobsByID>(builder: (context, value, child) {
+      value.getJobs(widget.userData.savejobs);
+      saveJobsList = value.listJobsByID;
+      return ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          itemCount: saveJobsList.length,
           itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.only(
                     left: 20, right: 20, bottom: 10, top: 10),
@@ -27,7 +35,7 @@ class _SaveTabbarState extends State<SaveTabbar> {
                     image: DecorationImage(
                         fit: BoxFit.cover,
                         image: NetworkImage(
-                          value.listJobsByID[index].image,
+                          saveJobsList[index].image,
                         )),
                     color: Colors.black,
                     borderRadius: BorderRadius.circular(25),
@@ -38,7 +46,7 @@ class _SaveTabbarState extends State<SaveTabbar> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => JobsDetailScr(
-                              data: value.listJobsByID[index],
+                              data: saveJobsList[index],
                             ),
                           ));
                     },
@@ -60,11 +68,11 @@ class _SaveTabbarState extends State<SaveTabbar> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 Text(
-                                  value.listJobsByID[index].position,
+                                  saveJobsList[index].position,
                                   style: tTitle,
                                 ),
                                 Text(
-                                  '${value.listJobsByID[index].salary} triệu',
+                                  '${saveJobsList[index].salary} triệu',
                                   style: const TextStyle(
                                       color: Colors.yellow,
                                       fontWeight: FontWeight.bold,
@@ -97,7 +105,7 @@ class _SaveTabbarState extends State<SaveTabbar> {
                                     color: Colors.yellow,
                                   ),
                                   Text(
-                                    value.listJobsByID[index].khuvuctinh,
+                                    saveJobsList[index].khuvuctinh,
                                     style: const TextStyle(
                                         color: Colors.yellow,
                                         fontWeight: FontWeight.bold,
@@ -112,7 +120,7 @@ class _SaveTabbarState extends State<SaveTabbar> {
                     ]),
                   ),
                 ),
-              )),
-    );
+              ));
+    });
   }
 }

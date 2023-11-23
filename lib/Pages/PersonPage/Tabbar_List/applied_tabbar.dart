@@ -1,23 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:myjobapp/Classes/jobs_class.dart';
+import 'package:myjobapp/Classes/user_class.dart';
 import 'package:myjobapp/Pages/JobsPage/jobs_detail_screen.dart';
 import 'package:myjobapp/Provider/get_jobs_byid_provider.dart';
 import 'package:myjobapp/utils/colors_texts_style.dart';
 import 'package:provider/provider.dart';
 
 class AppliedTabbar extends StatefulWidget {
-  const AppliedTabbar({super.key});
+  const AppliedTabbar({super.key, required this.userData});
+  final User userData;
 
   @override
   State<AppliedTabbar> createState() => _AppliedTabbarState();
 }
 
 class _AppliedTabbarState extends State<AppliedTabbar> {
+  List<JobsClass> appliedJobList = [];
   @override
   Widget build(BuildContext context) {
-    return Consumer<GetJobsByID>(
-      builder: (context, value, child) => ListView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: value.listJobsByID.length,
+    return Consumer<GetAppliedJobsByID>(builder: (context, value, child) {
+      value.getJobs(widget.userData.appliedjobs);
+      appliedJobList = value.listJobsByID;
+      return ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          itemCount: appliedJobList.length,
           itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.only(
                     left: 20, right: 20, bottom: 10, top: 10),
@@ -27,7 +33,7 @@ class _AppliedTabbarState extends State<AppliedTabbar> {
                     image: DecorationImage(
                         fit: BoxFit.cover,
                         image: NetworkImage(
-                          value.listJobsByID[index].image,
+                          appliedJobList[index].image,
                         )),
                     color: Colors.black,
                     borderRadius: BorderRadius.circular(25),
@@ -38,7 +44,7 @@ class _AppliedTabbarState extends State<AppliedTabbar> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => JobsDetailScr(
-                              data: value.listJobsByID[index],
+                              data: appliedJobList[index],
                             ),
                           ));
                     },
@@ -60,11 +66,11 @@ class _AppliedTabbarState extends State<AppliedTabbar> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 Text(
-                                  value.listJobsByID[index].position,
+                                  appliedJobList[index].position,
                                   style: tTitle,
                                 ),
                                 Text(
-                                  '${value.listJobsByID[index].salary} triệu',
+                                  '${appliedJobList[index].salary} triệu',
                                   style: const TextStyle(
                                       color: Colors.yellow,
                                       fontWeight: FontWeight.bold,
@@ -97,7 +103,7 @@ class _AppliedTabbarState extends State<AppliedTabbar> {
                                     color: Colors.yellow,
                                   ),
                                   Text(
-                                    value.listJobsByID[index].khuvuctinh,
+                                    appliedJobList[index].khuvuctinh,
                                     style: const TextStyle(
                                         color: Colors.yellow,
                                         fontWeight: FontWeight.bold,
@@ -112,7 +118,7 @@ class _AppliedTabbarState extends State<AppliedTabbar> {
                     ]),
                   ),
                 ),
-              )),
-    );
+              ));
+    });
   }
 }

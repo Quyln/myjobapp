@@ -22,10 +22,19 @@ class _PersonPageState extends State<PersonPage> {
             return GetUserProvider();
           },
         ),
-        // Thêm các Provider khác ở đây (nếu có)
-        ChangeNotifierProvider<GetJobsByID>(
+        ChangeNotifierProvider<GetSaveJobsByID>(
           create: (context) {
-            return GetJobsByID();
+            return GetSaveJobsByID();
+          },
+        ),
+        ChangeNotifierProvider<GetAppliedJobsByID>(
+          create: (context) {
+            return GetAppliedJobsByID();
+          },
+        ),
+        ChangeNotifierProvider<GetPostedJobsByID>(
+          create: (context) {
+            return GetPostedJobsByID();
           },
         ),
       ],
