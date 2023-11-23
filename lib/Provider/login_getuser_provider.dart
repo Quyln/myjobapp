@@ -25,12 +25,10 @@ class UsersProvider extends ChangeNotifier {
   );
   Future<User> signInUser(String id, String password) async {
     if (loading) {
-      // Nếu đang đăng nhập, không cho phép gọi hàm một lần nữa
       const CircularProgressIndicator();
       throw Exception('Đang xử lý đăng nhập');
     }
-
-    loading = true; // Đánh dấu đang đăng nhập
+    loading = true;
 
     try {
       var url = Uri.parse('http://103.176.251.70:100/users/signin');
@@ -93,8 +91,9 @@ class GetUserProvider extends ChangeNotifier {
 
     if (response.statusCode == 200) {
       print('Việc làm đã được lưu');
+    } else {
+      throw Exception('Lưu việc làm thất bại, vui lòng kiểm tra lại kết nối !');
     }
-    throw Exception('Lưu việc làm thất bại, vui lòng kiểm tra lại kết nối !');
   }
 
   updateAppliedjobs(String id, String appliedjobs) async {
@@ -104,8 +103,9 @@ class GetUserProvider extends ChangeNotifier {
     if (response.statusCode == 200) {
       print(
           'Ứng tuyển thành công, bạn sẽ được liên hệ trong thời gian sớm nhất');
+    } else {
+      throw Exception('Lưu việc làm thất bại, vui lòng kiểm tra lại kết nối !');
     }
-    throw Exception('Lưu việc làm thất bại, vui lòng kiểm tra lại kết nối !');
   }
 
   updatePostedjobs(String id, String postedjobs) async {
@@ -114,8 +114,9 @@ class GetUserProvider extends ChangeNotifier {
 
     if (response.statusCode == 200) {
       print('Việc làm đã được lưu');
+    } else {
+      throw Exception('Lưu việc làm thất bại, vui lòng kiểm tra lại kết nối !');
     }
-    throw Exception('Lưu việc làm thất bại, vui lòng kiểm tra lại kết nối !');
   }
 
   GetUserProvider() {
