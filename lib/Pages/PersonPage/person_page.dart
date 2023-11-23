@@ -14,18 +14,23 @@ class PersonPage extends StatefulWidget {
 class _PersonPageState extends State<PersonPage> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<GetUserProvider>(
-      builder: (context, value, child) {
-        if (value.user.position == 'Thành viên') {
-          return PersonPMember(
-            userData: value.user,
-          );
-        } else {
-          return PersonPCreator(
-            userData: value.user,
-          );
-        }
+    return ChangeNotifierProvider<GetUserProvider>(
+      create: (context) {
+        return GetUserProvider();
       },
+      child: Consumer<GetUserProvider>(
+        builder: (context, value, child) {
+          if (value.user.position == 'Thành viên') {
+            return PersonPMember(
+              userData: value.user,
+            );
+          } else {
+            return PersonPCreator(
+              userData: value.user,
+            );
+          }
+        },
+      ),
     );
   }
 }
