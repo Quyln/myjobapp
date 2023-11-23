@@ -21,25 +21,26 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
   @override
   void initState() {
     super.initState();
-    // final value = Provider.of<GetUserProvider>(context, listen: false);
-    // bool checkSaveJobs(String id) {
-    //   if (value.user.savejobs != null) {
-    //     List<String> savejobList = value.user.savejobs!.split(',');
-    //     return savejobList.contains(id);
-    //   }
-    //   return false;
-    // }
+    GetUserProvider userProvider =
+        Provider.of<GetUserProvider>(context, listen: false);
+    String savejobUser = userProvider.user.savejobs;
+    checkSaveJobs(widget.data.id, savejobUser);
+  }
 
-    // bool result = checkSaveJobs(widget.data.id);
-    // if (result == true) {
-    //   setState(() {
-    //     savejob == true;
-    //   });
-    // } else {
-    //   setState(() {
-    //     savejob == false;
-    //   });
-    // }
+  bool checkSaveJobs(String id, String userSavejob) {
+    List<String> savejobList = userSavejob.split(',');
+
+    if (savejobList.contains(id)) {
+      setState(() {
+        savejob == true;
+      });
+      return true;
+    } else {
+      setState(() {
+        savejob == false;
+      });
+      return false;
+    }
   }
 
   @override
@@ -50,6 +51,8 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
       },
       child: Consumer<GetUserProvider>(
         builder: (context, value, child) {
+          String savejobUser = value.user.savejobs;
+
           return Scaffold(
             backgroundColor: maunen,
             body: SingleChildScrollView(

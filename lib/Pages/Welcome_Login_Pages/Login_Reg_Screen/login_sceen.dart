@@ -174,6 +174,8 @@ class _LoginScreenState extends State<LoginScreen>
                             String userJson = jsonEncode(user.toJson());
                             await pref.setBool('checklogin', true);
                             await pref.setString('user', userJson);
+                            await pref.setString('userid', id);
+                            await pref.setString('userpassword', password);
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                 content: const Text('Đăng nhập thành công')));
                             Navigator.pushReplacement(

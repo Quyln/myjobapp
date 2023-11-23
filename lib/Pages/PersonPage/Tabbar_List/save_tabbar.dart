@@ -23,6 +23,7 @@ class _SaveTabbarState extends State<SaveTabbar> {
     return Consumer<GetSaveJobsByID>(builder: (context, value, child) {
       value.getJobs(widget.userData.savejobs);
       saveJobsList = value.listJobsByID;
+      print(widget.userData.savejobs);
       return ListView.builder(
           physics: const BouncingScrollPhysics(),
           itemCount: saveJobsList.length,

@@ -75,9 +75,17 @@ class GetUserProvider extends ChangeNotifier {
 
   Future<User> sharePreGetUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? userJson = prefs.getString('user');
-    if (userJson != null) {
-      user = User.fromJson(jsonDecode(userJson));
+    String? id = prefs.getString('userid');
+    String? password = prefs.getString('userpassword');
+
+    if (id != null && password != null) {
+      var url = Uri.parse('http://103.176.251.70:100/users/signin');
+      var response = await http.post(url, body: {
+        "id": id,
+        "password": password,
+      });
+      var data = jsonDecode(response.body);
+      user = User.fromJson(data);
       notifyListeners();
       return user;
     } else {
