@@ -116,9 +116,9 @@ class _ShowJobOnMapState extends State<ShowJobOnMap> {
           }
 
           return Scaffold(
-            appBar: AppBar(
-              title: const Text('Job Map'),
-            ),
+            // appBar: AppBar(
+            //   title: const Text('Job Map'),
+            // ),
             body: Stack(children: [
               GoogleMap(
                 myLocationButtonEnabled: false,
@@ -142,6 +142,7 @@ class _ShowJobOnMapState extends State<ShowJobOnMap> {
                   bottom: 100,
                   right: 8,
                   child: FloatingActionButton(
+                    heroTag: 'tag',
                     backgroundColor: Colors.blue.withOpacity(0.65),
                     tooltip: 'Vị trí của tôi',
                     mini: true,
@@ -151,6 +152,22 @@ class _ShowJobOnMapState extends State<ShowJobOnMap> {
                     child: const Icon(
                       Icons.location_on,
                       color: Colors.white,
+                    ),
+                  )),
+              Positioned(
+                  top: 70,
+                  left: 8,
+                  child: FloatingActionButton(
+                    heroTag: 'tagback',
+                    backgroundColor: Colors.white.withOpacity(0.65),
+                    tooltip: 'Quay lại',
+                    mini: true,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Icon(
+                      Icons.arrow_back_outlined,
+                      color: Colors.black.withOpacity(0.67),
                     ),
                   ))
             ]),
