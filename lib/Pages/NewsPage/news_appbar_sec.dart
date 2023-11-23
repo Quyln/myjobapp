@@ -7,48 +7,43 @@ class AppBarNSec extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<GetUserProvider>(
-      create: (context) {
-        return GetUserProvider();
+    return Consumer<GetUserProvider>(
+      builder: (context, value, child) {
+        return SliverAppBar(
+          floating: true,
+          pinned: false,
+          backgroundColor: Colors.white,
+          leading: const Icon(
+            Icons.search,
+            size: 30,
+            color: Colors.black,
+          ),
+          title: const Center(
+            child: Text(
+              'TIN TỨC',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.normal,
+                  fontSize: 18),
+            ),
+          ),
+          flexibleSpace: FlexibleSpaceBar(
+            background: Container(
+              color: Colors.white,
+            ),
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 15),
+              child: CircleAvatar(
+                radius: 20,
+                backgroundColor: Colors.white,
+                backgroundImage: NetworkImage(value.user.avatar),
+              ),
+            ),
+          ],
+        );
       },
-      child: Consumer<GetUserProvider>(
-        builder: (context, value, child) {
-          return SliverAppBar(
-            floating: true,
-            pinned: false,
-            backgroundColor: Colors.white,
-            leading: const Icon(
-              Icons.search,
-              size: 30,
-              color: Colors.black,
-            ),
-            title: const Center(
-              child: Text(
-                'TIN TỨC',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 18),
-              ),
-            ),
-            flexibleSpace: FlexibleSpaceBar(
-              background: Container(
-                color: Colors.white,
-              ),
-            ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 15),
-                child: CircleAvatar(
-                  radius: 20,
-                  backgroundColor: Colors.white,
-                  backgroundImage: NetworkImage(value.user.avatar),
-                ),
-              ),
-            ],
-          );
-        },
-      ),
     );
   }
 }

@@ -73,87 +73,90 @@ class _ShowJobOnMapState extends State<ShowJobOnMap> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<JobsProvider>(create: (context) {
-      return JobsProvider();
-    }, child: Consumer<JobsProvider>(
-      builder: (context, value, child) {
-        List<Map<String, dynamic>> locations = value.filterJobData
-            .map((e) => {
-                  'latitude': e.latitude,
-                  'longitude': e.longitude,
-                  'position': e.position,
-                  'salary': e.salary,
-                  'id': e.id,
-                  'user': e.user,
-                  'title': e.title,
-                  'date': e.date,
-                  'khuvuctinh': e.khuvuctinh,
-                  'khuvuchuyen': e.khuvuchuyen,
-                  'tencty': e.tencty,
-                  'logocty': e.logocty,
-                  'image': e.image,
-                  'motacv': e.motacv,
-                  'yeucaucv': e.yeucaucv,
-                })
-            .toList();
-        for (var location in locations) {
-          Marker marker = Marker(
-              markerId: MarkerId(location.toString()),
-              position: LatLng(location['latitude'], location['longitude']),
-              infoWindow: InfoWindow(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => JobsDetailScr(
-                                data: JobsClass.fromJson(location))));
-                  },
-                  title: location['position'],
-                  snippet: '${location['salary']}  (Bấm để xem chi tiết)'));
-          markers.add(marker);
-        }
-
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text('Job Map'),
-          ),
-          body: Stack(children: [
-            GoogleMap(
-              myLocationButtonEnabled: false,
-              mapType: MapType.hybrid,
-              markers: markers,
-              circles: {
-                Circle(
-                    circleId: const CircleId('userCircle'),
-                    center: currentPosition,
-                    radius: 10000,
-                    strokeWidth: 2,
-                    fillColor: const Color(0xFF006491).withOpacity(0.2),
-                    strokeColor: Colors.blue)
-              },
-              onMapCreated: (controller) => _controller = controller,
-              initialCameraPosition: const CameraPosition(
-                  target: LatLng(10.877617291961869, 106.66552950110372),
-                  zoom: 10),
-            ),
-            Positioned(
-                bottom: 100,
-                right: 8,
-                child: FloatingActionButton(
-                  backgroundColor: Colors.blue.withOpacity(0.65),
-                  tooltip: 'Vị trí của tôi',
-                  mini: true,
-                  onPressed: () {
-                    getCurrentLocation();
-                  },
-                  child: const Icon(
-                    Icons.location_on,
-                    color: Colors.white,
-                  ),
-                ))
-          ]),
-        );
+    return ChangeNotifierProvider<JobsProvider>(
+      create: (context) {
+        return JobsProvider();
       },
-    ));
+      child: Consumer<JobsProvider>(
+        builder: (context, value, child) {
+          List<Map<String, dynamic>> locations = value.filterJobData
+              .map((e) => {
+                    'latitude': e.latitude,
+                    'longitude': e.longitude,
+                    'position': e.position,
+                    'salary': e.salary,
+                    'id': e.id,
+                    'user': e.user,
+                    'title': e.title,
+                    'date': e.date,
+                    'khuvuctinh': e.khuvuctinh,
+                    'khuvuchuyen': e.khuvuchuyen,
+                    'tencty': e.tencty,
+                    'logocty': e.logocty,
+                    'image': e.image,
+                    'motacv': e.motacv,
+                    'yeucaucv': e.yeucaucv,
+                  })
+              .toList();
+          for (var location in locations) {
+            Marker marker = Marker(
+                markerId: MarkerId(location.toString()),
+                position: LatLng(location['latitude'], location['longitude']),
+                infoWindow: InfoWindow(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => JobsDetailScr(
+                                  data: JobsClass.fromJson(location))));
+                    },
+                    title: location['position'],
+                    snippet: '${location['salary']}  (Bấm để xem chi tiết)'));
+            markers.add(marker);
+          }
+
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Job Map'),
+            ),
+            body: Stack(children: [
+              GoogleMap(
+                myLocationButtonEnabled: false,
+                mapType: MapType.hybrid,
+                markers: markers,
+                circles: {
+                  Circle(
+                      circleId: const CircleId('userCircle'),
+                      center: currentPosition,
+                      radius: 10000,
+                      strokeWidth: 2,
+                      fillColor: const Color(0xFF006491).withOpacity(0.2),
+                      strokeColor: Colors.blue)
+                },
+                onMapCreated: (controller) => _controller = controller,
+                initialCameraPosition: const CameraPosition(
+                    target: LatLng(10.877617291961869, 106.66552950110372),
+                    zoom: 10),
+              ),
+              Positioned(
+                  bottom: 100,
+                  right: 8,
+                  child: FloatingActionButton(
+                    backgroundColor: Colors.blue.withOpacity(0.65),
+                    tooltip: 'Vị trí của tôi',
+                    mini: true,
+                    onPressed: () {
+                      getCurrentLocation();
+                    },
+                    child: const Icon(
+                      Icons.location_on,
+                      color: Colors.white,
+                    ),
+                  ))
+            ]),
+          );
+        },
+      ),
+    );
   }
 }

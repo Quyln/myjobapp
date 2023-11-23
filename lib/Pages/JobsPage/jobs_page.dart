@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:myjobapp/Pages/JobsPage/jobs_appbar_sec.dart';
 import 'package:myjobapp/Pages/JobsPage/jobs_body_sec.dart';
 import 'package:myjobapp/Provider/Job_list_provider.dart';
-import 'package:myjobapp/Provider/login_getuser_provider.dart';
 import 'package:provider/provider.dart';
 
 class JobsPage extends StatefulWidget {
@@ -22,11 +21,6 @@ class _JobsPageState extends State<JobsPage> {
             return JobsProvider();
           },
         ),
-        ChangeNotifierProvider<GetUserProvider>(
-          create: (context) {
-            return GetUserProvider();
-          },
-        )
       ],
       child: Consumer<JobsProvider>(
         builder: (context, value, child) {
