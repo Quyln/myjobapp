@@ -69,22 +69,3 @@ class HviecmoinhatPro extends ChangeNotifier {
     getnewlist();
   }
 }
-
-class AppliedJobs extends ChangeNotifier {
-  List<JobsClass> appliedJob = [];
-
-  void getnewlist() async {
-    var url = Uri.parse('http://103.176.251.70:100/jobs/');
-    var response = await http.get(url);
-
-    if (response.statusCode == 200) {
-      List<dynamic> dataList = jsonDecode(response.body);
-      appliedJob = dataList.map((e) => JobsClass.fromJson(e)).toList();
-      notifyListeners();
-    }
-  }
-
-  AppliedJobs() {
-    getnewlist();
-  }
-}
