@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myjobapp/onboarding_screen.dart';
+import 'package:myjobapp/Pages/Welcome_Login_Pages/OnboardingScreen/onboarding_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'Provider/Home_list_provider.dart';

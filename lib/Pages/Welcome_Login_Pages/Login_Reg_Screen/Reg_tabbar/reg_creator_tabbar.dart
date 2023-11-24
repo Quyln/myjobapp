@@ -16,7 +16,6 @@ class _RegCreatorState extends State<RegCreator> {
   final _passcontroller = TextEditingController();
   final _phonecontroller = TextEditingController();
   final _companynamecontroller = TextEditingController();
-  final _companytaxcontroller = TextEditingController();
   final _emailcontroller = TextEditingController();
 
   bool showpassword = true;
@@ -47,31 +46,10 @@ class _RegCreatorState extends State<RegCreator> {
                       textAlignVertical: TextAlignVertical.center,
                       decoration: const InputDecoration(
                           prefixIcon: Icon(
-                            Icons.business_rounded,
+                            Icons.add_business_sharp,
                             color: Colors.black,
                           ),
-                          hintText: 'Tên công ty/Cửa hàng...',
-                          border: InputBorder.none),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    height: 50,
-                    width: 300,
-                    decoration: const BoxDecoration(
-                        color: Colors.black12,
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
-                    child: TextField(
-                      controller: _companytaxcontroller,
-                      textAlignVertical: TextAlignVertical.center,
-                      decoration: const InputDecoration(
-                          prefixIcon: Icon(
-                            Icons.source,
-                            color: Colors.black,
-                          ),
-                          hintText: 'Mã số thuế...',
+                          hintText: 'Tên công ty/cơ sở kinh doanh...',
                           border: InputBorder.none),
                     ),
                   ),
@@ -190,10 +168,8 @@ class _RegCreatorState extends State<RegCreator> {
                           if (_companynamecontroller.text.isNotEmpty &&
                               _idcontroller.text.isNotEmpty &&
                               _passcontroller.text.isNotEmpty &&
-                              _phonecontroller.text.isNotEmpty &&
-                              _companytaxcontroller.text.isNotEmpty) {
+                              _phonecontroller.text.isNotEmpty) {
                             String companyname = _companynamecontroller.text;
-                            String companytax = _companytaxcontroller.text;
                             String id = _idcontroller.text;
                             String password = _passcontroller.text;
                             String phone = _phonecontroller.text;
@@ -213,7 +189,7 @@ class _RegCreatorState extends State<RegCreator> {
                                 postedjobs: '',
                                 position: 'Nhà tuyển dụng',
                                 companyname: companyname,
-                                companytax: companytax);
+                                companytax: '');
                             Map<String, dynamic> newUserJson = newUser.toJson();
 
                             value.createUser(newUserJson);
