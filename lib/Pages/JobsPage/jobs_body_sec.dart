@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/jobs_class.dart';
+import 'package:myjobapp/Classes/user_class.dart';
 import 'package:myjobapp/Pages/JobsPage/jobs_detail_screen.dart';
 import 'package:myjobapp/Provider/login_getuser_provider.dart';
 import 'package:myjobapp/utils/colors_texts_style.dart';
 import 'package:provider/provider.dart';
 
 class ShowJSec extends StatefulWidget {
-  const ShowJSec({required this.filterJobData, super.key});
+  const ShowJSec(
+      {required this.filterJobData, super.key, required this.userData});
   final List<JobsClass> filterJobData;
+  final User userData;
   @override
   State<ShowJSec> createState() => _ShowJSecState();
 }
@@ -41,6 +44,7 @@ class _ShowJSecState extends State<ShowJSec> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => JobsDetailScr(
+                                    userData: widget.userData,
                                     data: widget.filterJobData[index],
                                   ),
                                 ));

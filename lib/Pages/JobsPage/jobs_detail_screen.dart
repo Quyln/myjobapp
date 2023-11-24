@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myjobapp/Classes/jobs_class.dart';
+import 'package:myjobapp/Classes/user_class.dart';
 import 'package:myjobapp/Provider/login_getuser_provider.dart';
 import 'package:myjobapp/utils/colors_texts_style.dart';
 import 'package:provider/provider.dart';
@@ -8,9 +9,10 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 
 class JobsDetailScr extends StatefulWidget {
-  const JobsDetailScr({required this.data, super.key});
+  const JobsDetailScr({required this.data, super.key, required this.userData});
 
   final JobsClass data;
+  final User userData;
 
   @override
   State<JobsDetailScr> createState() => _JobsDetailScrState();
@@ -21,9 +23,9 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
   @override
   void initState() {
     super.initState();
-    GetUserProvider userProvider =
-        Provider.of<GetUserProvider>(context, listen: false);
-    String savejobUser = userProvider.user.savejobs;
+    String savejobUser = widget.userData.savejobs;
+    print(savejobUser);
+    print(widget.data.id);
     checkSaveJobs(widget.data.id, savejobUser);
   }
 
@@ -405,6 +407,28 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                                           try {
                                             value.updateSavejobs(
                                                 value.user.id, widget.data.id);
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(const SnackBar(
+                                                    behavior: SnackBarBehavior
+                                                        .floating,
+                                                    content: Text(
+                                                        'Việc làm đã được lưu')));
+                                          } catch (e) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(SnackBar(
+                                                    content:
+                                                        Text(e.toString())));
+                                          }
+                                        } else {
+                                          try {
+                                            value.removeSavejobs(
+                                                value.user.id, widget.data.id);
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(const SnackBar(
+                                                    behavior: SnackBarBehavior
+                                                        .floating,
+                                                    content: Text(
+                                                        'Không lưu việc làm này nữa')));
                                           } catch (e) {
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(SnackBar(
@@ -412,7 +436,6 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                                                         Text(e.toString())));
                                           }
                                         }
-
                                         setState(() {
                                           savejob = !savejob;
                                         });

@@ -73,7 +73,7 @@ class GetUserProvider extends ChangeNotifier {
     companytax: '',
   );
 
-  Future<User> sharePreGetUser() async {
+  Future<User> getPreGetUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? id = prefs.getString('userid');
     String? password = prefs.getString('userpassword');
@@ -99,8 +99,20 @@ class GetUserProvider extends ChangeNotifier {
 
     if (response.statusCode == 200) {
       print('Việc làm đã được lưu');
+      return true;
     } else {
       throw Exception('Lưu việc làm thất bại, vui lòng kiểm tra lại kết nối !');
+    }
+  }
+
+  removeSavejobs(String id, String savejob) async {
+    var url = Uri.parse('http://103.176.251.70:100/users/$id');
+    var response = await http.patch(url, body: {"savejobs": savejob});
+
+    if (response.statusCode == 200) {
+      print('Bỏ lưu việc làm này');
+    } else {
+      throw Exception('Bỏ lưu thất bại, vui lòng kiểm tra lại kết nối !');
     }
   }
 
@@ -128,7 +140,7 @@ class GetUserProvider extends ChangeNotifier {
   }
 
   GetUserProvider() {
-    sharePreGetUser();
+    getPreGetUser();
     notifyListeners();
   }
 }

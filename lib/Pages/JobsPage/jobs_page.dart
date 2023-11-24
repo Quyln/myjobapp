@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myjobapp/Pages/JobsPage/jobs_appbar_sec.dart';
 import 'package:myjobapp/Pages/JobsPage/jobs_body_sec.dart';
 import 'package:myjobapp/Provider/Job_list_provider.dart';
+import 'package:myjobapp/Provider/login_getuser_provider.dart';
 import 'package:provider/provider.dart';
 
 class JobsPage extends StatefulWidget {
@@ -22,24 +23,30 @@ class _JobsPageState extends State<JobsPage> {
           },
         ),
       ],
-      child: Consumer<JobsProvider>(
-        builder: (context, value, child) {
-          return Scaffold(
-              backgroundColor: Colors.white,
-              body: CustomScrollView(
-                slivers: [
-                  JSecAppBar(
-                    data: value.alljobdata,
-                    onpresssearch: value.onpresssearch,
-                  ),
-                  ShowJSec(
-                    filterJobData: value.filterJobData,
-                  ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(height: 60),
-                  )
-                ],
-              ));
+      child: Consumer<GetUserProvider>(
+        builder: (context, uservalue, child) {
+          return Consumer<JobsProvider>(
+            builder: (context, value, child) {
+              uservalue.getPreGetUser();
+              return Scaffold(
+                  backgroundColor: Colors.white,
+                  body: CustomScrollView(
+                    slivers: [
+                      JSecAppBar(
+                        data: value.alljobdata,
+                        onpresssearch: value.onpresssearch,
+                      ),
+                      ShowJSec(
+                        userData: uservalue.user,
+                        filterJobData: value.filterJobData,
+                      ),
+                      const SliverToBoxAdapter(
+                        child: SizedBox(height: 60),
+                      )
+                    ],
+                  ));
+            },
+          );
         },
       ),
     );

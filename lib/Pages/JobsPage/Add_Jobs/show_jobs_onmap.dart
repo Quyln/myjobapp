@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:myjobapp/Classes/jobs_class.dart';
 import 'package:myjobapp/Pages/JobsPage/jobs_detail_screen.dart';
 import 'package:myjobapp/Provider/Job_list_provider.dart';
+import 'package:myjobapp/Provider/login_getuser_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
@@ -77,100 +78,107 @@ class _ShowJobOnMapState extends State<ShowJobOnMap> {
       create: (context) {
         return JobsProvider();
       },
-      child: Consumer<JobsProvider>(
-        builder: (context, value, child) {
-          List<Map<String, dynamic>> locations = value.filterJobData
-              .map((e) => {
-                    'latitude': e.latitude,
-                    'longitude': e.longitude,
-                    'position': e.position,
-                    'salary': e.salary,
-                    'id': e.id,
-                    'user': e.user,
-                    'title': e.title,
-                    'date': e.date,
-                    'khuvuctinh': e.khuvuctinh,
-                    'khuvuchuyen': e.khuvuchuyen,
-                    'tencty': e.tencty,
-                    'logocty': e.logocty,
-                    'image': e.image,
-                    'motacv': e.motacv,
-                    'yeucaucv': e.yeucaucv,
-                  })
-              .toList();
-          for (var location in locations) {
-            Marker marker = Marker(
-                markerId: MarkerId(location.toString()),
-                position: LatLng(location['latitude'], location['longitude']),
-                infoWindow: InfoWindow(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => JobsDetailScr(
-                                  data: JobsClass.fromJson(location))));
-                    },
-                    title: location['position'],
-                    snippet: '${location['salary']}  (Bấm để xem chi tiết)'));
-            markers.add(marker);
-          }
+      child: Consumer<GetUserProvider>(
+        builder: (context, uservalue, child) {
+          return Consumer<JobsProvider>(
+            builder: (context, value, child) {
+              List<Map<String, dynamic>> locations = value.filterJobData
+                  .map((e) => {
+                        'latitude': e.latitude,
+                        'longitude': e.longitude,
+                        'position': e.position,
+                        'salary': e.salary,
+                        'id': e.id,
+                        'user': e.user,
+                        'title': e.title,
+                        'date': e.date,
+                        'khuvuctinh': e.khuvuctinh,
+                        'khuvuchuyen': e.khuvuchuyen,
+                        'tencty': e.tencty,
+                        'logocty': e.logocty,
+                        'image': e.image,
+                        'motacv': e.motacv,
+                        'yeucaucv': e.yeucaucv,
+                      })
+                  .toList();
+              for (var location in locations) {
+                Marker marker = Marker(
+                    markerId: MarkerId(location.toString()),
+                    position:
+                        LatLng(location['latitude'], location['longitude']),
+                    infoWindow: InfoWindow(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => JobsDetailScr(
+                                      userData: uservalue.user,
+                                      data: JobsClass.fromJson(location))));
+                        },
+                        title: location['position'],
+                        snippet:
+                            '${location['salary']}  (Bấm để xem chi tiết)'));
+                markers.add(marker);
+              }
 
-          return Scaffold(
-            // appBar: AppBar(
-            //   title: const Text('Job Map'),
-            // ),
-            body: Stack(children: [
-              GoogleMap(
-                myLocationButtonEnabled: false,
-                mapType: MapType.hybrid,
-                markers: markers,
-                circles: {
-                  Circle(
-                      circleId: const CircleId('userCircle'),
-                      center: currentPosition,
-                      radius: 10000,
-                      strokeWidth: 2,
-                      fillColor: const Color(0xFF006491).withOpacity(0.2),
-                      strokeColor: Colors.blue)
-                },
-                onMapCreated: (controller) => _controller = controller,
-                initialCameraPosition: const CameraPosition(
-                    target: LatLng(10.877617291961869, 106.66552950110372),
-                    zoom: 10),
-              ),
-              Positioned(
-                  bottom: 100,
-                  right: 8,
-                  child: FloatingActionButton(
-                    heroTag: 'tag',
-                    backgroundColor: Colors.blue.withOpacity(0.65),
-                    tooltip: 'Vị trí của tôi',
-                    mini: true,
-                    onPressed: () {
-                      getCurrentLocation();
+              return Scaffold(
+                // appBar: AppBar(
+                //   title: const Text('Job Map'),
+                // ),
+                body: Stack(children: [
+                  GoogleMap(
+                    myLocationButtonEnabled: false,
+                    mapType: MapType.hybrid,
+                    markers: markers,
+                    circles: {
+                      Circle(
+                          circleId: const CircleId('userCircle'),
+                          center: currentPosition,
+                          radius: 10000,
+                          strokeWidth: 2,
+                          fillColor: const Color(0xFF006491).withOpacity(0.2),
+                          strokeColor: Colors.blue)
                     },
-                    child: const Icon(
-                      Icons.location_on,
-                      color: Colors.white,
-                    ),
-                  )),
-              Positioned(
-                  top: 70,
-                  left: 8,
-                  child: FloatingActionButton(
-                    heroTag: 'tagback',
-                    backgroundColor: Colors.white.withOpacity(0.65),
-                    tooltip: 'Quay lại',
-                    mini: true,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Icon(
-                      Icons.arrow_back_outlined,
-                      color: Colors.black.withOpacity(0.67),
-                    ),
-                  ))
-            ]),
+                    onMapCreated: (controller) => _controller = controller,
+                    initialCameraPosition: const CameraPosition(
+                        target: LatLng(10.877617291961869, 106.66552950110372),
+                        zoom: 10),
+                  ),
+                  Positioned(
+                      bottom: 100,
+                      right: 8,
+                      child: FloatingActionButton(
+                        heroTag: 'tag',
+                        backgroundColor: Colors.blue.withOpacity(0.65),
+                        tooltip: 'Vị trí của tôi',
+                        mini: true,
+                        onPressed: () {
+                          getCurrentLocation();
+                        },
+                        child: const Icon(
+                          Icons.location_on,
+                          color: Colors.white,
+                        ),
+                      )),
+                  Positioned(
+                      top: 70,
+                      left: 8,
+                      child: FloatingActionButton(
+                        heroTag: 'tagback',
+                        backgroundColor: Colors.white.withOpacity(0.65),
+                        tooltip: 'Quay lại',
+                        mini: true,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Icon(
+                          Icons.arrow_back_outlined,
+                          color: Colors.black.withOpacity(0.67),
+                        ),
+                      ))
+                ]),
+              );
+            },
           );
         },
       ),
