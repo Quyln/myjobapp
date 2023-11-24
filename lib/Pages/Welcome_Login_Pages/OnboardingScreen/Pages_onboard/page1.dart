@@ -12,11 +12,11 @@ class OnboardingPage1 extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height / 5,
+              height: MediaQuery.of(context).size.height / 6,
             ),
             SizedBox(
-              height: 300,
-              width: 300,
+              height: 350,
+              width: MediaQuery.of(context).size.width,
               child: Image.asset(
                 fit: BoxFit.contain,
                 'images/worker.png',
@@ -24,7 +24,7 @@ class OnboardingPage1 extends StatelessWidget {
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width,
-              height: 160,
+              height: 100,
               child: const Center(
                 child: Text(
                   'Hơn 200 việc làm mới mỗi ngày\nVà hàng trăm lao động nhận việc',

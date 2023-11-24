@@ -12,11 +12,11 @@ class OnboardingPage3 extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height / 5,
+              height: MediaQuery.of(context).size.height / 6,
             ),
             SizedBox(
-              height: 300,
-              width: 300,
+              height: 350,
+              width: MediaQuery.of(context).size.width,
               child: Image.asset(
                 fit: BoxFit.contain,
                 'images/customer.png',
@@ -26,7 +26,7 @@ class OnboardingPage3 extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: SizedBox(
                 width: MediaQuery.of(context).size.width,
-                height: 160,
+                height: 100,
                 child: const Center(
                   child: Text(
                     'Đội ngũ năng động\nHỗ trợ nhiệt tình\nNhận việc nhanh chóng',

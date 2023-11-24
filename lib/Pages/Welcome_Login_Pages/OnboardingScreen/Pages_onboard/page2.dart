@@ -12,19 +12,19 @@ class OnboardingPage2 extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height / 5,
+              height: MediaQuery.of(context).size.height / 6,
             ),
             SizedBox(
-              height: 300,
-              width: 300,
+              height: 350,
+              width: MediaQuery.of(context).size.width,
               child: Image.asset(
                 fit: BoxFit.contain,
-                'images/protect.png',
+                'images/blueshield.png',
               ),
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width,
-              height: 160,
+              height: 100,
               child: const Center(
                 child: Text(
                   'Đảm bảo quyền lợi người lao động \nKhông thu phí dưới mọi hình thức',
