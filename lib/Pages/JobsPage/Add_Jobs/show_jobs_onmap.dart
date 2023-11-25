@@ -1,8 +1,10 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:myjobapp/Classes/jobs_class.dart';
+import 'package:myjobapp/Classes/user_class.dart';
 import 'package:myjobapp/Pages/JobsPage/jobs_detail_screen.dart';
 import 'package:myjobapp/Provider/Job_list_provider.dart';
 import 'package:myjobapp/Provider/login_getuser_provider.dart';
@@ -10,8 +12,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 class ShowJobOnMap extends StatefulWidget {
-  const ShowJobOnMap({super.key});
-
+  const ShowJobOnMap({super.key, required this.userData});
+  final User userData;
   @override
   State<ShowJobOnMap> createState() => _ShowJobOnMapState();
 }
@@ -34,6 +36,11 @@ class _ShowJobOnMapState extends State<ShowJobOnMap> {
     );
     final cameraPosition = CameraPosition(
         target: LatLng(position.latitude, position.longitude), zoom: 12);
+
+    var url = 'https://cdn-icons-png.flaticon.com/128/6422/6422265.png';
+    var byte = (await NetworkAssetBundle(Uri.parse(url)).load(url))
+        .buffer
+        .asUint8List();
 
     Marker userMarker = Marker(
       markerId: const MarkerId('My Location'),

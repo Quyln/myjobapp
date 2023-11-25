@@ -20,13 +20,20 @@ class SaveTabbar extends StatefulWidget {
 class _SaveTabbarState extends State<SaveTabbar> {
   List<JobsClass> saveJobsList = [];
   @override
+  void initState() {
+    super.initState();
+    String abc = '123.234.2,3,4.';
+    List<String> xyz = abc.split('');
+    print(xyz);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<GetUserProvider>(
       builder: (context, uservalue, child) {
         return Consumer<GetSaveJobsByID>(builder: (context, value, child) {
           value.getJobs(widget.userData.savejobs);
           saveJobsList = value.listJobsByID;
-          print(widget.userData.savejobs);
           return ListView.builder(
               physics: const BouncingScrollPhysics(),
               itemCount: saveJobsList.length,

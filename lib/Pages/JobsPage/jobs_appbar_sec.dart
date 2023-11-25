@@ -174,7 +174,7 @@ class _JSecAppBarState extends State<JSecAppBar> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const ShowJobOnMap()));
+                                          ShowJobOnMap(userData: value.user)));
                             },
                             icon: const Icon(
                               Icons.location_on_outlined,

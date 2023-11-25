@@ -349,7 +349,7 @@ class _AddJobPageState extends State<AddJobPage> {
                           controller: _motacvcontroller,
                           decoration: const InputDecoration(
                               hintText:
-                                  'Mô tả công việc\n(Nhập cách nhau bằng dấu phẩy ",")\nVD: Kỹ năng A,Kỹ năng B,...',
+                                  'Mô tả công việc\n(Nhập cách nhau bằng dấu chấm ".")\nVD: Mô tả 1. Mô tả 2. v.vv',
                               border: InputBorder.none),
                         ),
                       ),
@@ -382,7 +382,7 @@ class _AddJobPageState extends State<AddJobPage> {
                           controller: _yeucaucvcontroller,
                           decoration: const InputDecoration(
                               hintText:
-                                  'Yêu cầu\n(Nhập cách nhau bằng dấu phẩy ",")\nVD: Tỷ mỷ,Tận tâm,..',
+                                  'Yêu cầu\n(Nhập cách nhau bằng dấu chấm ".")\nVD: Yêu cầu 1. Yêu cầu 2. v.vv',
                               border: InputBorder.none),
                         ),
                       ),
