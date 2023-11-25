@@ -25,25 +25,15 @@ class PersonPMember extends StatelessWidget {
                     height: 30,
                   ),
                 ),
-                title: userData.position == 'Thành viên'
-                    ? Center(
-                        child: Text(
-                          userData.fullname,
-                          style: const TextStyle(
-                              fontSize: 18,
-                              color: Colors.black,
-                              fontWeight: FontWeight.normal),
-                        ),
-                      )
-                    : Center(
-                        child: Text(
-                          userData.companyname,
-                          style: const TextStyle(
-                              fontSize: 18,
-                              color: Colors.black,
-                              fontWeight: FontWeight.normal),
-                        ),
-                      ),
+                title: Center(
+                  child: Text(
+                    userData.fullname,
+                    style: const TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
+                        fontWeight: FontWeight.normal),
+                  ),
+                ),
                 actions: [
                   IconButton(
                       onPressed: () {
@@ -71,7 +61,6 @@ class PersonPMember extends StatelessWidget {
                                         ],
                                       ),
                                       onTap: () {
-                                        // Handle option 1
                                         Navigator.of(context).pop('Option 1');
                                       },
                                     ),
@@ -101,8 +90,7 @@ class PersonPMember extends StatelessWidget {
                                         ],
                                       ),
                                       onTap: () {
-                                        // Handle option 2
-                                        Navigator.of(context).pop('Option 2');
+                                        Navigator.of(context).pop('abc');
                                       },
                                     ),
                                     const SizedBox(
@@ -131,7 +119,6 @@ class PersonPMember extends StatelessWidget {
                                         ],
                                       ),
                                       onTap: () {
-                                        // Handle option 2
                                         Navigator.of(context).pop('Option 3');
                                       },
                                     ),

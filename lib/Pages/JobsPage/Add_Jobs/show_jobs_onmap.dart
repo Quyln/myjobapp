@@ -155,18 +155,19 @@ class _ShowJobOnMapState extends State<ShowJobOnMap> {
                       bottom: 100,
                       right: 8,
                       child: FloatingActionButton(
-                        heroTag: 'tag',
-                        backgroundColor: Colors.blue.withOpacity(0.65),
-                        tooltip: 'Vị trí của tôi',
-                        mini: true,
-                        onPressed: () {
-                          getCurrentLocation();
-                        },
-                        child: const Icon(
-                          Icons.location_on,
-                          color: Colors.white,
-                        ),
-                      )),
+                          heroTag: 'tag',
+                          backgroundColor: Colors.blue.withOpacity(0.65),
+                          tooltip: 'Vị trí của tôi',
+                          mini: true,
+                          onPressed: () {
+                            getCurrentLocation();
+                          },
+                          child: Image.asset(
+                            'images/currentlocation.png',
+                            color: Colors.white,
+                            height: 30,
+                            width: 30,
+                          ))),
                   Positioned(
                       top: 70,
                       left: 8,

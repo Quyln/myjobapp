@@ -101,6 +101,8 @@ class _HSecAppBarState extends State<HSecAppBar> {
                       SharedPreferences pref =
                           await SharedPreferences.getInstance();
                       await pref.setBool('checklogin', false);
+                      await pref.remove('userid');
+                      await pref.remove('userpassword');
 
                       Navigator.pushReplacement(
                           context,

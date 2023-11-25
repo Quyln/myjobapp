@@ -20,14 +20,6 @@ class SaveTabbar extends StatefulWidget {
 class _SaveTabbarState extends State<SaveTabbar> {
   List<JobsClass> saveJobsList = [];
   @override
-  void initState() {
-    super.initState();
-    String abc = '123.234.2,3,4.';
-    List<String> xyz = abc.split('');
-    print(xyz);
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Consumer<GetUserProvider>(
       builder: (context, uservalue, child) {
