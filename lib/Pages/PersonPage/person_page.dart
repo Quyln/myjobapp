@@ -19,13 +19,13 @@ class _PersonPageState extends State<PersonPage> {
       builder: (context, value, child) {
         return Consumer<GetUserProvider>(
           builder: (context, uservalue, child) {
-            value.getIdPostedJobs(uservalue.user.id);
             uservalue.getPreGetUser();
             if (uservalue.user.position == 'Thành viên') {
               return PersonPMember(
                 userData: uservalue.user,
               );
             } else {
+              value.getIdPostedJobs(uservalue.user.id);
               return PersonPCreator(
                 userData: uservalue.user,
               );

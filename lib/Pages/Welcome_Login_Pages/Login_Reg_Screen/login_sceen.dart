@@ -74,11 +74,6 @@ class _LoginScreenState extends State<LoginScreen>
                         ),
                         hintText: 'ID đăng nhập...',
                         border: InputBorder.none),
-                    onEditingComplete: () async {
-                      SharedPreferences pref =
-                          await SharedPreferences.getInstance();
-                      await pref.setString('userid', _idcontroller.text);
-                    },
                   ),
                 ),
                 const SizedBox(
@@ -112,12 +107,6 @@ class _LoginScreenState extends State<LoginScreen>
                       ),
                     ),
                     obscureText: showpassword,
-                    onEditingComplete: () async {
-                      SharedPreferences pref =
-                          await SharedPreferences.getInstance();
-                      await pref.setString(
-                          'userpassword', _passcontroller.text);
-                    },
                   ),
                 ),
                 Padding(
@@ -171,6 +160,11 @@ class _LoginScreenState extends State<LoginScreen>
                                   behavior: SnackBarBehavior.floating,
                                   content: Text('Vui lòng nhập ID/Password')));
                         }
+                        SharedPreferences pref =
+                            await SharedPreferences.getInstance();
+                        await pref.setString('userid', _idcontroller.text);
+                        await pref.setString(
+                            'userpassword', _passcontroller.text);
                         User user = await value.getPreGetUser();
                         if (user.id.isNotEmpty || user.password.isNotEmpty) {
                           SharedPreferences pref =
