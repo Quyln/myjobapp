@@ -51,7 +51,7 @@ class GetAppliedJobsByID extends ChangeNotifier {
 
 class GetPostedJobsByID extends ChangeNotifier {
   List<JobsClass> listJobsByID = [];
-
+  String idsJobList = '';
   String ids = '';
 
   getJobs(String ids) async {
@@ -61,6 +61,18 @@ class GetPostedJobsByID extends ChangeNotifier {
     if (response.statusCode == 200) {
       List<dynamic> fetchData = jsonDecode(response.body);
       listJobsByID = fetchData.map((e) => JobsClass.fromJson(e)).toList();
+      notifyListeners();
+    } else {
+      throw Exception('Nhận dữ liệu thất bại');
+    }
+  }
+
+  getIdPostedJobs(String creatorId) async {
+    var url = Uri.parse('http://103.176.251.70:100/jobs/idjobsbyuser');
+    var response = await http.post(url, body: {"user": "${creatorId}"});
+    if (response.statusCode == 201) {
+      print('Cập nhật danh sách việc của bạn thành công');
+      idsJobList = response.body;
       notifyListeners();
     } else {
       throw Exception('Nhận dữ liệu thất bại');

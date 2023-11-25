@@ -177,17 +177,14 @@ class PersonPCreator extends StatelessWidget {
                           child: const Center(child: Text('Sửa hồ sơ')),
                         ),
                       ),
-                      const TabBar(
+                      TabBar(
                           indicatorSize: TabBarIndicatorSize.label,
-                          indicatorColor: Colors.green,
+                          indicatorColor: Colors.blue[780],
                           labelColor: Colors.black,
-                          tabs: [
+                          tabs: const [
                             Tab(
-                                text: 'Bài tuyển dụng của tôi',
-                                icon: Icon(
-                                  Icons.library_add_check,
-                                  color: Colors.green,
-                                )),
+                              text: 'Bài tuyển dụng của tôi',
+                            ),
                           ]),
                       SizedBox(
                           height: 500,
