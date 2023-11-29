@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,13 +22,7 @@ class ShowJobOnMap extends StatefulWidget {
 class _ShowJobOnMapState extends State<ShowJobOnMap> {
   GoogleMapController? _controller;
   Set<Marker> markers = {};
-
   LatLng currentPosition = LatLng(0, 0);
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   void getCurrentLocation() async {
     getLocationPer();
@@ -129,13 +124,11 @@ class _ShowJobOnMapState extends State<ShowJobOnMap> {
               }
 
               return Scaffold(
-                // appBar: AppBar(
-                //   title: const Text('Job Map'),
-                // ),
                 body: Stack(children: [
                   GoogleMap(
+                    buildingsEnabled: false,
                     myLocationButtonEnabled: false,
-                    mapType: MapType.hybrid,
+                    // mapType: MapType.hybrid,
                     markers: markers,
                     circles: {
                       Circle(
