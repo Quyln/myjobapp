@@ -531,11 +531,10 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                                                           .floating,
                                                       content: Text(
                                                           'Ứng tuyển thành công! Nhà tuyển dụng sẽ sớm liên hệ lại cho bạn.')));
-
                                               // Navigator.pop(context);
                                               setState(() {
                                                 loading = false;
-                                                appliedjob = !appliedjob;
+                                                appliedjob = true;
                                               });
                                             } else {
                                               setState(() {
