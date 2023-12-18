@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Pages/ChatPage/Tabbars/person.dart';
 import 'package:myjobapp/Pages/ChatPage/Tabbars/regional.dart';
@@ -10,6 +11,21 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
+  // FirebaseFirestore db = FirebaseFirestore.instance;
+  // void getChat() async {
+  //   final docRef = db.collection("test").doc("chatdemo");
+  //   docRef.snapshots().listen(
+  //         (event) => print("current data: ${event.data()}"),
+  //         onError: (error) => print("Listen failed: $error"),
+  //       );
+  // }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getChat();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return const DefaultTabController(

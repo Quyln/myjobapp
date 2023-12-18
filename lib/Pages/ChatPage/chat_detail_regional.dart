@@ -1,18 +1,38 @@
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/chat_class.dart';
 import 'package:myjobapp/Pages/ChatPage/message.dart';
 import 'package:image_picker/image_picker.dart';
 
 class DetailRegionalChatPage extends StatefulWidget {
-  const DetailRegionalChatPage({super.key, required this.kvTinh});
+  const DetailRegionalChatPage(
+      {super.key, required this.kvTinh, required this.kvTinhId});
   final String kvTinh;
+  final String kvTinhId;
 
   @override
   State<DetailRegionalChatPage> createState() => _DetailRegionalChatPageState();
 }
 
 class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+
+  void getChat() async {
+    final docRef = db.collection("test").doc(widget.kvTinhId);
+    docRef.snapshots().listen(
+          (event) => print("current data: ${event.data()}"),
+          onError: (error) => print("Listen failed: $error"),
+        );
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getChat();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -214,7 +214,7 @@ class _AddJobPageState extends State<AddJobPage> {
                                             .map((e) => DropdownMenuItem(
                                                 value: e,
                                                 child: Text(
-                                                  e,
+                                                  e['name']!,
                                                   style: const TextStyle(
                                                       fontSize: 14,
                                                       color: Colors.black),

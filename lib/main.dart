@@ -6,8 +6,14 @@ import 'Provider/Job_list_provider.dart';
 import 'Provider/get_jobs_byid_provider.dart';
 import 'Provider/login_getuser_provider.dart';
 import 'Provider/news_list_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<GetUserProvider>(
       create: (context) {

@@ -128,187 +128,179 @@ class _PersonPageState extends State<PersonPage> {
                                               showDialog(
                                                   context: context,
                                                   builder: (context) {
-                                                    return AlertDialog(
-                                                      title: const Text(
-                                                          'Thay đổi mật khẩu'),
-                                                      shape:
-                                                          RoundedRectangleBorder(
+                                                    return StatefulBuilder(
+                                                      builder:
+                                                          (context, setState) {
+                                                        return AlertDialog(
+                                                          title: const Text(
+                                                              'Thay đổi mật khẩu'),
+                                                          shape: RoundedRectangleBorder(
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
                                                                           15)),
-                                                      actionsPadding:
-                                                          const EdgeInsets.all(
-                                                              20),
-                                                      actions: [
-                                                        TextFormField(
-                                                          obscureText:
-                                                              showpassword,
-                                                          controller:
-                                                              _passcontroller,
-                                                          decoration:
-                                                              InputDecoration(
-                                                                  suffixIcon:
-                                                                      InkWell(
-                                                                    onTap: () {
-                                                                      setState(
-                                                                          () {
-                                                                        showpassword =
-                                                                            !showpassword;
-                                                                      });
-                                                                    },
-                                                                    child: showpassword
-                                                                        ? const Icon(Icons
-                                                                            .visibility_off)
-                                                                        : const Icon(
-                                                                            Icons.visibility),
-                                                                  ),
-                                                                  focusedBorder: const OutlineInputBorder(
-                                                                      borderRadius: BorderRadius.all(
-                                                                          Radius.circular(
+                                                          actionsPadding:
+                                                              const EdgeInsets
+                                                                  .all(20),
+                                                          actions: [
+                                                            TextFormField(
+                                                              obscureText:
+                                                                  showpassword,
+                                                              controller:
+                                                                  _passcontroller,
+                                                              decoration:
+                                                                  InputDecoration(
+                                                                      suffixIcon:
+                                                                          InkWell(
+                                                                        onTap:
+                                                                            () {
+                                                                          setState(
+                                                                              () {
+                                                                            showpassword =
+                                                                                !showpassword;
+                                                                          });
+                                                                        },
+                                                                        child: showpassword
+                                                                            ? const Icon(Icons.visibility_off)
+                                                                            : const Icon(Icons.visibility),
+                                                                      ),
+                                                                      focusedBorder: const OutlineInputBorder(
+                                                                          borderRadius: BorderRadius.all(Radius.circular(
                                                                               15))),
-                                                                  enabledBorder: const OutlineInputBorder(
-                                                                      borderRadius: BorderRadius.all(
-                                                                          Radius.circular(
+                                                                      enabledBorder: const OutlineInputBorder(
+                                                                          borderRadius: BorderRadius.all(Radius.circular(
                                                                               15))),
-                                                                  border:
-                                                                      InputBorder
+                                                                      border: InputBorder
                                                                           .none,
-                                                                  labelText:
-                                                                      'Mật khẩu cũ',
-                                                                  hintText:
-                                                                      'Nhập mật khẩu cũ...'),
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 20,
-                                                        ),
-                                                        TextFormField(
-                                                          controller:
-                                                              _newpasscontroller,
-                                                          decoration:
-                                                              InputDecoration(
-                                                                  suffixIcon:
-                                                                      InkWell(
-                                                                    onTap: () {
-                                                                      setState(
-                                                                          () {
-                                                                        showpassword =
-                                                                            !showpassword;
-                                                                      });
-                                                                    },
-                                                                    child: showpassword
-                                                                        ? const Icon(Icons
-                                                                            .visibility_off)
-                                                                        : const Icon(
-                                                                            Icons.visibility),
-                                                                  ),
-                                                                  enabledBorder: const OutlineInputBorder(
-                                                                      borderRadius: BorderRadius.all(
-                                                                          Radius.circular(
-                                                                              15))),
-                                                                  focusedBorder: const OutlineInputBorder(
-                                                                      borderRadius: BorderRadius.all(
-                                                                          Radius.circular(
-                                                                              15))),
-                                                                  border:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  labelText:
-                                                                      'Mật khẩu mới',
-                                                                  hintText:
-                                                                      'Nhập mật khẩu mới...'),
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 20,
-                                                        ),
-                                                        TextFormField(
-                                                          controller:
-                                                              _checknewpasscontroller,
-                                                          decoration:
-                                                              InputDecoration(
-                                                                  suffixIcon:
-                                                                      InkWell(
-                                                                    onTap: () {
-                                                                      setState(
-                                                                          () {
-                                                                        showpassword =
-                                                                            !showpassword;
-                                                                      });
-                                                                    },
-                                                                    child: showpassword
-                                                                        ? const Icon(Icons
-                                                                            .visibility_off)
-                                                                        : const Icon(
-                                                                            Icons.visibility),
-                                                                  ),
-                                                                  enabledBorder: const OutlineInputBorder(
-                                                                      borderRadius: BorderRadius.all(
-                                                                          Radius.circular(
-                                                                              15))),
-                                                                  focusedBorder: const OutlineInputBorder(
-                                                                      borderRadius: BorderRadius.all(
-                                                                          Radius.circular(
-                                                                              15))),
-                                                                  border:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  labelText:
-                                                                      'Nhập lại mật khẩu mới',
-                                                                  hintText:
-                                                                      'Nhập lại mật khẩu mới...'),
-                                                        ),
-                                                        GestureDetector(
-                                                          onTap: () async {
-                                                            SharedPreferences
-                                                                pref =
-                                                                await SharedPreferences
-                                                                    .getInstance();
-                                                            String?
-                                                                userpassword =
-                                                                pref.getString(
-                                                                    'userpassword');
-                                                            if (userpassword !=
-                                                                    null &&
-                                                                userpassword ==
-                                                                    _passcontroller
-                                                                        .text &&
-                                                                _checknewpasscontroller
-                                                                        .text ==
-                                                                    _newpasscontroller
-                                                                        .text) {}
-                                                          },
-                                                          child: Container(
-                                                            margin:
-                                                                const EdgeInsets
-                                                                    .all(10),
-                                                            decoration: BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            15),
-                                                                color: Colors
-                                                                    .blue),
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(10),
-                                                            height: 40,
-                                                            width: 90,
-                                                            child: const Center(
-                                                              child: Text(
-                                                                'Xác nhận',
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        16,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    color: Colors
-                                                                        .white),
-                                                              ),
+                                                                      labelText:
+                                                                          'Mật khẩu cũ',
+                                                                      hintText:
+                                                                          'Nhập mật khẩu cũ...'),
                                                             ),
-                                                          ),
-                                                        )
-                                                      ],
+                                                            const SizedBox(
+                                                              height: 20,
+                                                            ),
+                                                            TextFormField(
+                                                              controller:
+                                                                  _newpasscontroller,
+                                                              decoration:
+                                                                  InputDecoration(
+                                                                      suffixIcon:
+                                                                          InkWell(
+                                                                        onTap:
+                                                                            () {
+                                                                          setState(
+                                                                              () {
+                                                                            showpassword =
+                                                                                !showpassword;
+                                                                          });
+                                                                        },
+                                                                        child: showpassword
+                                                                            ? const Icon(Icons.visibility_off)
+                                                                            : const Icon(Icons.visibility),
+                                                                      ),
+                                                                      enabledBorder: const OutlineInputBorder(
+                                                                          borderRadius: BorderRadius.all(Radius.circular(
+                                                                              15))),
+                                                                      focusedBorder: const OutlineInputBorder(
+                                                                          borderRadius: BorderRadius.all(Radius.circular(
+                                                                              15))),
+                                                                      border: InputBorder
+                                                                          .none,
+                                                                      labelText:
+                                                                          'Mật khẩu mới',
+                                                                      hintText:
+                                                                          'Nhập mật khẩu mới...'),
+                                                            ),
+                                                            const SizedBox(
+                                                              height: 20,
+                                                            ),
+                                                            TextFormField(
+                                                              controller:
+                                                                  _checknewpasscontroller,
+                                                              decoration:
+                                                                  InputDecoration(
+                                                                      suffixIcon:
+                                                                          InkWell(
+                                                                        onTap:
+                                                                            () {
+                                                                          setState(
+                                                                              () {
+                                                                            showpassword =
+                                                                                !showpassword;
+                                                                          });
+                                                                        },
+                                                                        child: showpassword
+                                                                            ? const Icon(Icons.visibility_off)
+                                                                            : const Icon(Icons.visibility),
+                                                                      ),
+                                                                      enabledBorder: const OutlineInputBorder(
+                                                                          borderRadius: BorderRadius.all(Radius.circular(
+                                                                              15))),
+                                                                      focusedBorder: const OutlineInputBorder(
+                                                                          borderRadius: BorderRadius.all(Radius.circular(
+                                                                              15))),
+                                                                      border: InputBorder
+                                                                          .none,
+                                                                      labelText:
+                                                                          'Nhập lại mật khẩu mới',
+                                                                      hintText:
+                                                                          'Nhập lại mật khẩu mới...'),
+                                                            ),
+                                                            GestureDetector(
+                                                              onTap: () async {
+                                                                SharedPreferences
+                                                                    pref =
+                                                                    await SharedPreferences
+                                                                        .getInstance();
+                                                                String?
+                                                                    userpassword =
+                                                                    pref.getString(
+                                                                        'userpassword');
+                                                                if (userpassword !=
+                                                                        null &&
+                                                                    userpassword ==
+                                                                        _passcontroller
+                                                                            .text &&
+                                                                    _checknewpasscontroller
+                                                                            .text ==
+                                                                        _newpasscontroller
+                                                                            .text) {}
+                                                              },
+                                                              child: Container(
+                                                                margin:
+                                                                    const EdgeInsets
+                                                                        .all(10),
+                                                                decoration: BoxDecoration(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            15),
+                                                                    color: Colors
+                                                                        .blue),
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(10),
+                                                                height: 40,
+                                                                width: 90,
+                                                                child:
+                                                                    const Center(
+                                                                  child: Text(
+                                                                    'Xác nhận',
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            16,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .bold,
+                                                                        color: Colors
+                                                                            .white),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            )
+                                                          ],
+                                                        );
+                                                      },
                                                     );
                                                   });
                                             },

@@ -29,7 +29,8 @@ class ChatTbRegional extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) => DetailRegionalChatPage(
-                                    kvTinh: listKvTinh[index],
+                                    kvTinh: listKvTinh[index]['name']!,
+                                    kvTinhId: listKvTinh[index]['id']!,
                                   )));
                     },
                     child: Container(
@@ -46,7 +47,7 @@ class ChatTbRegional extends StatelessWidget {
                       child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            listKvTinh[index],
+                            listKvTinh[index]['name']!,
                             style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold),

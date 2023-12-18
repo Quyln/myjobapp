@@ -56,7 +56,7 @@ class _JSecAppBarState extends State<JSecAppBar> {
                                       .map((e) => GestureDetector(
                                             onTap: () {
                                               setState(() {
-                                                selectedText = e;
+                                                selectedText = e['name']!;
                                               });
                                               Navigator.pop(context);
                                               showGeneralDialog(
@@ -112,7 +112,7 @@ class _JSecAppBarState extends State<JSecAppBar> {
                                                           ));
                                             },
                                             child: Text(
-                                              e,
+                                              e['name']!,
                                               style: const TextStyle(
                                                   fontWeight: FontWeight.w800,
                                                   fontSize: 40,
