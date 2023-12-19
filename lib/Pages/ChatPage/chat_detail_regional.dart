@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/chat_class.dart';
 import 'package:myjobapp/Pages/ChatPage/message.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailRegionalChatPage extends StatefulWidget {
   const DetailRegionalChatPage(
@@ -16,19 +17,66 @@ class DetailRegionalChatPage extends StatefulWidget {
 }
 
 class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
+  TextEditingController _inputcontroller = TextEditingController();
+  List<ChatMessage> chatMessageList = [];
   FirebaseFirestore db = FirebaseFirestore.instance;
 
   void getChat() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String myUserId = pref.getString('userid') ?? '';
+    // doan nay la de lang nghe Firebase
     final docRef = db.collection("test").doc(widget.kvTinhId);
     docRef.snapshots().listen(
-          (event) => print("current data: ${event.data()}"),
-          onError: (error) => print("Listen failed: $error"),
-        );
+      (event) {
+        // covert data json tu Firebase thanh Class chatMessage
+        chatMessageList = event
+                .data()
+                ?.entries
+                .map((e) => ChatMessage(
+                    text: e.value['content'],
+                    messageType: ChatMessageType.text,
+                    timestamp: e.value['timestamp'],
+                    name: e.value['name'],
+                    messageStatus: MessageStatus.viewed,
+                    avatar: e.value['avatar'],
+                    isSender: e.value['userid'] == myUserId))
+                .toList() ??
+            [];
+        setState(() {
+          // sap xep thu tu chat theo timestamp
+          chatMessageList.sort((a, b) {
+            return a.timestamp.compareTo(b.timestamp);
+          });
+        });
+      },
+      onError: (error) => print("Listen failed: $error"),
+    );
+  }
+
+  Future<void> sendChat() async {
+    if (_inputcontroller.text.trim().isEmpty) {
+      return;
+    }
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String myUserId = pref.getString('userid') ?? '';
+    String userName = pref.getString('username') ?? '';
+    String userAvatar = pref.getString('useravatar') ?? '';
+
+    int timeStamp = DateTime.now().millisecondsSinceEpoch;
+    String chatId = '$myUserId-$timeStamp';
+    db.collection('test').doc(widget.kvTinhId).update({
+      chatId: {
+        'content': _inputcontroller.text,
+        'userid': myUserId,
+        'name': userName,
+        'avatar': userAvatar,
+        'timestamp': timeStamp
+      }
+    });
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getChat();
   }
@@ -109,14 +157,14 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
             )
           ],
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey.shade200,
         body: Column(
           children: [
             Expanded(
                 child: ListView.builder(
-              itemCount: demoChatMessage.length,
+              itemCount: chatMessageList.length,
               itemBuilder: (context, index) {
-                final ChatMessage message = demoChatMessage[index];
+                final ChatMessage message = chatMessageList[index];
                 return Message(message: message);
               },
             )),
@@ -159,10 +207,12 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: Colors.black12),
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextField(
-                          decoration: InputDecoration(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: TextFormField(
+                          keyboardType: TextInputType.text,
+                          controller: _inputcontroller,
+                          decoration: const InputDecoration(
                               hintText: 'Nhập nội dung...',
                               border: InputBorder.none),
                         ),
@@ -172,10 +222,16 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
                   const SizedBox(
                     width: 10,
                   ),
-                  const Icon(
-                    Icons.send_outlined,
-                    color: Colors.black,
-                    size: 25,
+                  InkWell(
+                    onTap: () async {
+                      await sendChat();
+                      _inputcontroller.clear();
+                    },
+                    child: const Icon(
+                      Icons.send_outlined,
+                      color: Colors.black,
+                      size: 25,
+                    ),
                   )
                 ]),
               ),

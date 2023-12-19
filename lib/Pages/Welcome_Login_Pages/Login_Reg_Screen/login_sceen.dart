@@ -171,6 +171,14 @@ class _LoginScreenState extends State<LoginScreen>
                               await SharedPreferences.getInstance();
                           String userJson = jsonEncode(user.toJson());
                           await pref.setBool('checklogin', true);
+                          if (user.fullname.isNotEmpty) {
+                            await pref.setString('username', user.fullname);
+                          } else {
+                            await pref.setString('username', user.companyname);
+                          }
+
+                          await pref.setString('useravatar', user.avatar);
+
                           await pref.setString('user', userJson);
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content: const Text('Đăng nhập thành công')));

@@ -64,8 +64,245 @@
 //   'Yên Bái'
 // ];
 List<Map<String, String>> listKvTinh = [
-  {'id': 'angiang', 'name': 'An Giang'},
-  {'id': 'bacgiang', 'name': 'Bắc Giang'},
+  {
+    'id': 'angiang',
+    'name': 'An Giang',
+    'image': 'images/tinhthanh/angiang.jpeg'
+  },
+  {
+    'id': 'bacgiang',
+    'name': 'Bắc Giang',
+    'image': 'images/tinhthanh/bacgiang.jpeg'
+  },
+  {'id': 'backan', 'name': 'Bắc Kạn', 'image': 'images/tinhthanh/backan.webp'},
+  {
+    'id': 'baclieu',
+    'name': 'Bạc Liêu',
+    'image': 'images/tinhthanh/baclieu.png'
+  },
+  {
+    'id': 'bacninh',
+    'name': 'Bắc Ninh',
+    'image': 'images/tinhthanh/bacninh.jpeg'
+  },
+  {'id': 'bentre', 'name': 'Bến Tre', 'image': 'images/tinhthanh/bentre.jpeg'},
+  {
+    'id': 'binhdinh',
+    'name': 'Bình Định',
+    'image': 'images/tinhthanh/binhdinh.jpeg'
+  },
+  {
+    'id': 'binhduong',
+    'name': 'Bình Dương',
+    'image': 'images/tinhthanh/binhduong.jpg'
+  },
+  {
+    'id': 'binhphuoc',
+    'name': 'Bình Phước',
+    'image': 'images/tinhthanh/binhphuoc.jpeg'
+  },
+  {
+    'id': 'binhthuan',
+    'name': 'Bình Thuận',
+    'image': 'images/tinhthanh/binhthuan.jpeg'
+  },
+  {'id': 'camau', 'name': 'Cà Mau', 'image': 'images/tinhthanh/camau.jpeg'},
+  {'id': 'cantho', 'name': 'Cần Thơ', 'image': 'images/tinhthanh/cantho.jpeg'},
+  {
+    'id': 'caobang',
+    'name': 'Cao Bằng',
+    'image': 'images/tinhthanh/caobang.jpeg'
+  },
+  {'id': 'danang', 'name': 'Đà Nẵng', 'image': 'images/tinhthanh/danang.jpeg'},
+  {'id': 'daklak', 'name': 'Đắk Lắk', 'image': 'images/tinhthanh/daklak.jpeg'},
+  {
+    'id': 'daknong',
+    'name': 'Đắk Nông',
+    'image': 'images/tinhthanh/daknong.webp'
+  },
+  {
+    'id': 'dienbien',
+    'name': 'Điện Biên',
+    'image': 'images/tinhthanh/dienbien.jpeg'
+  },
+  {
+    'id': 'dongnai',
+    'name': 'Đồng Nai',
+    'image': 'images/tinhthanh/dongnai.jpeg'
+  },
+  {
+    'id': 'dongthap',
+    'name': 'Đồng Tháp',
+    'image': 'images/tinhthanh/dongthap.jpeg'
+  },
+  {'id': 'gialai', 'name': 'Gia Lai', 'image': 'images/tinhthanh/gialai.jpeg'},
+  {
+    'id': 'hagiang',
+    'name': 'Hà Giang',
+    'image': 'images/tinhthanh/hagiang.jpeg'
+  },
+  {'id': 'hanam', 'name': 'Hà Nam', 'image': 'images/tinhthanh/hanam.jpeg'},
+  {'id': 'hanoi', 'name': 'Hà Nội', 'image': 'images/tinhthanh/hanoi.webp'},
+  {'id': 'hatinh', 'name': 'Hà Tĩnh', 'image': 'images/tinhthanh/hatinh.jpeg'},
+  {
+    'id': 'haiduong',
+    'name': 'Hải Dương',
+    'image': 'images/tinhthanh/haiduong.jpeg'
+  },
+  {
+    'id': 'haiphong',
+    'name': 'Hải Phòng',
+    'image': 'images/tinhthanh/haiphong.webp'
+  },
+  {
+    'id': 'haugiang',
+    'name': 'Hậu Giang',
+    'image': 'images/tinhthanh/haugiang.jpeg'
+  },
+  {
+    'id': 'hochiminh',
+    'name': 'Hồ Chí Minh',
+    'image': 'images/tinhthanh/hochiminh.jpeg'
+  },
+  {
+    'id': 'hoabinh',
+    'name': 'Hòa Bình',
+    'image': 'images/tinhthanh/hoabinh.jpeg'
+  },
+  {'id': 'hue', 'name': 'Huế', 'image': 'images/tinhthanh/hue.jpeg'},
+  {
+    'id': 'hungyen',
+    'name': 'Hưng Yên',
+    'image': 'images/tinhthanh/hungyen.jpeg'
+  },
+  {
+    'id': 'khanhhoa',
+    'name': 'Khánh Hòa',
+    'image': 'images/tinhthanh/khanhhoa.jpeg'
+  },
+  {
+    'id': 'kiengiang',
+    'name': 'Kiên Giang',
+    'image': 'images/tinhthanh/kiengiang.jpeg'
+  },
+  {'id': 'kontum', 'name': 'Kon Tum', 'image': 'images/tinhthanh/kontum.jpeg'},
+  {
+    'id': 'laichau',
+    'name': 'Lai Châu',
+    'image': 'images/tinhthanh/laichau.jpeg'
+  },
+  {
+    'id': 'lamdong',
+    'name': 'Lâm Đồng',
+    'image': 'images/tinhthanh/lamdong.jpeg'
+  },
+  {
+    'id': 'langson',
+    'name': 'Lạng Sơn',
+    'image': 'images/tinhthanh/langson.jpeg'
+  },
+  {'id': 'laocai', 'name': 'Lào Cai', 'image': 'images/tinhthanh/laocai.jpeg'},
+  {'id': 'longan', 'name': 'Long An', 'image': 'images/tinhthanh/longan.webp'},
+  {
+    'id': 'namdinh',
+    'name': 'Nam Định',
+    'image': 'images/tinhthanh/namdinh.jpeg'
+  },
+  {'id': 'nghean', 'name': 'Nghệ An', 'image': 'images/tinhthanh/nghean.jpeg'},
+  {
+    'id': 'ninhbinh',
+    'name': 'Ninh Bình',
+    'image': 'images/tinhthanh/ninhbinh.webp'
+  },
+  {
+    'id': 'ninhthuan',
+    'name': 'Ninh Thuận',
+    'image': 'images/tinhthanh/ninhthuan.jpeg'
+  },
+  {'id': 'phutho', 'name': 'Phú Thọ', 'image': 'images/tinhthanh/phutho.jpeg'},
+  {'id': 'phuyen', 'name': 'Phú Yên', 'image': 'images/tinhthanh/phuyen.jpeg'},
+  {
+    'id': 'quangbinh',
+    'name': 'Quảng Bình',
+    'image': 'images/tinhthanh/quangbinh.webp'
+  },
+  {
+    'id': 'quangnam',
+    'name': 'Quảng Nam',
+    'image': 'images/tinhthanh/quangnam.jpeg'
+  },
+  {
+    'id': 'quangngai',
+    'name': 'Quảng Ngãi',
+    'image': 'images/tinhthanh/quangngai.jpeg'
+  },
+  {
+    'id': 'quangninh',
+    'name': 'Quảng Ninh',
+    'image': 'images/tinhthanh/quangninh.webp'
+  },
+  {
+    'id': 'quangtri',
+    'name': 'Quảng Trị',
+    'image': 'images/tinhthanh/quangtri.jpeg'
+  },
+  {
+    'id': 'soctrang',
+    'name': 'Sóc Trăng',
+    'image': 'images/tinhthanh/soctrang.png'
+  },
+  {'id': 'sonla', 'name': 'Sơn La', 'image': 'images/tinhthanh/sonla.jpeg'},
+  {
+    'id': 'tayninh',
+    'name': 'Tây Ninh',
+    'image': 'images/tinhthanh/tayninh.jpeg'
+  },
+  {
+    'id': 'thaibinh',
+    'name': 'Thái Bình',
+    'image': 'images/tinhthanh/thaibinh.jpeg'
+  },
+  {
+    'id': 'thainguyen',
+    'name': 'Thái Nguyên',
+    'image': 'images/tinhthanh/thainguyen.jpeg'
+  },
+  {
+    'id': 'thanhhoa',
+    'name': 'Thanh Hóa',
+    'image': 'images/tinhthanh/thanhhoa.jpeg'
+  },
+  {
+    'id': 'tiengiang',
+    'name': 'Tiền Giang',
+    'image': 'images/tinhthanh/tiengiang.jpeg'
+  },
+  {
+    'id': 'travinh',
+    'name': 'Trà Vinh',
+    'image': 'images/tinhthanh/travinh.jpeg'
+  },
+  {
+    'id': 'tuyenquang',
+    'name': 'Tuyên Quang',
+    'image': 'images/tinhthanh/tuyenquang.jpeg'
+  },
+  {
+    'id': 'vungtau',
+    'name': 'Vũng Tàu',
+    'image': 'images/tinhthanh/vungtau.jpeg'
+  },
+  {
+    'id': 'vinhlong',
+    'name': 'Vĩnh Long',
+    'image': 'images/tinhthanh/vinhlong.jpeg'
+  },
+  {
+    'id': 'vinhphuc',
+    'name': 'Vĩnh Phúc',
+    'image': 'images/tinhthanh/vinhphuc.jpeg'
+  },
+  {'id': 'yenbai', 'name': 'Yên Bái', 'image': 'images/tinhthanh/yenbai.webp'},
 ];
 
 Map<String, List<String>> listKvHuyentheoTinh = {

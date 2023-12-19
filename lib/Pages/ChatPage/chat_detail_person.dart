@@ -1,7 +1,5 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
-import 'package:myjobapp/Classes/chat_class.dart';
-import 'package:myjobapp/Pages/ChatPage/message.dart';
 import 'package:image_picker/image_picker.dart';
 
 class DetailPersonChatPage extends StatefulWidget {
@@ -93,14 +91,14 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
         backgroundColor: Colors.white,
         body: Column(
           children: [
-            Expanded(
-                child: ListView.builder(
-              itemCount: demoChatMessage.length,
-              itemBuilder: (context, index) {
-                final ChatMessage message = demoChatMessage[index];
-                return Message(message: message);
-              },
-            )),
+            // Expanded(
+            //     child: ListView.builder(
+            //   itemCount: demoChatMessage.length,
+            //   itemBuilder: (context, index) {
+            //     final ChatMessage message = demoChatMessage[index];
+            //     return Message(message: message);
+            //   },
+            // )),
             Container(
               //Chat input
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),

@@ -442,145 +442,164 @@ class _JobsDetailScrState extends State<JobsDetailScr> {
                                         left: 10,
                                         right: 10,
                                         bottom: 10),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        InkWell(
-                                            onTap: () {
-                                              if (savejob == false) {
-                                                try {
-                                                  value.updateSavejobs(
-                                                      value.user.id,
-                                                      widget.data.id);
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(const SnackBar(
-                                                          behavior:
-                                                              SnackBarBehavior
-                                                                  .floating,
-                                                          content: Text(
-                                                              'Việc làm đã được lưu')));
-                                                } catch (e) {
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(SnackBar(
-                                                          content: Text(
-                                                              e.toString())));
-                                                }
-                                              } else {
-                                                try {
-                                                  value.removeSavejobs(
-                                                      value.user.id,
-                                                      widget.data.id);
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(const SnackBar(
-                                                          behavior:
-                                                              SnackBarBehavior
-                                                                  .floating,
-                                                          content: Text(
-                                                              'Không lưu việc làm này nữa')));
-                                                } catch (e) {
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(SnackBar(
-                                                          content: Text(
-                                                              e.toString())));
-                                                }
-                                              }
-                                              setState(() {
-                                                savejob = !savejob;
-                                              });
-                                            },
-                                            child: savejob
-                                                ? const Icon(
-                                                    Icons.favorite_rounded,
-                                                    color: Colors.pink,
-                                                  )
-                                                : const Icon(Icons
-                                                    .favorite_border_outlined)),
-                                        InkWell(
-                                          onTap: () async {
-                                            setState(() {
-                                              loading = true;
-                                            });
-                                            SenderApplyJobDto sendData =
-                                                SenderApplyJobDto(
-                                                    sendername:
-                                                        value.user.fullname,
-                                                    senderphone:
-                                                        value.user.phone,
-                                                    creatorid: widget.data.user,
-                                                    jobposition:
-                                                        widget.data.position,
-                                                    khuvuchuyen:
-                                                        widget.data.khuvuchuyen,
-                                                    khuvuctinh:
-                                                        widget.data.khuvuctinh);
-                                            Map<String, dynamic> sendDataJson =
-                                                SenderApplyJobDto.toJson(
-                                                    sendData);
-                                            var url = Uri.parse(
-                                                'http://103.176.251.70:100/users/appliedjob');
-                                            var response = await http.post(url,
-                                                body: sendDataJson);
-                                            if (response.statusCode == 201) {
-                                              value.updateAppliedjobs(
-                                                  value.user.id,
-                                                  widget.data.id);
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(const SnackBar(
-                                                      behavior: SnackBarBehavior
-                                                          .floating,
-                                                      content: Text(
-                                                          'Ứng tuyển thành công! Nhà tuyển dụng sẽ sớm liên hệ lại cho bạn.')));
-                                              // Navigator.pop(context);
-                                              setState(() {
-                                                loading = false;
-                                                appliedjob = true;
-                                              });
-                                            } else {
-                                              setState(() {
-                                                loading = false;
-                                              });
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(const SnackBar(
-                                                      behavior: SnackBarBehavior
-                                                          .floating,
-                                                      content: Text(
-                                                          'Ứng tuyển thất bại, vui lòng kiểm tra lại kết nối mạng.')));
-                                            }
-                                          },
-                                          child: Container(
-                                            height: 45,
-                                            width: 150,
-                                            decoration: BoxDecoration(
-                                                color: appliedjob
-                                                    ? Colors.blue
-                                                    : Colors.green,
-                                                borderRadius:
-                                                    BorderRadius.circular(25)),
-                                            child: Center(
-                                                child: appliedjob
-                                                    ? const Text(
-                                                        'ĐÃ ỨNG TUYỂN',
-                                                        style: TextStyle(
-                                                            fontSize: 17,
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      )
-                                                    : const Text(
-                                                        'ỨNG TUYỂN',
-                                                        style: TextStyle(
-                                                            fontSize: 17,
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      )),
-                                          ),
-                                        )
-                                      ],
-                                    ),
+                                    child: widget.userData.position ==
+                                            'Thành viên'
+                                        ? Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              InkWell(
+                                                  onTap: () {
+                                                    if (savejob == false) {
+                                                      try {
+                                                        value.updateSavejobs(
+                                                            value.user.id,
+                                                            widget.data.id);
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(const SnackBar(
+                                                                behavior:
+                                                                    SnackBarBehavior
+                                                                        .floating,
+                                                                content: Text(
+                                                                    'Việc làm đã được lưu')));
+                                                      } catch (e) {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(SnackBar(
+                                                                content: Text(e
+                                                                    .toString())));
+                                                      }
+                                                    } else {
+                                                      try {
+                                                        value.removeSavejobs(
+                                                            value.user.id,
+                                                            widget.data.id);
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(const SnackBar(
+                                                                behavior:
+                                                                    SnackBarBehavior
+                                                                        .floating,
+                                                                content: Text(
+                                                                    'Không lưu việc làm này nữa')));
+                                                      } catch (e) {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(SnackBar(
+                                                                content: Text(e
+                                                                    .toString())));
+                                                      }
+                                                    }
+                                                    setState(() {
+                                                      savejob = !savejob;
+                                                    });
+                                                  },
+                                                  child: savejob
+                                                      ? const Icon(
+                                                          Icons
+                                                              .favorite_rounded,
+                                                          color: Colors.pink,
+                                                        )
+                                                      : const Icon(Icons
+                                                          .favorite_border_outlined)),
+                                              InkWell(
+                                                onTap: () async {
+                                                  setState(() {
+                                                    loading = true;
+                                                  });
+                                                  SenderApplyJobDto sendData =
+                                                      SenderApplyJobDto(
+                                                          sendername: value
+                                                              .user.fullname,
+                                                          senderphone:
+                                                              value.user.phone,
+                                                          creatorid:
+                                                              widget.data.user,
+                                                          jobposition: widget
+                                                              .data.position,
+                                                          khuvuchuyen: widget
+                                                              .data.khuvuchuyen,
+                                                          khuvuctinh: widget
+                                                              .data.khuvuctinh);
+                                                  Map<String, dynamic>
+                                                      sendDataJson =
+                                                      SenderApplyJobDto.toJson(
+                                                          sendData);
+                                                  var url = Uri.parse(
+                                                      'http://103.176.251.70:100/users/appliedjob');
+                                                  var response =
+                                                      await http.post(url,
+                                                          body: sendDataJson);
+                                                  if (response.statusCode ==
+                                                      201) {
+                                                    value.updateAppliedjobs(
+                                                        value.user.id,
+                                                        widget.data.id);
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(const SnackBar(
+                                                            behavior:
+                                                                SnackBarBehavior
+                                                                    .floating,
+                                                            content: Text(
+                                                                'Ứng tuyển thành công! Nhà tuyển dụng sẽ sớm liên hệ lại cho bạn.')));
+                                                    // Navigator.pop(context);
+                                                    setState(() {
+                                                      loading = false;
+                                                      appliedjob = true;
+                                                    });
+                                                  } else {
+                                                    setState(() {
+                                                      loading = false;
+                                                    });
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(const SnackBar(
+                                                            behavior:
+                                                                SnackBarBehavior
+                                                                    .floating,
+                                                            content: Text(
+                                                                'Ứng tuyển thất bại, vui lòng kiểm tra lại kết nối mạng.')));
+                                                  }
+                                                },
+                                                child: Container(
+                                                  height: 45,
+                                                  width: 150,
+                                                  decoration: BoxDecoration(
+                                                      color: appliedjob
+                                                          ? Colors.blue
+                                                          : Colors.green,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              25)),
+                                                  child: Center(
+                                                      child: appliedjob
+                                                          ? const Text(
+                                                              'ĐÃ ỨNG TUYỂN',
+                                                              style: TextStyle(
+                                                                  fontSize: 17,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            )
+                                                          : const Text(
+                                                              'ỨNG TUYỂN',
+                                                              style: TextStyle(
+                                                                  fontSize: 17,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            )),
+                                                ),
+                                              )
+                                            ],
+                                          )
+                                        : const Row(),
                                   )
                                 ]),
                           ),

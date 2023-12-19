@@ -212,7 +212,7 @@ class _AddJobPageState extends State<AddJobPage> {
                                         style: tnormal,
                                         items: listKvTinh
                                             .map((e) => DropdownMenuItem(
-                                                value: e,
+                                                value: e['name'],
                                                 child: Text(
                                                   e['name']!,
                                                   style: const TextStyle(

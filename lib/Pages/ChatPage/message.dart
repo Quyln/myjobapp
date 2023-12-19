@@ -3,7 +3,6 @@ import 'package:myjobapp/Pages/ChatPage/component/audio_message.dart';
 import 'package:myjobapp/Pages/ChatPage/component/dot_message.dart';
 import 'package:myjobapp/Pages/ChatPage/component/text_message.dart';
 import 'package:myjobapp/Pages/ChatPage/component/video_message.dart';
-
 import '../../Classes/chat_class.dart';
 
 class Message extends StatelessWidget {
@@ -35,14 +34,6 @@ class Message extends StatelessWidget {
         mainAxisAlignment:
             message.isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
-          if (!message.isSender) ...[
-            const CircleAvatar(
-              radius: 20,
-              backgroundColor: Colors.grey,
-              backgroundImage: NetworkImage(
-                  'https://keomoi.com/wp-content/uploads/2019/05/anh-gai-xinh-nhat-ban-2019-hinh-6.jpg'),
-            )
-          ],
           messageContaint(message),
           if (message.isSender)
             DotMessage(
