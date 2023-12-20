@@ -2,6 +2,7 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:myjobapp/Pages/ChatPage/chat_detail_person.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ChatTbPerson extends StatefulWidget {
   const ChatTbPerson({super.key});
@@ -11,6 +12,14 @@ class ChatTbPerson extends StatefulWidget {
 }
 
 class _ChatTbPersonState extends State<ChatTbPerson> {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  void generateChatRoomId(String userId1, String userId2) {
+    List<String> listId = [userId1, userId2];
+    listId.sort();
+    String newChatRoomId = listId.join('-');
+    final newChatRoom = db.collection('personchat').doc('$newChatRoomId');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,26 +63,39 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
               delegate: SliverChildListDelegate([
             Column(
               children: [
-                Center(
-                  child: Container(
-                    margin: const EdgeInsets.only(top: 20),
-                    height: 50,
-                    width: 350,
-                    decoration: BoxDecoration(
-                        color: Colors.black12,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.search,
-                            color: Colors.grey,
-                          ),
-                          Text(
-                            'Tìm kiếm...',
-                            style: TextStyle(color: Colors.grey),
-                          )
-                        ]),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 50,
+                        width: 300,
+                        decoration: BoxDecoration(
+                            color: Colors.black12,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.search,
+                                color: Colors.grey,
+                              ),
+                              Text(
+                                'Tìm kiếm...',
+                                style: TextStyle(color: Colors.grey),
+                              )
+                            ]),
+                      ),
+                      InkWell(
+                          onTap: () {},
+                          child: IconButton(
+                            iconSize: 30,
+                            splashRadius: 23,
+                            icon: Icon(Icons.group_add),
+                            onPressed: () {},
+                          )),
+                    ],
                   ),
                 ),
                 SizedBox(

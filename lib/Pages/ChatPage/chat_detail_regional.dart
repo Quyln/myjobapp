@@ -8,9 +8,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailRegionalChatPage extends StatefulWidget {
   const DetailRegionalChatPage(
-      {super.key, required this.kvTinh, required this.kvTinhId});
+      {super.key,
+      required this.kvTinh,
+      required this.kvTinhId,
+      required this.kvTinhImage});
   final String kvTinh;
   final String kvTinhId;
+  final String kvTinhImage;
 
   @override
   State<DetailRegionalChatPage> createState() => _DetailRegionalChatPageState();
@@ -20,6 +24,8 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
   TextEditingController _inputcontroller = TextEditingController();
   List<ChatMessage> chatMessageList = [];
   FirebaseFirestore db = FirebaseFirestore.instance;
+  String? quoteChatMessage;
+  bool isQuoting = false;
 
   void getChat() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -52,6 +58,8 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
       onError: (error) => print("Listen failed: $error"),
     );
   }
+
+  void getQuoteChatMessage() {}
 
   Future<void> sendChat() async {
     if (_inputcontroller.text.trim().isEmpty) {
@@ -102,18 +110,17 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
                     color: Colors.black,
                   ),
                 ),
-                const AvatarGlow(
+                AvatarGlow(
                   showTwoGlows: true,
                   endRadius: 25,
                   glowColor: Colors.red,
                   child: Material(
                       elevation: 2,
-                      shape: CircleBorder(),
+                      shape: const CircleBorder(),
                       child: CircleAvatar(
                         radius: 20,
                         backgroundColor: Colors.grey,
-                        backgroundImage: NetworkImage(
-                            'https://th.bing.com/th/id/R.7a64084ef8e328bd73ca5fe1fe5d8a24?rik=NzvRfVeFDPErog&pid=ImgRaw&r=0'),
+                        backgroundImage: AssetImage(widget.kvTinhImage),
                       )),
                 ),
                 Padding(

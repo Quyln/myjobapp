@@ -20,7 +20,7 @@ class ChatTbRegional extends StatelessWidget {
                 height: 40,
               ),
               const Text(
-                'Danh Sách Tỉnh Thành',
+                'Cộng Đồng Tỉnh Thành',
                 style: TextStyle(color: Colors.black, fontSize: 16),
               ),
               Image.asset(
@@ -51,6 +51,7 @@ class ChatTbRegional extends StatelessWidget {
                           builder: (context) => DetailRegionalChatPage(
                                 kvTinh: listKvTinh[index]['name']!,
                                 kvTinhId: listKvTinh[index]['id']!,
+                                kvTinhImage: listKvTinh[index]['image']!,
                               )));
                 },
                 child: Padding(
@@ -59,10 +60,10 @@ class ChatTbRegional extends StatelessWidget {
                     children: [
                       AvatarGlow(
                         showTwoGlows: true,
-                        endRadius: 33,
-                        glowColor: Colors.red,
+                        endRadius: 35,
+                        glowColor: const Color.fromARGB(255, 242, 16, 0),
                         child: Material(
-                            elevation: 2,
+                            elevation: 8,
                             shape: const CircleBorder(),
                             child: CircleAvatar(
                               radius: 30,
