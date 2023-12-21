@@ -5,14 +5,18 @@ import 'package:myjobapp/Pages/ChatPage/component/text_message.dart';
 import 'package:myjobapp/Pages/ChatPage/component/video_message.dart';
 import '../../Classes/chat_class.dart';
 
-class Message extends StatelessWidget {
+class Message extends StatefulWidget {
   const Message({
     super.key,
     required this.message,
   });
-
   final ChatMessage message;
 
+  @override
+  State<Message> createState() => _MessageState();
+}
+
+class _MessageState extends State<Message> {
   @override
   Widget build(BuildContext context) {
     Widget messageContaint(ChatMessage message) {
@@ -31,13 +35,14 @@ class Message extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Row(
-        mainAxisAlignment:
-            message.isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment: widget.message.isSender
+            ? MainAxisAlignment.end
+            : MainAxisAlignment.start,
         children: [
-          messageContaint(message),
-          if (message.isSender)
+          messageContaint(widget.message),
+          if (widget.message.isSender)
             DotMessage(
-              status: message.messageStatus,
+              status: widget.message.messageStatus,
             ),
         ],
       ),

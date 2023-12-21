@@ -1,8 +1,12 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:myjobapp/Classes/chat_class.dart';
+import 'package:myjobapp/Classes/person_chat_class.dart';
 import 'package:myjobapp/Pages/ChatPage/chat_detail_person.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:myjobapp/Pages/ChatPage/searching_users.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ChatTbPerson extends StatefulWidget {
   const ChatTbPerson({super.key});
@@ -13,11 +17,80 @@ class ChatTbPerson extends StatefulWidget {
 
 class _ChatTbPersonState extends State<ChatTbPerson> {
   FirebaseFirestore db = FirebaseFirestore.instance;
-  void generateChatRoomId(String userId1, String userId2) {
+  List<PersonChatClass> personChatList = [];
+
+  void generateChatRoomId(String userId1, String userId2) async {
     List<String> listId = [userId1, userId2];
     listId.sort();
     String newChatRoomId = listId.join('-');
-    final newChatRoom = db.collection('personchat').doc('$newChatRoomId');
+    await db.collection('personchat').doc(newChatRoomId).set({});
+  }
+
+  dynamic splitChatRoomId(String chatRoomid) {
+    List<String> listId = chatRoomid.split('-');
+    return {'userId1': listId[0], 'userId2': listId[1]};
+  }
+
+  void getChat() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String myUserId = pref.getString('userid') ?? '';
+    final docRef = db.collection("personchat");
+    docRef.snapshots().listen((event) {
+      List<QueryDocumentSnapshot<Map<String, dynamic>>> filterList =
+          event.docs.where(
+        (element) {
+          dynamic userIds = splitChatRoomId(element.id);
+          return myUserId == userIds['userId1'] ||
+              myUserId == userIds['userId2'];
+        },
+      ).toList();
+      print(filterList[0].data());
+      List<PersonChatClass> personChatList2 = [];
+      filterList.forEach((element) {
+        List<ChatMessage> listChat = element
+            .data()
+            .entries
+            .map((e) => ChatMessage(
+                text: e.value['content'],
+                messageType: ChatMessageType.text,
+                timestamp: e.value['timestamp'],
+                name: e.value['name'],
+                messageStatus: MessageStatus.viewed,
+                avatar: e.value['avatar'],
+                isSender: e.value['userid'] == myUserId))
+            .toList();
+        if (listChat.length == 0) {
+          return;
+        } else if (listChat.length == 1) {
+          ChatMessage lastchatmessage = listChat[0];
+          personChatList2.add(PersonChatClass(
+              chatroomid: element.id,
+              avatar: lastchatmessage.avatar,
+              name: '123',
+              lastmessage: lastchatmessage.text,
+              timestamp: lastchatmessage.timestamp));
+        } else {
+          ChatMessage lastMessage =
+              listChat.reduce((a, b) => a.timestamp > b.timestamp ? a : b);
+          // làm api lấy user theo id, lấy avatar và name bỏ xuống dưới
+          personChatList2.add(PersonChatClass(
+              chatroomid: element.id,
+              avatar: lastMessage.avatar,
+              name: '123',
+              lastmessage: lastMessage.text,
+              timestamp: lastMessage.timestamp));
+        }
+      });
+      setState(() {
+        personChatList = personChatList2;
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getChat();
   }
 
   @override
@@ -68,33 +141,39 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        height: 50,
-                        width: 300,
-                        decoration: BoxDecoration(
-                            color: Colors.black12,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.search,
-                                color: Colors.grey,
-                              ),
-                              Text(
-                                'Tìm kiếm...',
-                                style: TextStyle(color: Colors.grey),
-                              )
-                            ]),
-                      ),
                       InkWell(
-                          onTap: () {},
-                          child: IconButton(
-                            iconSize: 30,
-                            splashRadius: 23,
-                            icon: Icon(Icons.group_add),
-                            onPressed: () {},
-                          )),
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => SearchingUserPage()));
+                        },
+                        child: Container(
+                          height: 50,
+                          width: 300,
+                          decoration: BoxDecoration(
+                              color: Colors.black12,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.search,
+                                  color: Colors.grey,
+                                ),
+                                Text(
+                                  'Tìm kiếm...',
+                                  style: TextStyle(color: Colors.grey),
+                                )
+                              ]),
+                        ),
+                      ),
+                      IconButton(
+                        iconSize: 30,
+                        splashRadius: 23,
+                        icon: Icon(Icons.group_add),
+                        onPressed: () {
+                          generateChatRoomId('4444', '1111');
+                        },
+                      )
                     ],
                   ),
                 ),
@@ -130,7 +209,7 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
                   height: 600,
                   child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
-                      itemCount: 7,
+                      itemCount: personChatList.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -161,7 +240,10 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const DetailPersonChatPage()));
+                                            DetailPersonChatPage(
+                                              chatRoomId: personChatList[index]
+                                                  .chatroomid,
+                                            )));
                               },
                               child: SizedBox(
                                 height: 80,
@@ -180,7 +262,7 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
                                             borderRadius:
                                                 BorderRadius.circular(25),
                                             child: Image.network(
-                                              'https://keomoi.com/wp-content/uploads/2019/05/anh-gai-xinh-nhat-ban-2019-hinh-6.jpg',
+                                              personChatList[index].avatar,
                                               fit: BoxFit.cover,
                                             ),
                                           )),
@@ -205,7 +287,7 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
                                   const SizedBox(
                                     width: 10,
                                   ),
-                                  const SizedBox(
+                                  SizedBox(
                                       width: 220,
                                       child: Column(
                                         crossAxisAlignment:
@@ -214,23 +296,26 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            'Khả Như',
-                                            style: TextStyle(
+                                            personChatList[index].name,
+                                            style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 16),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 5,
                                           ),
                                           Text(
-                                            'Hẹn gặp lại nhé',
+                                            personChatList[index].lastmessage,
                                             overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(fontSize: 14),
+                                            style:
+                                                const TextStyle(fontSize: 14),
                                           ),
                                         ],
                                       )),
-                                  const Expanded(
-                                      child: Align(child: Text('12:30')))
+                                  Expanded(
+                                      child: Align(
+                                          child: Text(
+                                              '${personChatList[index].timestamp}')))
                                 ]),
                               ),
                             ),

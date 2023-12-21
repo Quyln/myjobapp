@@ -1,15 +1,33 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DetailPersonChatPage extends StatefulWidget {
-  const DetailPersonChatPage({super.key});
+  const DetailPersonChatPage({super.key, required this.chatRoomId});
+  final String chatRoomId;
 
   @override
   State<DetailPersonChatPage> createState() => _DetailPersonChatPageState();
 }
 
 class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+
+  void getChat() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String myUserId = pref.getString('userid') ?? '';
+    // doan nay la de lang nghe Firebase
+    final docRef = db.collection("test").doc(widget.chatRoomId);
+    docRef.snapshots().listen(
+      (event) {
+        print(event.data());
+      },
+      onError: (error) => print("Listen failed: $error"),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

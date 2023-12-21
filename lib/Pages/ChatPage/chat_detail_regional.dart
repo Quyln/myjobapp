@@ -21,11 +21,18 @@ class DetailRegionalChatPage extends StatefulWidget {
 }
 
 class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
+  ScrollController _scrollController = ScrollController();
   TextEditingController _inputcontroller = TextEditingController();
+
   List<ChatMessage> chatMessageList = [];
+  List<ChatMessage> latestChatMessages = [];
+
   FirebaseFirestore db = FirebaseFirestore.instance;
   String? quoteChatMessage;
   bool isQuoting = false;
+  bool hasNewMessage = false;
+  String roomId = '';
+  bool reachBottom = false;
 
   void getChat() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -34,6 +41,11 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
     final docRef = db.collection("test").doc(widget.kvTinhId);
     docRef.snapshots().listen(
       (event) {
+        if (roomId != widget.kvTinhId) {
+          setState(() {
+            latestChatMessages = [];
+          });
+        }
         // covert data json tu Firebase thanh Class chatMessage
         chatMessageList = event
                 .data()
@@ -48,12 +60,22 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
                     isSender: e.value['userid'] == myUserId))
                 .toList() ??
             [];
+        // Kiểm tra xem có tin nhắn mới hay không
+        if (latestChatMessages.isNotEmpty &&
+            chatMessageList.length > latestChatMessages.length &&
+            !chatMessageList.last.isSender) {
+          setState(() {
+            hasNewMessage = true;
+          });
+        }
         setState(() {
           // sap xep thu tu chat theo timestamp
           chatMessageList.sort((a, b) {
             return a.timestamp.compareTo(b.timestamp);
           });
+          latestChatMessages = List.from(chatMessageList);
         });
+        roomId = widget.kvTinhId;
       },
       onError: (error) => print("Listen failed: $error"),
     );
@@ -72,7 +94,7 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
 
     int timeStamp = DateTime.now().millisecondsSinceEpoch;
     String chatId = '$myUserId-$timeStamp';
-    db.collection('test').doc(widget.kvTinhId).update({
+    await db.collection('test').doc(widget.kvTinhId).update({
       chatId: {
         'content': _inputcontroller.text,
         'userid': myUserId,
@@ -83,11 +105,37 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
     });
   }
 
+  void scrollDownOnChat() {
+    _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOutCirc);
+  }
+
+  void checkScroolBottom() {
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
+      setState(() {
+        reachBottom = true;
+      });
+    } else {
+      setState(() {
+        reachBottom = false;
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     getChat();
+    _scrollController.addListener(checkScroolBottom);
   }
+
+  // @override
+  // void dispose() {
+  //   _scrollController.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -152,42 +200,69 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
               ],
             ),
           ),
-          actions: const [
-            Padding(
-              padding: EdgeInsets.only(right: 10),
-              child: Align(
-                child: Text(
-                  "(5433/10000)",
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
-            )
-          ],
         ),
-        backgroundColor: Colors.grey.shade200,
         body: Column(
           children: [
             Expanded(
-                child: ListView.builder(
-              itemCount: chatMessageList.length,
-              itemBuilder: (context, index) {
-                final ChatMessage message = chatMessageList[index];
-                return Message(message: message);
-              },
+                child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                Scaffold(
+                  floatingActionButton: !reachBottom
+                      ? IconButton(
+                          splashRadius: 20,
+                          icon: const Icon(
+                            Icons.arrow_downward,
+                            size: 20,
+                            color: Colors.grey,
+                          ),
+                          onPressed: () {
+                            scrollDownOnChat();
+                          },
+                        )
+                      : null,
+                  floatingActionButtonLocation:
+                      FloatingActionButtonLocation.miniStartDocked,
+                  backgroundColor: Colors.grey.shade200,
+                  body: ListView.builder(
+                    controller: _scrollController,
+                    itemCount: chatMessageList.length,
+                    itemBuilder: (context, index) {
+                      final ChatMessage message = chatMessageList[index];
+                      return Message(
+                        message: message,
+                      );
+                    },
+                  ),
+                ),
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  height: hasNewMessage ? 20 : 0,
+                  child: GestureDetector(
+                    onTap: () {
+                      scrollDownOnChat();
+                      setState(() {
+                        hasNewMessage = false;
+                      });
+                    },
+                    child: const Text(
+                      'Có tin nhắn mới',
+                      style: TextStyle(color: Colors.blue),
+                    ),
+                  ),
+                ),
+              ],
             )),
             Container(
-              //Chat input
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey.withOpacity(0.08),
-                        blurRadius: 32,
-                        offset: const Offset(0, 4))
-                  ]),
-              child: SafeArea(
+                //Chat input
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                  BoxShadow(
+                      color: Colors.grey.withOpacity(0.08),
+                      blurRadius: 32,
+                      offset: const Offset(0, 4))
+                ]),
                 child: Row(children: [
                   IconButton(
                     onPressed: () async {
@@ -200,14 +275,14 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
                       size: 25,
                     ),
                   ),
-                  const Icon(
-                    Icons.mic_none_outlined,
-                    color: Colors.black,
-                    size: 25,
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
+                  // const Icon(
+                  //   Icons.mic_none_outlined,
+                  //   color: Colors.black,
+                  //   size: 25,
+                  // ),
+                  // const SizedBox(
+                  //   width: 10,
+                  // ),
                   Expanded(
                     child: Container(
                       height: 40,
@@ -232,6 +307,7 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
                   InkWell(
                     onTap: () async {
                       await sendChat();
+                      scrollDownOnChat();
                       _inputcontroller.clear();
                     },
                     child: const Icon(
@@ -240,9 +316,7 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
                       size: 25,
                     ),
                   )
-                ]),
-              ),
-            ),
+                ])),
           ],
         ));
   }

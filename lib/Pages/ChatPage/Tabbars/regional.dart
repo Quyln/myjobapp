@@ -33,14 +33,13 @@ class ChatTbRegional extends StatelessWidget {
       backgroundColor: Colors.white,
       body: SafeArea(
           child: Padding(
-        padding: const EdgeInsets.only(bottom: 50, top: 10),
+        padding: const EdgeInsets.only(bottom: 60, top: 10),
         child: SizedBox(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 4,
-                // childAspectRatio: 0.9,
               ),
               itemCount: listKvTinh.length,
               itemBuilder: (context, index) => GestureDetector(
@@ -60,7 +59,7 @@ class ChatTbRegional extends StatelessWidget {
                     children: [
                       AvatarGlow(
                         showTwoGlows: true,
-                        endRadius: 35,
+                        endRadius: 34,
                         glowColor: const Color.fromARGB(255, 242, 16, 0),
                         child: Material(
                             elevation: 8,

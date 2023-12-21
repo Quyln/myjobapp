@@ -36,7 +36,7 @@ class TextMessage extends StatelessWidget {
                   visible: !message.isSender,
                   child: Padding(
                     padding:
-                        const EdgeInsets.only(top: 10, left: 20, bottom: 3),
+                        const EdgeInsets.only(top: 10, left: 20, bottom: 2),
                     child: Text(
                       message.name,
                       style: const TextStyle(fontSize: 14),

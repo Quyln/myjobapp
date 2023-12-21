@@ -20,36 +20,3 @@ class ChatMessage {
       required this.avatar,
       required this.isSender});
 }
-
-// List demoChatMessage = [
-//   ChatMessage(
-//       text: 'Hi Baby',
-//       messageType: ChatMessageType.text,
-//       messageStatus: MessageStatus.viewed,
-//       isSender: true),
-//   ChatMessage(
-//       text: '',
-//       messageType: ChatMessageType.audio,
-//       messageStatus: MessageStatus.viewed,
-//       isSender: false),
-//   ChatMessage(
-//       text: '',
-//       messageType: ChatMessageType.video,
-//       messageStatus: MessageStatus.viewed,
-//       isSender: false),
-//   ChatMessage(
-//       text: 'Bị gì rồi à?',
-//       messageType: ChatMessageType.text,
-//       messageStatus: MessageStatus.not_sent,
-//       isSender: true),
-//   ChatMessage(
-//       text: 'Nhìn ổn áp đó',
-//       messageType: ChatMessageType.text,
-//       messageStatus: MessageStatus.viewed,
-//       isSender: false),
-//   ChatMessage(
-//       text: 'Ok duyệt',
-//       messageType: ChatMessageType.text,
-//       messageStatus: MessageStatus.not_view,
-//       isSender: true),
-// ];
