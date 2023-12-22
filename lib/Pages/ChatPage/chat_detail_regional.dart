@@ -60,6 +60,13 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
                     isSender: e.value['userid'] == myUserId))
                 .toList() ??
             [];
+
+        setState(() {
+          // sap xep thu tu chat theo timestamp
+          chatMessageList.sort((a, b) {
+            return a.timestamp.compareTo(b.timestamp);
+          });
+        });
         // Kiểm tra xem có tin nhắn mới hay không
         if (latestChatMessages.isNotEmpty &&
             chatMessageList.length > latestChatMessages.length &&
@@ -68,13 +75,7 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
             hasNewMessage = true;
           });
         }
-        setState(() {
-          // sap xep thu tu chat theo timestamp
-          chatMessageList.sort((a, b) {
-            return a.timestamp.compareTo(b.timestamp);
-          });
-          latestChatMessages = List.from(chatMessageList);
-        });
+        latestChatMessages = List.from(chatMessageList);
         roomId = widget.kvTinhId;
       },
       onError: (error) => print("Listen failed: $error"),
@@ -94,7 +95,7 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
 
     int timeStamp = DateTime.now().millisecondsSinceEpoch;
     String chatId = '$myUserId-$timeStamp';
-    await db.collection('test').doc(widget.kvTinhId).update({
+    db.collection('test').doc(widget.kvTinhId).update({
       chatId: {
         'content': _inputcontroller.text,
         'userid': myUserId,
@@ -107,7 +108,7 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
 
   void scrollDownOnChat() {
     _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 400),
         curve: Curves.easeInOutCirc);
   }
 
@@ -130,12 +131,6 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
     getChat();
     _scrollController.addListener(checkScroolBottom);
   }
-
-  // @override
-  // void dispose() {
-  //   _scrollController.dispose();
-  //   super.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -236,8 +231,8 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
                   ),
                 ),
                 AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  height: hasNewMessage ? 20 : 0,
+                  duration: const Duration(milliseconds: 400),
+                  height: hasNewMessage ? 30 : 0,
                   child: GestureDetector(
                     onTap: () {
                       scrollDownOnChat();

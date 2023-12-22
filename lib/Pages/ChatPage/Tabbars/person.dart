@@ -1,12 +1,16 @@
+import 'dart:convert';
+
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:myjobapp/Classes/chat_class.dart';
+import 'package:myjobapp/Classes/component/one_user_info.dart';
 import 'package:myjobapp/Classes/person_chat_class.dart';
 import 'package:myjobapp/Pages/ChatPage/chat_detail_person.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:myjobapp/Pages/ChatPage/searching_users.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class ChatTbPerson extends StatefulWidget {
   const ChatTbPerson({super.key});
@@ -18,6 +22,13 @@ class ChatTbPerson extends StatefulWidget {
 class _ChatTbPersonState extends State<ChatTbPerson> {
   FirebaseFirestore db = FirebaseFirestore.instance;
   List<PersonChatClass> personChatList = [];
+  OneUserInfo partnerInfo = OneUserInfo(
+      id: '',
+      avatar:
+          'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg',
+      companyname: '',
+      phone: '',
+      fullname: '');
 
   void generateChatRoomId(String userId1, String userId2) async {
     List<String> listId = [userId1, userId2];
@@ -31,9 +42,24 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
     return {'userId1': listId[0], 'userId2': listId[1]};
   }
 
+  void getOneUserInfo(String userid) async {
+    var url = Uri.parse('http://103.176.251.70:100/users/takeoneuser');
+    var respone = await http.post(url, body: {"userid": userid});
+
+    if (respone.statusCode == 201) {
+      Map<String, dynamic> data = jsonDecode(respone.body);
+      partnerInfo = OneUserInfo.fromJson(data);
+      print(partnerInfo.phone);
+      setState(() {
+        partnerInfo;
+      });
+    }
+  }
+
   void getChat() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String myUserId = pref.getString('userid') ?? '';
+
     final docRef = db.collection("personchat");
     docRef.snapshots().listen((event) {
       List<QueryDocumentSnapshot<Map<String, dynamic>>> filterList =
@@ -44,9 +70,10 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
               myUserId == userIds['userId2'];
         },
       ).toList();
-      print(filterList[0].data());
+
       List<PersonChatClass> personChatList2 = [];
-      filterList.forEach((element) {
+
+      filterList.forEach((element) async {
         List<ChatMessage> listChat = element
             .data()
             .entries
@@ -59,26 +86,40 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
                 avatar: e.value['avatar'],
                 isSender: e.value['userid'] == myUserId))
             .toList();
+
         if (listChat.length == 0) {
           return;
         } else if (listChat.length == 1) {
           ChatMessage lastchatmessage = listChat[0];
+
+          List<String> roomId = element.id.split('-');
+          String partnerId = roomId.firstWhere((data) => data != myUserId);
+          getOneUserInfo(partnerId);
+
           personChatList2.add(PersonChatClass(
               chatroomid: element.id,
-              avatar: lastchatmessage.avatar,
-              name: '123',
+              avatar: partnerInfo.avatar,
+              name: partnerInfo.fullname == ''
+                  ? partnerInfo.companyname
+                  : partnerInfo.fullname,
               lastmessage: lastchatmessage.text,
               timestamp: lastchatmessage.timestamp));
         } else {
-          ChatMessage lastMessage =
+          ChatMessage lastchatmessage =
               listChat.reduce((a, b) => a.timestamp > b.timestamp ? a : b);
-          // làm api lấy user theo id, lấy avatar và name bỏ xuống dưới
+
+          List<String> roomId = element.id.split(' ');
+          String partnerId = roomId.firstWhere((data) => data != myUserId);
+          getOneUserInfo(partnerId);
+
           personChatList2.add(PersonChatClass(
               chatroomid: element.id,
-              avatar: lastMessage.avatar,
-              name: '123',
-              lastmessage: lastMessage.text,
-              timestamp: lastMessage.timestamp));
+              avatar: partnerInfo.avatar,
+              name: partnerInfo.fullname == ''
+                  ? partnerInfo.companyname
+                  : partnerInfo.fullname,
+              lastmessage: lastchatmessage.text,
+              timestamp: lastchatmessage.timestamp));
         }
       });
       setState(() {
@@ -100,38 +141,6 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
       body: SafeArea(
           child: CustomScrollView(
         slivers: [
-          // SliverAppBar(
-          //   pinned: true,
-          //   backgroundColor: Colors.white,
-          //   leading: const Padding(
-          //     padding: EdgeInsets.only(left: 10),
-          //     child: Icon(
-          //       Icons.arrow_back_ios_new,
-          //       color: Colors.grey,
-          //     ),
-          //   ),
-          //   title: const Center(
-          //     child: Text(
-          //       'GIẢI TRÍ',
-          //       style: TextStyle(
-          //           color: Colors.black,
-          //           fontWeight: FontWeight.bold,
-          //           fontSize: 18),
-          //     ),
-          //   ),
-          //   actions: [
-          //     Padding(
-          //       padding: const EdgeInsets.only(right: 10),
-          //       child: IconButton(
-          //           onPressed: () {},
-          //           icon: const Icon(
-          //             Icons.add,
-          //             color: Colors.grey,
-          //             size: 30,
-          //           )),
-          //     )
-          //   ],
-          // ),
           SliverList(
               delegate: SliverChildListDelegate([
             Column(
@@ -169,7 +178,7 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
                       IconButton(
                         iconSize: 30,
                         splashRadius: 23,
-                        icon: Icon(Icons.group_add),
+                        icon: const Icon(Icons.group_add),
                         onPressed: () {
                           generateChatRoomId('4444', '1111');
                         },
@@ -245,7 +254,8 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
                                                   .chatroomid,
                                             )));
                               },
-                              child: SizedBox(
+                              child: Container(
+                                color: Colors.transparent,
                                 height: 80,
                                 width: double.infinity,
                                 child: Row(children: [
