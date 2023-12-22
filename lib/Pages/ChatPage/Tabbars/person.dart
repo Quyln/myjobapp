@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:intl/intl.dart';
 import 'package:myjobapp/Classes/chat_class.dart';
 import 'package:myjobapp/Classes/component/one_user_info.dart';
 import 'package:myjobapp/Classes/person_chat_class.dart';
@@ -22,6 +23,7 @@ class ChatTbPerson extends StatefulWidget {
 class _ChatTbPersonState extends State<ChatTbPerson> {
   FirebaseFirestore db = FirebaseFirestore.instance;
   List<PersonChatClass> personChatList = [];
+  String timestampFormatted = '';
   OneUserInfo partnerInfo = OneUserInfo(
       id: '',
       avatar:
@@ -42,17 +44,24 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
     return {'userId1': listId[0], 'userId2': listId[1]};
   }
 
-  void getOneUserInfo(String userid) async {
-    var url = Uri.parse('http://103.176.251.70:100/users/takeoneuser');
-    var respone = await http.post(url, body: {"userid": userid});
+  String timestampToDate(int timestamp) {
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
+    DateTime now = DateTime.now();
 
-    if (respone.statusCode == 201) {
-      Map<String, dynamic> data = jsonDecode(respone.body);
-      partnerInfo = OneUserInfo.fromJson(data);
-      print(partnerInfo.phone);
-      setState(() {
-        partnerInfo;
-      });
+    if (dateTime.year == now.year &&
+        dateTime.month == now.month &&
+        dateTime.day == now.day) {
+      Duration difference = now.difference(dateTime);
+      if (difference.inSeconds < 60) {
+        return 'vài giây trước';
+      } else if (difference.inMinutes < 60) {
+        return '${difference.inMinutes} phút trước';
+      } else {
+        return '${difference.inHours} giờ trước';
+      }
+    } else {
+      DateFormat dateFormat = DateFormat('dd/MM/yyyy');
+      return dateFormat.format(dateTime);
     }
   }
 
@@ -87,14 +96,24 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
                 isSender: e.value['userid'] == myUserId))
             .toList();
 
+        List<String> roomId = element.id.split('-');
+        String partnerId = roomId.firstWhere((data) => data != myUserId);
+        var url = Uri.parse('http://103.176.251.70:100/users/takeoneuser');
+        var respone = await http.post(url, body: {"userid": partnerId});
+
+        if (respone.statusCode == 201) {
+          Map<String, dynamic> data = jsonDecode(respone.body);
+          partnerInfo = OneUserInfo.fromJson(data);
+          if (mounted) {
+            setState(() {
+              partnerInfo;
+            });
+          }
+        }
         if (listChat.length == 0) {
           return;
         } else if (listChat.length == 1) {
           ChatMessage lastchatmessage = listChat[0];
-
-          List<String> roomId = element.id.split('-');
-          String partnerId = roomId.firstWhere((data) => data != myUserId);
-          getOneUserInfo(partnerId);
 
           personChatList2.add(PersonChatClass(
               chatroomid: element.id,
@@ -108,10 +127,6 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
           ChatMessage lastchatmessage =
               listChat.reduce((a, b) => a.timestamp > b.timestamp ? a : b);
 
-          List<String> roomId = element.id.split(' ');
-          String partnerId = roomId.firstWhere((data) => data != myUserId);
-          getOneUserInfo(partnerId);
-
           personChatList2.add(PersonChatClass(
               chatroomid: element.id,
               avatar: partnerInfo.avatar,
@@ -122,9 +137,11 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
               timestamp: lastchatmessage.timestamp));
         }
       });
-      setState(() {
-        personChatList = personChatList2;
-      });
+      if (mounted) {
+        setState(() {
+          personChatList = personChatList2;
+        });
+      }
     });
   }
 
@@ -252,6 +269,10 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
                                             DetailPersonChatPage(
                                               chatRoomId: personChatList[index]
                                                   .chatroomid,
+                                              partnerAvatar:
+                                                  personChatList[index].avatar,
+                                              partnerName:
+                                                  personChatList[index].name,
                                             )));
                               },
                               child: Container(
@@ -265,9 +286,9 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
                                           height: 60,
                                           width: 60,
                                           decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(25),
-                                              color: Colors.black),
+                                            borderRadius:
+                                                BorderRadius.circular(25),
+                                          ),
                                           child: ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(25),
@@ -298,7 +319,7 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
                                     width: 10,
                                   ),
                                   SizedBox(
-                                      width: 220,
+                                      width: 210,
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -310,6 +331,7 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
                                             style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 16),
+                                            overflow: TextOverflow.ellipsis,
                                           ),
                                           const SizedBox(
                                             height: 5,
@@ -324,8 +346,9 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
                                       )),
                                   Expanded(
                                       child: Align(
-                                          child: Text(
-                                              '${personChatList[index].timestamp}')))
+                                          child: Text(timestampToDate(
+                                              personChatList[index]
+                                                  .timestamp))))
                                 ]),
                               ),
                             ),

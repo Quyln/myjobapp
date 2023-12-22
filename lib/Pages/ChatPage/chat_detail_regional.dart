@@ -60,20 +60,24 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
                     isSender: e.value['userid'] == myUserId))
                 .toList() ??
             [];
-
-        setState(() {
-          // sap xep thu tu chat theo timestamp
-          chatMessageList.sort((a, b) {
-            return a.timestamp.compareTo(b.timestamp);
+        if (mounted) {
+          setState(() {
+            // sap xep thu tu chat theo timestamp
+            chatMessageList.sort((a, b) {
+              return a.timestamp.compareTo(b.timestamp);
+            });
           });
-        });
+        }
+
         // Kiểm tra xem có tin nhắn mới hay không
         if (latestChatMessages.isNotEmpty &&
             chatMessageList.length > latestChatMessages.length &&
             !chatMessageList.last.isSender) {
-          setState(() {
-            hasNewMessage = true;
-          });
+          if (mounted) {
+            setState(() {
+              hasNewMessage = true;
+            });
+          }
         }
         latestChatMessages = List.from(chatMessageList);
         roomId = widget.kvTinhId;
@@ -136,19 +140,17 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leadingWidth: 300,
-          backgroundColor: Colors.white,
-          leading: Padding(
-            padding: const EdgeInsets.only(
-              left: 20,
-            ),
-            child: Row(
+            leadingWidth: 300,
+            backgroundColor: Colors.white,
+            leading: Row(
               children: [
-                InkWell(
-                  onTap: () {
+                IconButton(
+                  splashRadius: 20,
+                  splashColor: Colors.white10,
+                  onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Icon(
+                  icon: const Icon(
                     Icons.arrow_back_ios_new,
                     color: Colors.black,
                   ),
@@ -193,9 +195,7 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
                   ),
                 )
               ],
-            ),
-          ),
-        ),
+            )),
         body: Column(
           children: [
             Expanded(

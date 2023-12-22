@@ -1,14 +1,25 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:myjobapp/Pages/ChatPage/message.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../Classes/chat_class.dart';
 
 class DetailPersonChatPage extends StatefulWidget {
-  const DetailPersonChatPage({super.key, required this.chatRoomId});
+  const DetailPersonChatPage(
+      {super.key,
+      required this.chatRoomId,
+      required this.partnerAvatar,
+      required this.partnerName});
   final String chatRoomId;
+  final String partnerAvatar;
+  final String partnerName;
 
   @override
   State<DetailPersonChatPage> createState() => _DetailPersonChatPageState();
@@ -27,11 +38,15 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
   bool hasNewMessage = false;
   String roomId = '';
   bool reachBottom = false;
+  XFile? image;
+  XFile? result;
+  String? base64Image;
 
   @override
   void initState() {
     super.initState();
     getChat();
+    _scrollController.addListener(checkScroolBottom);
   }
 
   void getChat() async {
@@ -60,20 +75,24 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
                     isSender: e.value['userid'] == myUserId))
                 .toList() ??
             [];
-
-        setState(() {
-          // sap xep thu tu chat theo timestamp
-          chatMessageList.sort((a, b) {
-            return a.timestamp.compareTo(b.timestamp);
+        if (mounted) {
+          setState(() {
+            // sap xep thu tu chat theo timestamp
+            chatMessageList.sort((a, b) {
+              return a.timestamp.compareTo(b.timestamp);
+            });
           });
-        });
+        }
+
         // Kiểm tra xem có tin nhắn mới hay không
         if (latestChatMessages.isNotEmpty &&
             chatMessageList.length > latestChatMessages.length &&
             !chatMessageList.last.isSender) {
-          setState(() {
-            hasNewMessage = true;
-          });
+          if (mounted) {
+            setState(() {
+              hasNewMessage = true;
+            });
+          }
         }
         latestChatMessages = List.from(chatMessageList);
         roomId = widget.chatRoomId;
@@ -123,50 +142,82 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
     }
   }
 
+  Future<XFile?> compressAndGetFile(File file, String targetPath) async {
+    result = await FlutterImageCompress.compressAndGetFile(
+      file.absolute.path,
+      targetPath,
+      quality: 80,
+      rotate: 0,
+    );
+    setState(() {
+      result;
+    });
+    return result;
+  }
+
+  void pickerAndCoverToBase64() async {
+    final ImagePicker picker = ImagePicker();
+    final tempDir = await getTemporaryDirectory();
+    final path = tempDir.path;
+    final String targetPath =
+        "$path/${DateTime.now().millisecondsSinceEpoch}.jpg";
+
+    image = await picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      image;
+    });
+    if (image != null) {
+      await compressAndGetFile(File(image!.path), targetPath);
+      List<int> imageBytes = await result!.readAsBytes();
+      String base64Image = base64Encode(imageBytes);
+      setState(() {
+        base64Image;
+      });
+      print(base64Image);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leadingWidth: 300,
-          backgroundColor: Colors.white,
-          leading: Padding(
-            padding: const EdgeInsets.only(
-              left: 20,
-            ),
-            child: Row(
+            leadingWidth: 300,
+            backgroundColor: Colors.white,
+            leading: Row(
               children: [
-                InkWell(
-                  onTap: () {
+                IconButton(
+                  splashRadius: 20,
+                  splashColor: Colors.white10,
+                  onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Icon(
+                  icon: const Icon(
                     Icons.arrow_back_ios_new,
                     color: Colors.black,
                   ),
                 ),
-                const AvatarGlow(
+                AvatarGlow(
                   showTwoGlows: true,
                   endRadius: 25,
                   glowColor: Colors.red,
                   child: Material(
                       elevation: 2,
-                      shape: CircleBorder(),
+                      shape: const CircleBorder(),
                       child: CircleAvatar(
                         radius: 20,
                         backgroundColor: Colors.grey,
-                        backgroundImage: NetworkImage(
-                            'https://keomoi.com/wp-content/uploads/2019/05/anh-gai-xinh-nhat-ban-2019-hinh-6.jpg'),
+                        backgroundImage: NetworkImage(widget.partnerAvatar),
                       )),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 5),
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Khả Như',
-                        style: TextStyle(
+                        widget.partnerName,
+                        style: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                             fontSize: 16),
@@ -175,25 +226,7 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
                   ),
                 )
               ],
-            ),
-          ),
-          actions: const [
-            Icon(
-              Icons.call,
-              color: Colors.black,
-            ),
-            SizedBox(
-              width: 20,
-            ),
-            Icon(
-              Icons.video_call,
-              color: Colors.black,
-            ),
-            SizedBox(
-              width: 20,
-            )
-          ],
-        ),
+            )),
         backgroundColor: Colors.white,
         body: Column(
           children: [
@@ -247,6 +280,16 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
                 ),
               ],
             )),
+            image != null && base64Image != null
+                ? SizedBox(
+                    height: 300,
+                    width: 200,
+                    child: Image.memory(
+                      base64Decode(base64Image!),
+                      fit: BoxFit.fitHeight,
+                    ),
+                  )
+                : const SizedBox.shrink(),
             Container(
                 //Chat input
                 padding:
@@ -260,8 +303,7 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
                 child: Row(children: [
                   IconButton(
                     onPressed: () async {
-                      await ImagePicker()
-                          .pickImage(source: ImageSource.gallery);
+                      pickerAndCoverToBase64();
                     },
                     icon: const Icon(
                       Icons.image_outlined,

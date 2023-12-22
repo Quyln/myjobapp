@@ -10,6 +10,7 @@ class ChatMessage {
   final int timestamp;
   final String avatar;
   final String name;
+  String? quoteMessage;
 
   ChatMessage(
       {required this.text,

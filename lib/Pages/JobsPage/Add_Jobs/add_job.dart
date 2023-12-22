@@ -84,43 +84,19 @@ class _AddJobPageState extends State<AddJobPage> {
                   child: Column(
                     children: [
                       Container(
+                        //position
                         margin: const EdgeInsets.only(top: 10),
                         //title
                         padding: const EdgeInsets.only(
                             left: 10, right: 10, bottom: 10),
                         width: 300,
-                        decoration: const BoxDecoration(
-                            color: Colors.black12,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
-                        child: TextField(
-                          onChanged: (value) {
-                            setState(() {
-                              newJobData['title'] = value;
-                            });
-                          },
-                          style: tnormal,
-                          maxLength: 50,
-                          maxLines: 2,
-                          controller: _titlecontroller,
-                          textAlignVertical: TextAlignVertical.center,
-                          decoration: const InputDecoration(
-                              hintText: 'Tiêu đề', border: InputBorder.none),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        //position
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
                         height: 40,
-                        width: 300,
                         decoration: const BoxDecoration(
                             color: Colors.black12,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(20))),
                         child: TextField(
+                          maxLength: 40,
                           onChanged: (value) {
                             setState(() {
                               newJobData['position'] = value;
@@ -132,7 +108,10 @@ class _AddJobPageState extends State<AddJobPage> {
                           controller: _positioncontroller,
                           decoration: const InputDecoration(
                               hintText: 'Vị trí tuyển dụng',
-                              border: InputBorder.none),
+                              border: InputBorder.none,
+                              counterText: '',
+                              contentPadding:
+                                  EdgeInsets.symmetric(vertical: 10)),
                         ),
                       ),
                       const SizedBox(
@@ -141,7 +120,7 @@ class _AddJobPageState extends State<AddJobPage> {
                       Container(
                         //salary
                         padding: const EdgeInsets.symmetric(horizontal: 10),
-                        height: 40,
+                        height: 35,
                         width: 300,
                         decoration: const BoxDecoration(
                             color: Colors.black12,
@@ -187,7 +166,7 @@ class _AddJobPageState extends State<AddJobPage> {
                         children: [
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
-                            height: 40,
+                            height: 35,
                             width: 145,
                             decoration: const BoxDecoration(
                                 color: Colors.black12,
@@ -230,7 +209,7 @@ class _AddJobPageState extends State<AddJobPage> {
                           ),
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
-                            height: 40,
+                            height: 35,
                             width: 145,
                             decoration: const BoxDecoration(
                                 color: Colors.black12,
@@ -284,7 +263,7 @@ class _AddJobPageState extends State<AddJobPage> {
                         },
                         child: Container(
                           margin: const EdgeInsets.only(top: 10, bottom: 10),
-                          height: 40,
+                          height: 35,
                           width: 300,
                           decoration: BoxDecoration(
                               color: Colors.black12,
@@ -304,7 +283,7 @@ class _AddJobPageState extends State<AddJobPage> {
                       Container(
                         //name
                         padding: const EdgeInsets.symmetric(horizontal: 10),
-                        height: 40,
+                        height: 35,
                         width: 300,
                         decoration: const BoxDecoration(
                             color: Colors.black12,
@@ -312,8 +291,7 @@ class _AddJobPageState extends State<AddJobPage> {
                                 BorderRadius.all(Radius.circular(20))),
                         child: TextField(
                           readOnly: true,
-                          textAlign: TextAlign.start,
-                          textAlignVertical: TextAlignVertical.center,
+                          textAlign: TextAlign.center,
                           style: tnormal,
                           controller: _namecontroller,
                           decoration: InputDecoration(
