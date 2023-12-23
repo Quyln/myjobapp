@@ -49,7 +49,9 @@ class _ImageMessageState extends State<ImageMessage> {
                 child: AspectRatio(
                   aspectRatio: 1,
                   child: Stack(
-                    alignment: Alignment.centerRight,
+                    alignment: widget.message.isSender
+                        ? Alignment.centerRight
+                        : Alignment.centerLeft,
                     children: [
                       GestureDetector(
                         onTap: () {
