@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-
 import '../../../Classes/chat_class.dart';
 
 class ImageMessage extends StatefulWidget {
@@ -13,30 +11,6 @@ class ImageMessage extends StatefulWidget {
 }
 
 class _ImageMessageState extends State<ImageMessage> {
-  double _scale = 1.0;
-  TransformationController _transformationController =
-      TransformationController();
-
-  void _handleDoubleTap() {
-    double newScale = _scale == 1.0 ? 2.0 : 1.0;
-    setState(() {
-      _scale = newScale;
-    });
-    _transformationController.value = Matrix4.identity()
-      ..scale(newScale, newScale);
-  }
-
-  void _handleInteractionUpdate(ScaleUpdateDetails details) {
-    double newScale = _scale * details.scale;
-    if (newScale >= 0.5 && newScale <= 4.0) {
-      setState(() {
-        _scale = newScale;
-      });
-      _transformationController.value = Matrix4.identity()
-        ..scale(newScale, newScale);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -85,23 +59,16 @@ class _ImageMessageState extends State<ImageMessage> {
                               return Dialog(
                                 backgroundColor: Colors.transparent,
                                 child: GestureDetector(
-                                  onDoubleTap: _handleDoubleTap,
                                   child: InteractiveViewer(
-                                    transformationController:
-                                        _transformationController,
-                                    onInteractionStart: (_) =>
-                                        _transformationController.value =
-                                            Matrix4.identity(),
-                                    onInteractionUpdate:
-                                        _handleInteractionUpdate,
-                                    maxScale: 4.0, // Giá trị tối đa để phóng to
-                                    minScale:
-                                        0.5, // Giá trị tối thiểu để thu nhỏ
-                                    panEnabled: true, // Cho phép kéo
-                                    scaleEnabled:
-                                        true, // Cho phép phóng to/thu nhỏ
-                                    child: Image.memory(
-                                        base64Decode(widget.message.imageb64!)),
+                                    maxScale: 4.0,
+                                    minScale: 0.5,
+                                    panEnabled: true,
+                                    scaleEnabled: true,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Image.memory(base64Decode(
+                                          widget.message.imageb64!)),
+                                    ),
                                   ),
                                 ),
                               );
