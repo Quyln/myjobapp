@@ -4,15 +4,45 @@ import 'package:flutter/material.dart';
 
 import '../../../Classes/chat_class.dart';
 
-class ImageMessage extends StatelessWidget {
+class ImageMessage extends StatefulWidget {
   const ImageMessage({super.key, required this.message});
   final ChatMessage message;
+
+  @override
+  State<ImageMessage> createState() => _ImageMessageState();
+}
+
+class _ImageMessageState extends State<ImageMessage> {
+  double _scale = 1.0;
+  TransformationController _transformationController =
+      TransformationController();
+
+  void _handleDoubleTap() {
+    double newScale = _scale == 1.0 ? 2.0 : 1.0;
+    setState(() {
+      _scale = newScale;
+    });
+    _transformationController.value = Matrix4.identity()
+      ..scale(newScale, newScale);
+  }
+
+  void _handleInteractionUpdate(ScaleUpdateDetails details) {
+    double newScale = _scale * details.scale;
+    if (newScale >= 0.5 && newScale <= 4.0) {
+      setState(() {
+        _scale = newScale;
+      });
+      _transformationController.value = Matrix4.identity()
+        ..scale(newScale, newScale);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (!message.isSender) ...[
+        if (!widget.message.isSender) ...[
           Padding(
             padding: const EdgeInsets.only(
               top: 12,
@@ -20,7 +50,7 @@ class ImageMessage extends StatelessWidget {
             child: CircleAvatar(
               radius: 20,
               backgroundColor: Colors.grey,
-              backgroundImage: NetworkImage(message.avatar),
+              backgroundImage: NetworkImage(widget.message.avatar),
             ),
           ),
         ],
@@ -31,12 +61,12 @@ class ImageMessage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Visibility(
-                  visible: !message.isSender,
+                  visible: !widget.message.isSender,
                   child: Padding(
                     padding:
                         const EdgeInsets.only(top: 10, left: 10, bottom: 2),
                     child: Text(
-                      message.name,
+                      widget.message.name,
                       style: const TextStyle(fontSize: 12),
                     ),
                   )),
@@ -47,15 +77,48 @@ class ImageMessage extends StatelessWidget {
                   child: Stack(
                     alignment: Alignment.centerRight,
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: message.imageb64 != null
-                            ? Image.memory(
-                                base64Decode(message.imageb64!),
-                                fit: BoxFit.cover,
-                                height: MediaQuery.of(context).size.width * 0.5,
-                              )
-                            : const SizedBox.shrink(),
+                      GestureDetector(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Dialog(
+                                backgroundColor: Colors.transparent,
+                                child: GestureDetector(
+                                  onDoubleTap: _handleDoubleTap,
+                                  child: InteractiveViewer(
+                                    transformationController:
+                                        _transformationController,
+                                    onInteractionStart: (_) =>
+                                        _transformationController.value =
+                                            Matrix4.identity(),
+                                    onInteractionUpdate:
+                                        _handleInteractionUpdate,
+                                    maxScale: 4.0, // Giá trị tối đa để phóng to
+                                    minScale:
+                                        0.5, // Giá trị tối thiểu để thu nhỏ
+                                    panEnabled: true, // Cho phép kéo
+                                    scaleEnabled:
+                                        true, // Cho phép phóng to/thu nhỏ
+                                    child: Image.memory(
+                                        base64Decode(widget.message.imageb64!)),
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: widget.message.imageb64 != null
+                              ? Image.memory(
+                                  base64Decode(widget.message.imageb64!),
+                                  fit: BoxFit.cover,
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.5,
+                                )
+                              : const SizedBox.shrink(),
+                        ),
                       ),
                     ],
                   ),
