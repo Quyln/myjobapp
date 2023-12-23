@@ -52,7 +52,7 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
                 ?.entries
                 .map((e) => ChatMessage(
                     text: e.value['content'],
-                    messageType: ChatMessageType.text,
+                    messageType: 'text',
                     timestamp: e.value['timestamp'],
                     name: e.value['name'],
                     messageStatus: MessageStatus.viewed,

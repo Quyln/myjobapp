@@ -36,19 +36,31 @@ class TextMessage extends StatelessWidget {
                   visible: !message.isSender,
                   child: Padding(
                     padding:
-                        const EdgeInsets.only(top: 10, left: 20, bottom: 2),
+                        const EdgeInsets.only(top: 10, left: 10, bottom: 2),
                     child: Text(
                       message.name,
-                      style: const TextStyle(fontSize: 14),
+                      style: const TextStyle(fontSize: 12),
                     ),
                   )),
               Container(
                 width: message.text.length > 50 ? 250 : null,
-                decoration: BoxDecoration(
-                    color:
-                        message.isSender ? Colors.blue.shade200 : Colors.white,
-                    borderRadius: BorderRadius.circular(16)),
-                margin: const EdgeInsets.only(left: 10, bottom: 5, right: 10),
+                decoration: message.isSender
+                    ? BoxDecoration(
+                        color: Colors.blue.shade200,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          bottomRight: Radius.circular(15),
+                          bottomLeft: Radius.circular(15),
+                        ))
+                    : const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(15),
+                          bottomRight: Radius.circular(15),
+                          bottomLeft: Radius.circular(15),
+                        )),
+                margin: const EdgeInsets.only(
+                    left: 10, bottom: 5, right: 10, top: 2),
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 child: Text(

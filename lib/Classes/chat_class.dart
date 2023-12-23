@@ -1,15 +1,14 @@
-enum ChatMessageType { text, audio, image, video }
-
 enum MessageStatus { not_sent, not_view, viewed }
 
 class ChatMessage {
   final String text;
-  final ChatMessageType messageType;
-  final MessageStatus messageStatus;
+  String messageType;
+  MessageStatus messageStatus;
   final bool isSender;
   final int timestamp;
   final String avatar;
   final String name;
+  String? imageb64;
   String? quoteMessage;
 
   ChatMessage(
@@ -18,6 +17,8 @@ class ChatMessage {
       required this.messageStatus,
       required this.timestamp,
       required this.name,
+      this.imageb64,
+      this.quoteMessage,
       required this.avatar,
       required this.isSender});
 }

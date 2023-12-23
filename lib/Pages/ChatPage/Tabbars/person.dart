@@ -88,7 +88,7 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
             .entries
             .map((e) => ChatMessage(
                 text: e.value['content'],
-                messageType: ChatMessageType.text,
+                messageType: e.value['messageType'],
                 timestamp: e.value['timestamp'],
                 name: e.value['name'],
                 messageStatus: MessageStatus.viewed,
@@ -133,13 +133,16 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
               name: partnerInfo.fullname == ''
                   ? partnerInfo.companyname
                   : partnerInfo.fullname,
-              lastmessage: lastchatmessage.text,
+              lastmessage: lastchatmessage.text == ''
+                  ? 'Hình ảnh'
+                  : lastchatmessage.text,
               timestamp: lastchatmessage.timestamp));
         }
       });
       if (mounted) {
         setState(() {
           personChatList = personChatList2;
+          personChatList.sort((a, b) => b.timestamp.compareTo(a.timestamp));
         });
       }
     });
@@ -170,7 +173,7 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
                       InkWell(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => SearchingUserPage()));
+                              builder: (context) => const SearchingUserPage()));
                         },
                         child: Container(
                           height: 50,

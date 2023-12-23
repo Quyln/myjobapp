@@ -67,11 +67,12 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
                 ?.entries
                 .map((e) => ChatMessage(
                     text: e.value['content'],
-                    messageType: ChatMessageType.text,
+                    messageType: e.value['messageType'],
                     timestamp: e.value['timestamp'],
                     name: e.value['name'],
                     messageStatus: MessageStatus.viewed,
                     avatar: e.value['avatar'],
+                    imageb64: e.value['imageb64'],
                     isSender: e.value['userid'] == myUserId))
                 .toList() ??
             [];
@@ -118,7 +119,29 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
         'userid': myUserId,
         'name': userName,
         'avatar': userAvatar,
-        'timestamp': timeStamp
+        'timestamp': timeStamp,
+        'messageType': 'text',
+      }
+    });
+  }
+
+  Future<void> sendImage() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String myUserId = pref.getString('userid') ?? '';
+    String userName = pref.getString('username') ?? '';
+    String userAvatar = pref.getString('useravatar') ?? '';
+
+    int timeStamp = DateTime.now().millisecondsSinceEpoch;
+    String chatId = '$myUserId-$timeStamp';
+    db.collection('personchat').doc(widget.chatRoomId).update({
+      chatId: {
+        'content': _inputcontroller.text,
+        'userid': myUserId,
+        'name': userName,
+        'avatar': userAvatar,
+        'timestamp': timeStamp,
+        'messageType': 'image',
+        'imageb64': base64Image
       }
     });
   }
@@ -169,7 +192,7 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
     if (image != null) {
       await compressAndGetFile(File(image!.path), targetPath);
       List<int> imageBytes = await result!.readAsBytes();
-      String base64Image = base64Encode(imageBytes);
+      base64Image = base64Encode(imageBytes);
       setState(() {
         base64Image;
       });
@@ -227,7 +250,6 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
                 )
               ],
             )),
-        backgroundColor: Colors.white,
         body: Column(
           children: [
             Expanded(
@@ -280,16 +302,6 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
                 ),
               ],
             )),
-            image != null && base64Image != null
-                ? SizedBox(
-                    height: 300,
-                    width: 200,
-                    child: Image.memory(
-                      base64Decode(base64Image!),
-                      fit: BoxFit.fitHeight,
-                    ),
-                  )
-                : const SizedBox.shrink(),
             Container(
                 //Chat input
                 padding:
@@ -311,14 +323,6 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
                       size: 25,
                     ),
                   ),
-                  // const Icon(
-                  //   Icons.mic_none_outlined,
-                  //   color: Colors.black,
-                  //   size: 25,
-                  // ),
-                  // const SizedBox(
-                  //   width: 10,
-                  // ),
                   Expanded(
                     child: Container(
                       height: 40,
@@ -342,7 +346,11 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
                   ),
                   InkWell(
                     onTap: () async {
-                      await sendChat();
+                      if (base64Image != null) {
+                        await sendImage();
+                      } else {
+                        await sendChat();
+                      }
                       scrollDownOnChat();
                       _inputcontroller.clear();
                     },
