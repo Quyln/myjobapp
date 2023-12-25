@@ -46,7 +46,7 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
   void initState() {
     super.initState();
     getChat();
-    _scrollController.addListener(checkScroolBottom);
+    // _scrollController.addListener(checkScroolBottom);
   }
 
   void getChat() async {

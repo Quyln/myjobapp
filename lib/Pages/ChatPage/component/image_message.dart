@@ -2,21 +2,16 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import '../../../Classes/chat_class.dart';
 
-class ImageMessage extends StatefulWidget {
+class ImageMessage extends StatelessWidget {
   const ImageMessage({super.key, required this.message});
   final ChatMessage message;
 
-  @override
-  State<ImageMessage> createState() => _ImageMessageState();
-}
-
-class _ImageMessageState extends State<ImageMessage> {
   @override
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (!widget.message.isSender) ...[
+        if (!message.isSender) ...[
           Padding(
             padding: const EdgeInsets.only(
               top: 12,
@@ -24,7 +19,7 @@ class _ImageMessageState extends State<ImageMessage> {
             child: CircleAvatar(
               radius: 20,
               backgroundColor: Colors.grey,
-              backgroundImage: NetworkImage(widget.message.avatar),
+              backgroundImage: NetworkImage(message.avatar),
             ),
           ),
         ],
@@ -35,12 +30,12 @@ class _ImageMessageState extends State<ImageMessage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Visibility(
-                  visible: !widget.message.isSender,
+                  visible: !message.isSender,
                   child: Padding(
                     padding:
                         const EdgeInsets.only(top: 10, left: 10, bottom: 2),
                     child: Text(
-                      widget.message.name,
+                      message.name,
                       style: const TextStyle(fontSize: 12),
                     ),
                   )),
@@ -49,7 +44,7 @@ class _ImageMessageState extends State<ImageMessage> {
                 child: AspectRatio(
                   aspectRatio: 1,
                   child: Stack(
-                    alignment: widget.message.isSender
+                    alignment: message.isSender
                         ? Alignment.centerRight
                         : Alignment.centerLeft,
                     children: [
@@ -59,17 +54,19 @@ class _ImageMessageState extends State<ImageMessage> {
                             context: context,
                             builder: (BuildContext context) {
                               return Dialog(
+                                shadowColor: Colors.transparent,
                                 backgroundColor: Colors.transparent,
                                 child: GestureDetector(
                                   child: InteractiveViewer(
-                                    maxScale: 4.0,
+                                    clipBehavior: Clip.none,
+                                    maxScale: 2.5,
                                     minScale: 0.5,
                                     panEnabled: true,
                                     scaleEnabled: true,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
-                                      child: Image.memory(base64Decode(
-                                          widget.message.imageb64!)),
+                                      child: Image.memory(
+                                          base64Decode(message.imageb64!)),
                                     ),
                                   ),
                                 ),
@@ -79,9 +76,9 @@ class _ImageMessageState extends State<ImageMessage> {
                         },
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: widget.message.imageb64 != null
+                          child: message.imageb64 != null
                               ? Image.memory(
-                                  base64Decode(widget.message.imageb64!),
+                                  base64Decode(message.imageb64!),
                                   fit: BoxFit.cover,
                                   height:
                                       MediaQuery.of(context).size.width * 0.5,
