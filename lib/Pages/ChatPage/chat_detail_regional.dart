@@ -133,7 +133,7 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
   void initState() {
     super.initState();
     getChat();
-    _scrollController.addListener(checkScroolBottom);
+    // _scrollController.addListener(checkScroolBottom);
   }
 
   @override

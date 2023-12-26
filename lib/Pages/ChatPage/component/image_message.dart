@@ -54,7 +54,7 @@ class ImageMessage extends StatelessWidget {
                             context: context,
                             builder: (BuildContext context) {
                               return Dialog(
-                                shadowColor: Colors.transparent,
+                                shadowColor: Colors.white10,
                                 backgroundColor: Colors.transparent,
                                 child: GestureDetector(
                                   child: InteractiveViewer(

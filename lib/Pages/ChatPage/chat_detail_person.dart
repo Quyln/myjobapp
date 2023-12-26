@@ -178,7 +178,7 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
     return result;
   }
 
-  void pickerAndCoverToBase64() async {
+  void pickerAndConvertToBase64() async {
     final ImagePicker picker = ImagePicker();
     final tempDir = await getTemporaryDirectory();
     final path = tempDir.path;
@@ -315,7 +315,7 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
                 child: Row(children: [
                   IconButton(
                     onPressed: () async {
-                      pickerAndCoverToBase64();
+                      pickerAndConvertToBase64();
                     },
                     icon: const Icon(
                       Icons.image_outlined,
