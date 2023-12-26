@@ -52,7 +52,6 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
   void getChat() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String myUserId = pref.getString('userid') ?? '';
-    // doan nay la de lang nghe Firebase
     final docRef = db.collection("personchat").doc(widget.chatRoomId);
     docRef.snapshots().listen(
       (event) {
@@ -78,14 +77,12 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
             [];
         if (mounted) {
           setState(() {
-            // sap xep thu tu chat theo timestamp
             chatMessageList.sort((a, b) {
               return a.timestamp.compareTo(b.timestamp);
             });
           });
         }
 
-        // Kiểm tra xem có tin nhắn mới hay không
         if (latestChatMessages.isNotEmpty &&
             chatMessageList.length > latestChatMessages.length &&
             !chatMessageList.last.isSender) {
@@ -204,52 +201,44 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            leadingWidth: 300,
-            backgroundColor: Colors.white,
-            leading: Row(
-              children: [
-                IconButton(
-                  splashRadius: 20,
-                  splashColor: Colors.white10,
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(
-                    Icons.arrow_back_ios_new,
-                    color: Colors.black,
-                  ),
+          leadingWidth: 89,
+          backgroundColor: Colors.white,
+          leading: Row(
+            children: [
+              IconButton(
+                splashRadius: 20,
+                splashColor: Colors.white10,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(
+                  Icons.arrow_back_ios_new,
+                  color: Colors.black,
+                  size: 20,
                 ),
-                AvatarGlow(
-                  showTwoGlows: true,
-                  endRadius: 25,
-                  glowColor: Colors.red,
-                  child: Material(
-                      elevation: 2,
-                      shape: const CircleBorder(),
-                      child: CircleAvatar(
-                        radius: 20,
-                        backgroundColor: Colors.grey,
-                        backgroundImage: NetworkImage(widget.partnerAvatar),
-                      )),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 5),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        widget.partnerName,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            )),
+              ),
+              AvatarGlow(
+                showTwoGlows: true,
+                endRadius: 20,
+                glowColor: Colors.red,
+                child: Material(
+                    elevation: 2,
+                    shape: const CircleBorder(),
+                    child: CircleAvatar(
+                      radius: 18,
+                      backgroundColor: Colors.grey,
+                      backgroundImage: NetworkImage(widget.partnerAvatar),
+                    )),
+              ),
+            ],
+          ),
+          title: Text(
+            widget.partnerName,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
+          ),
+        ),
         body: Column(
           children: [
             Expanded(

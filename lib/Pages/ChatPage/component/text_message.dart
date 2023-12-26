@@ -43,7 +43,7 @@ class TextMessage extends StatelessWidget {
                     ),
                   )),
               Container(
-                width: message.text.length > 50 ? 250 : null,
+                width: message.text.length > 30 ? 250 : null,
                 decoration: message.isSender
                     ? BoxDecoration(
                         color: Colors.blue.shade200,
@@ -65,6 +65,7 @@ class TextMessage extends StatelessWidget {
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 child: Text(
                   message.text,
+                  softWrap: true,
                   style: const TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),

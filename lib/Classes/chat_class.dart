@@ -10,7 +10,6 @@ class ChatMessage {
   final String name;
   String? imageb64;
   String? quoteMessage;
-
   ChatMessage(
       {required this.text,
       required this.messageType,

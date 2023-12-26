@@ -32,11 +32,6 @@ class _ShowJobOnMapState extends State<ShowJobOnMap> {
     final cameraPosition = CameraPosition(
         target: LatLng(position.latitude, position.longitude), zoom: 12);
 
-    // var url = 'https://cdn-icons-png.flaticon.com/128/6422/6422265.png';
-    // var byte = (await NetworkAssetBundle(Uri.parse(url)).load(url))
-    //     .buffer
-    //     .asUint8List();
-
     Marker userMarker = Marker(
       markerId: const MarkerId('My Location'),
       position: LatLng(position.latitude, position.longitude),

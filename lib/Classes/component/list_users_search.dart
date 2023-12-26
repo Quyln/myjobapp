@@ -1,24 +1,21 @@
-class UsersForSearch {
+class UserForSearch {
   String id;
   String avatar;
   String fullname;
   String companyname;
-  String phone;
 
-  UsersForSearch(
+  UserForSearch(
       {required this.id,
       required this.avatar,
       required this.companyname,
-      required this.phone,
       required this.fullname});
 
-  static UsersForSearch fromJson(dynamic data) {
-    return UsersForSearch(
+  static UserForSearch fromJson(dynamic data) {
+    return UserForSearch(
       id: data['id'],
       fullname: data['fullname'],
       avatar: data['avatar'],
       companyname: data['companyname'],
-      phone: data['phone'],
     );
   }
 }

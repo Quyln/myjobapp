@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'Provider/Home_list_provider.dart';
 import 'Provider/Job_list_provider.dart';
 import 'Provider/get_jobs_byid_provider.dart';
+import 'Provider/get_users_filter_provider.dart';
 import 'Provider/login_getuser_provider.dart';
 import 'Provider/news_list_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -23,6 +24,11 @@ void main() async {
     ChangeNotifierProvider<GetSaveJobsByID>(
       create: (context) {
         return GetSaveJobsByID();
+      },
+    ),
+    ChangeNotifierProvider<FilterUserSearchPro>(
+      create: (context) {
+        return FilterUserSearchPro();
       },
     ),
     ChangeNotifierProvider<GetAppliedJobsByID>(
