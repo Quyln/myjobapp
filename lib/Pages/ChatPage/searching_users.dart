@@ -2,14 +2,17 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/component/list_users_search.dart';
+import 'package:myjobapp/Pages/ChatPage/chat_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SearchingUserPage extends StatefulWidget {
   const SearchingUserPage({
     super.key,
     required this.userData,
+    this.oldChatroomID,
   });
   final List<UserForSearch> userData;
+  final String? oldChatroomID;
 
   @override
   State<SearchingUserPage> createState() => _SearchingUserPageState();
@@ -26,6 +29,18 @@ class _SearchingUserPageState extends State<SearchingUserPage> {
   @override
   void initState() {
     super.initState();
+    if (widget.oldChatroomID != null) {
+      listIdAdded = widget.oldChatroomID!.split('-');
+      getAvatarList();
+    } else {}
+  }
+
+  void getAvatarList() {
+    for (String id in listIdAdded) {
+      UserForSearch user =
+          widget.userData.firstWhere((element) => element.id == id);
+      avatarList.add(user.avatar);
+    }
   }
 
   void generateChatRoomId(List<String> listidadded) async {
@@ -36,6 +51,16 @@ class _SearchingUserPageState extends State<SearchingUserPage> {
         .collection('personchat')
         .doc(newChatRoomId)
         .set({}, SetOptions(merge: true));
+    if (widget.oldChatroomID != null) {
+      DocumentSnapshot docSnapshot =
+          await db.collection('personchat').doc(widget.oldChatroomID).get();
+      dynamic oldDocData = docSnapshot.data() ?? {};
+      await db
+          .collection('personchat')
+          .doc(newChatRoomId)
+          .set(oldDocData, SetOptions(merge: true));
+      await db.collection('personchat').doc(widget.oldChatroomID).delete();
+    }
   }
 
   void searchFilter(String idsearch) {
@@ -75,7 +100,9 @@ class _SearchingUserPageState extends State<SearchingUserPage> {
     String newChatRoomId = listIdAdded.join('-');
     db.collection('personchat').doc(newChatRoomId).update({
       chatId: {
-        'content': 'Nhóm vừa được tạo, chào mừng tất cả thành viên!',
+        'content': widget.oldChatroomID != null
+            ? 'Vừa thêm thành viên mới'
+            : 'Nhóm vừa được tạo, chào mừng tất cả thành viên!',
         'userid': myUserId,
         'name': userName,
         'avatar': userAvatar,
@@ -93,10 +120,16 @@ class _SearchingUserPageState extends State<SearchingUserPage> {
           if (listIdAdded.isNotEmpty) {
             SharedPreferences pref = await SharedPreferences.getInstance();
             String myUserId = pref.getString('userid') ?? '';
-            listIdAdded.add(myUserId);
-            generateChatRoomId(listIdAdded);
-            welcomeChat();
-            Navigator.pop(context);
+            if (widget.oldChatroomID != null) {
+              generateChatRoomId(listIdAdded);
+              welcomeChat();
+            } else {
+              listIdAdded.add(myUserId);
+              generateChatRoomId(listIdAdded);
+              welcomeChat();
+            }
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => ChatPage()));
           } else {
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               width: 200,

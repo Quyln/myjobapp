@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
@@ -14,9 +12,11 @@ import 'package:myjobapp/Provider/get_users_filter_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import '../../../Classes/component/list_users_search.dart';
 
 class ChatTbPerson extends StatefulWidget {
-  const ChatTbPerson({super.key});
+  const ChatTbPerson({super.key, required this.usersData});
+  final List<UserForSearch> usersData;
 
   @override
   State<ChatTbPerson> createState() => _ChatTbPersonState();
@@ -25,6 +25,8 @@ class ChatTbPerson extends StatefulWidget {
 class _ChatTbPersonState extends State<ChatTbPerson> {
   FirebaseFirestore db = FirebaseFirestore.instance;
   List<PersonChatClass> personChatList = [];
+  List<UserForSearch> roomNameListByIdList = [];
+  String roomName = '';
   String timestampFormatted = '';
   OneUserInfo partnerInfo = OneUserInfo(
       id: '',
@@ -94,8 +96,26 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
                 isSender: e.value['userid'] == myUserId))
             .toList();
 
-        List<String> roomId = element.id.split('-');
-        String partnerId = roomId.firstWhere((data) => data != myUserId);
+        List<String> roomIdList = element.id.split('-');
+
+        for (String id in roomIdList) {
+          UserForSearch user =
+              widget.usersData.firstWhere((element) => element.id == id);
+          roomNameListByIdList.add(user);
+        }
+        List<String> takeUserFullname = roomNameListByIdList
+            .map((user) => user.fullname)
+            .where((fullname) => fullname != '')
+            .toList();
+        List<String> takeUserComName = roomNameListByIdList
+            .map((user) => user.companyname)
+            .where((fullname) => fullname != '')
+            .toList();
+        List<String> finalRoomName = takeUserComName + takeUserFullname;
+        finalRoomName.sort();
+        roomName = finalRoomName.join(',');
+
+        String partnerId = roomIdList.firstWhere((data) => data != myUserId);
 
         var url = Uri.parse('http://103.176.251.70:100/users/takeoneuser');
         var respone = await http.post(url, body: {"userid": partnerId});
@@ -115,10 +135,10 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
 
           personChatList2.add(PersonChatClass(
               chatroomid: element.id,
-              avatar: roomId.length < 3
+              avatar: roomIdList.length < 3
                   ? partnerInfo.avatar
                   : 'https://img.freepik.com/premium-vector/businesspeople-character-avatar-icon_24877-18272.jpg',
-              name: roomId.length < 3
+              name: roomIdList.length < 3
                   ? '${partnerInfo.companyname}${partnerInfo.fullname}'
                   : element.id,
               lastmessage: lastchatmessage.text,
@@ -129,10 +149,10 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
 
           personChatList2.add(PersonChatClass(
               chatroomid: element.id,
-              avatar: roomId.length < 3
+              avatar: roomIdList.length < 3
                   ? partnerInfo.avatar
                   : 'https://img.freepik.com/premium-vector/businesspeople-character-avatar-icon_24877-18272.jpg',
-              name: roomId.length < 3
+              name: roomIdList.length < 3
                   ? '${partnerInfo.companyname}${partnerInfo.fullname}'
                   : element.id,
               lastmessage: lastchatmessage.text == ''
@@ -242,6 +262,7 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 DetailPersonChatPage(
+                                                  usersData: value.listUsers,
                                                   chatRoomId:
                                                       personChatList[index]
                                                           .chatroomid,

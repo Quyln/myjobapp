@@ -176,7 +176,7 @@ class _LoginScreenState extends State<LoginScreen>
                           } else {
                             await pref.setString('username', user.companyname);
                           }
-
+                          await pref.setString('userphone', user.phone);
                           await pref.setString('useravatar', user.avatar);
 
                           await pref.setString('user', userJson);

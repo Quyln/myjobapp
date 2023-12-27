@@ -2,24 +2,32 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:myjobapp/Classes/component/list_users_search.dart';
+import 'package:myjobapp/Classes/component/more_menu_class.dart';
 import 'package:myjobapp/Pages/ChatPage/message.dart';
+import 'package:myjobapp/Pages/ChatPage/searching_users.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../Classes/chat_class.dart';
+import '../../Provider/get_users_filter_provider.dart';
 
 class DetailPersonChatPage extends StatefulWidget {
   const DetailPersonChatPage(
       {super.key,
       required this.chatRoomId,
       required this.partnerAvatar,
+      required this.usersData,
       required this.partnerName});
   final String chatRoomId;
   final String partnerAvatar;
   final String partnerName;
+  final List<UserForSearch> usersData;
 
   @override
   State<DetailPersonChatPage> createState() => _DetailPersonChatPageState();
@@ -31,6 +39,7 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
 
   List<ChatMessage> chatMessageList = [];
   List<ChatMessage> latestChatMessages = [];
+  List<UserForSearch> roomNameListByIdList = [];
 
   FirebaseFirestore db = FirebaseFirestore.instance;
   String? quoteChatMessage;
@@ -38,15 +47,41 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
   bool hasNewMessage = false;
   String roomId = '';
   bool reachBottom = false;
+  String roomName = '';
   XFile? image;
   XFile? result;
   String? base64Image;
-
+  CustomPopupMenuController _popupMenuController = CustomPopupMenuController();
+  List<ItemModel> menuItems = [
+    ItemModel('Thêm thành viên', Icons.add),
+    ItemModel('Thoát nhóm', Icons.subdirectory_arrow_left),
+  ];
   @override
   void initState() {
     super.initState();
     getChat();
+    getRoomName();
     // _scrollController.addListener(checkScroolBottom);
+  }
+
+  void getRoomName() {
+    List<String> roomIdList = widget.chatRoomId.split('-');
+    for (String id in roomIdList) {
+      UserForSearch user =
+          widget.usersData.firstWhere((element) => element.id == id);
+      roomNameListByIdList.add(user);
+    }
+    List<String> takeUserFullname = roomNameListByIdList
+        .map((e) => e.fullname)
+        .where((element) => element != '')
+        .toList();
+    List<String> takeUserComName = roomNameListByIdList
+        .map((e) => e.companyname)
+        .where((element) => element != '')
+        .toList();
+    List<String> finalRoomName = takeUserComName + takeUserFullname;
+    finalRoomName.sort();
+    roomName = finalRoomName.join(',');
   }
 
   void getChat() async {
@@ -199,158 +234,241 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          leadingWidth: 89,
-          backgroundColor: Colors.white,
-          leading: Row(
-            children: [
-              IconButton(
-                splashRadius: 20,
-                splashColor: Colors.white10,
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(
-                  Icons.arrow_back_ios_new,
-                  color: Colors.black,
-                  size: 20,
-                ),
-              ),
-              AvatarGlow(
-                showTwoGlows: true,
-                endRadius: 20,
-                glowColor: Colors.red,
-                child: Material(
-                    elevation: 2,
-                    shape: const CircleBorder(),
-                    child: CircleAvatar(
-                      radius: 18,
-                      backgroundColor: Colors.grey,
-                      backgroundImage: NetworkImage(widget.partnerAvatar),
-                    )),
-              ),
-            ],
-          ),
-          title: Text(
-            widget.partnerName,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
-          ),
-        ),
-        body: Column(
-          children: [
-            Expanded(
-                child: Stack(
-              alignment: Alignment.bottomCenter,
-              children: [
-                Scaffold(
-                  floatingActionButton: !reachBottom
-                      ? IconButton(
-                          splashRadius: 20,
-                          icon: const Icon(
-                            Icons.arrow_downward,
-                            size: 20,
-                            color: Colors.grey,
-                          ),
-                          onPressed: () {
-                            scrollDownOnChat();
-                          },
-                        )
-                      : null,
-                  floatingActionButtonLocation:
-                      FloatingActionButtonLocation.miniStartDocked,
-                  backgroundColor: Colors.grey.shade200,
-                  body: ListView.builder(
-                    controller: _scrollController,
-                    itemCount: chatMessageList.length,
-                    itemBuilder: (context, index) {
-                      final ChatMessage message = chatMessageList[index];
-                      return Message(
-                        message: message,
-                      );
-                    },
-                  ),
-                ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 400),
-                  height: hasNewMessage ? 30 : 0,
-                  child: GestureDetector(
-                    onTap: () {
-                      scrollDownOnChat();
-                      setState(() {
-                        hasNewMessage = false;
-                      });
-                    },
-                    child: const Text(
-                      'Có tin nhắn mới',
-                      style: TextStyle(color: Colors.blue),
-                    ),
-                  ),
-                ),
-              ],
-            )),
-            Container(
-                //Chat input
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                decoration: BoxDecoration(color: Colors.white, boxShadow: [
-                  BoxShadow(
-                      color: Colors.grey.withOpacity(0.08),
-                      blurRadius: 32,
-                      offset: const Offset(0, 4))
-                ]),
-                child: Row(children: [
+    return Consumer<FilterUserSearchPro>(
+      builder: (context, value, child) {
+        return Scaffold(
+            appBar: AppBar(
+              leadingWidth: 89,
+              backgroundColor: Colors.white,
+              leading: Row(
+                children: [
                   IconButton(
-                    onPressed: () async {
-                      pickerAndConvertToBase64();
+                    splashRadius: 20,
+                    splashColor: Colors.white10,
+                    onPressed: () {
+                      Navigator.pop(context);
                     },
                     icon: const Icon(
-                      Icons.image_outlined,
+                      Icons.arrow_back_ios_new,
                       color: Colors.black,
-                      size: 25,
+                      size: 20,
                     ),
                   ),
-                  Expanded(
-                    child: Container(
-                      height: 40,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.black12),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          keyboardType: TextInputType.text,
-                          controller: _inputcontroller,
-                          decoration: const InputDecoration(
-                              hintText: 'Nhập nội dung...',
-                              border: InputBorder.none),
+                  AvatarGlow(
+                    showTwoGlows: true,
+                    endRadius: 20,
+                    glowColor: Colors.red,
+                    child: Material(
+                        elevation: 2,
+                        shape: const CircleBorder(),
+                        child: CircleAvatar(
+                          radius: 18,
+                          backgroundColor: Colors.grey,
+                          backgroundImage: NetworkImage(widget.partnerAvatar),
+                        )),
+                  ),
+                ],
+              ),
+              title: Text(
+                roomNameListByIdList.length < 3 ? widget.partnerName : roomName,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16),
+              ),
+              actions: [
+                widget.partnerName == widget.chatRoomId
+                    ? CustomPopupMenu(
+                        menuBuilder: () => ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: Container(
+                            color: const Color(0xFF4C4C4C),
+                            child: IntrinsicWidth(
+                                child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: menuItems
+                                  .map((menu) => GestureDetector(
+                                        behavior: HitTestBehavior.translucent,
+                                        onTap: () {
+                                          if (menu.title == 'Thêm thành viên') {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        SearchingUserPage(
+                                                          userData:
+                                                              value.listUsers,
+                                                          oldChatroomID:
+                                                              widget.chatRoomId,
+                                                        )));
+                                          } else {
+                                            print('thoat nhom');
+                                          }
+                                          _popupMenuController.hideMenu();
+                                        },
+                                        child: Container(
+                                          height: 40,
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20),
+                                          child: Row(
+                                            children: [
+                                              Icon(
+                                                menu.icon,
+                                                size: 15,
+                                                color: Colors.white,
+                                              ),
+                                              Expanded(
+                                                  child: Container(
+                                                margin: const EdgeInsets.only(
+                                                    left: 10),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 10),
+                                                child: Text(
+                                                  menu.title,
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ))
+                                            ],
+                                          ),
+                                        ),
+                                      ))
+                                  .toList(),
+                            )),
+                          ),
+                        ),
+                        pressType: PressType.singleClick,
+                        controller: _popupMenuController,
+                        verticalMargin: -10,
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          child: const Icon(
+                            Icons.more_vert,
+                            color: Colors.black,
+                          ),
+                        ),
+                      )
+                    : const SizedBox.shrink()
+              ],
+            ),
+            body: Column(
+              children: [
+                Expanded(
+                    child: Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    Scaffold(
+                      floatingActionButton: !reachBottom
+                          ? IconButton(
+                              splashRadius: 20,
+                              icon: const Icon(
+                                Icons.arrow_downward,
+                                size: 20,
+                                color: Colors.grey,
+                              ),
+                              onPressed: () {
+                                scrollDownOnChat();
+                              },
+                            )
+                          : null,
+                      floatingActionButtonLocation:
+                          FloatingActionButtonLocation.miniStartDocked,
+                      backgroundColor: Colors.grey.shade200,
+                      body: ListView.builder(
+                        controller: _scrollController,
+                        itemCount: chatMessageList.length,
+                        itemBuilder: (context, index) {
+                          final ChatMessage message = chatMessageList[index];
+                          return Message(
+                            message: message,
+                          );
+                        },
+                      ),
+                    ),
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 400),
+                      height: hasNewMessage ? 30 : 0,
+                      child: GestureDetector(
+                        onTap: () {
+                          scrollDownOnChat();
+                          setState(() {
+                            hasNewMessage = false;
+                          });
+                        },
+                        child: const Text(
+                          'Có tin nhắn mới',
+                          style: TextStyle(color: Colors.blue),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  InkWell(
-                    onTap: () async {
-                      if (base64Image != null) {
-                        await sendImage();
-                      } else {
-                        await sendChat();
-                      }
-                      scrollDownOnChat();
-                      _inputcontroller.clear();
-                    },
-                    child: const Icon(
-                      Icons.send_outlined,
-                      color: Colors.black,
-                      size: 25,
-                    ),
-                  )
-                ])),
-          ],
-        ));
+                  ],
+                )),
+                Container(
+                    //Chat input
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
+                    decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey.withOpacity(0.08),
+                          blurRadius: 32,
+                          offset: const Offset(0, 4))
+                    ]),
+                    child: Row(children: [
+                      IconButton(
+                        onPressed: () async {
+                          pickerAndConvertToBase64();
+                        },
+                        icon: const Icon(
+                          Icons.image_outlined,
+                          color: Colors.black,
+                          size: 25,
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          height: 40,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.black12),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: TextFormField(
+                              keyboardType: TextInputType.text,
+                              controller: _inputcontroller,
+                              decoration: const InputDecoration(
+                                  hintText: 'Nhập nội dung...',
+                                  border: InputBorder.none),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          if (base64Image != null) {
+                            await sendImage();
+                          } else {
+                            await sendChat();
+                          }
+                          scrollDownOnChat();
+                          _inputcontroller.clear();
+                        },
+                        child: const Icon(
+                          Icons.send_outlined,
+                          color: Colors.black,
+                          size: 25,
+                        ),
+                      )
+                    ])),
+              ],
+            ));
+      },
+    );
   }
 }
