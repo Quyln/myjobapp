@@ -2,8 +2,9 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/component/list_users_search.dart';
-import 'package:myjobapp/Pages/ChatPage/chat_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../bottombar_nav.dart';
 
 class SearchingUserPage extends StatefulWidget {
   const SearchingUserPage({
@@ -102,7 +103,7 @@ class _SearchingUserPageState extends State<SearchingUserPage> {
       chatId: {
         'content': widget.oldChatroomID != null
             ? 'Vừa thêm thành viên mới'
-            : 'Nhóm vừa được tạo, chào mừng tất cả thành viên!',
+            : 'Chat đã được tạo thành công.',
         'userid': myUserId,
         'name': userName,
         'avatar': userAvatar,
@@ -117,19 +118,24 @@ class _SearchingUserPageState extends State<SearchingUserPage> {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
+          SharedPreferences pref = await SharedPreferences.getInstance();
+          String myUserId = pref.getString('userid') ?? '';
           if (listIdAdded.isNotEmpty) {
-            SharedPreferences pref = await SharedPreferences.getInstance();
-            String myUserId = pref.getString('userid') ?? '';
-            if (widget.oldChatroomID != null) {
+            if (widget.oldChatroomID == null &&
+                !listIdAdded.contains(myUserId)) {
+              listIdAdded.add(myUserId);
               generateChatRoomId(listIdAdded);
               welcomeChat();
             } else {
-              listIdAdded.add(myUserId);
               generateChatRoomId(listIdAdded);
               welcomeChat();
             }
             Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => ChatPage()));
+                context,
+                MaterialPageRoute(
+                    builder: (context) => BottomBarNav(
+                          pageindex: 3,
+                        )));
           } else {
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               width: 200,

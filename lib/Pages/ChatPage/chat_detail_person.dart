@@ -16,6 +16,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../Classes/chat_class.dart';
 import '../../Provider/get_users_filter_provider.dart';
+import '../../bottombar_nav.dart';
 
 class DetailPersonChatPage extends StatefulWidget {
   const DetailPersonChatPage(
@@ -40,6 +41,7 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
   List<ChatMessage> chatMessageList = [];
   List<ChatMessage> latestChatMessages = [];
   List<UserForSearch> roomNameListByIdList = [];
+  List<String> chatRoomIdList = [];
 
   FirebaseFirestore db = FirebaseFirestore.instance;
   String? quoteChatMessage;
@@ -61,6 +63,7 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
     super.initState();
     getChat();
     getRoomName();
+    chatRoomIdList = widget.chatRoomId.split('-');
     // _scrollController.addListener(checkScroolBottom);
   }
 
@@ -82,6 +85,29 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
     List<String> finalRoomName = takeUserComName + takeUserFullname;
     finalRoomName.sort();
     roomName = finalRoomName.join(',');
+  }
+
+  void outGroup(String currentRoomId) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String myUserId = pref.getString('userid') ?? '';
+    List<String> listId = currentRoomId.split('-');
+    List<String> listIdNoUserId =
+        listId.where((element) => element != myUserId).toList();
+    listIdNoUserId.sort();
+    String newChatRoomId = listIdNoUserId.join('-');
+    await db
+        .collection('personchat')
+        .doc(newChatRoomId)
+        .set({}, SetOptions(merge: true));
+
+    DocumentSnapshot docSnapshot =
+        await db.collection('personchat').doc(widget.chatRoomId).get();
+    dynamic oldDocData = docSnapshot.data() ?? {};
+    await db
+        .collection('personchat')
+        .doc(newChatRoomId)
+        .set(oldDocData, SetOptions(merge: true));
+    await db.collection('personchat').doc(widget.chatRoomId).delete();
   }
 
   void getChat() async {
@@ -278,7 +304,7 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
                     fontSize: 16),
               ),
               actions: [
-                widget.partnerName == widget.chatRoomId
+                chatRoomIdList.length > 2
                     ? CustomPopupMenu(
                         menuBuilder: () => ClipRRect(
                           borderRadius: BorderRadius.circular(5),
@@ -303,7 +329,14 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
                                                               widget.chatRoomId,
                                                         )));
                                           } else {
-                                            print('thoat nhom');
+                                            outGroup(widget.chatRoomId);
+                                            Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const BottomBarNav(
+                                                          pageindex: 3,
+                                                        )));
                                           }
                                           _popupMenuController.hideMenu();
                                         },

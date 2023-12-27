@@ -25,8 +25,7 @@ class ChatTbPerson extends StatefulWidget {
 class _ChatTbPersonState extends State<ChatTbPerson> {
   FirebaseFirestore db = FirebaseFirestore.instance;
   List<PersonChatClass> personChatList = [];
-  List<UserForSearch> roomNameListByIdList = [];
-  String roomName = '';
+
   String timestampFormatted = '';
   OneUserInfo partnerInfo = OneUserInfo(
       id: '',
@@ -97,11 +96,15 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
             .toList();
 
         List<String> roomIdList = element.id.split('-');
+        List<UserForSearch> roomNameListByIdList = [];
+        String roomName = '';
 
         for (String id in roomIdList) {
           UserForSearch user =
               widget.usersData.firstWhere((element) => element.id == id);
-          roomNameListByIdList.add(user);
+          if (!roomNameListByIdList.contains(user)) {
+            roomNameListByIdList.add(user);
+          } else {}
         }
         List<String> takeUserFullname = roomNameListByIdList
             .map((user) => user.fullname)
@@ -113,7 +116,11 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
             .toList();
         List<String> finalRoomName = takeUserComName + takeUserFullname;
         finalRoomName.sort();
-        roomName = finalRoomName.join(',');
+        if (mounted) {
+          setState(() {
+            roomName = finalRoomName.join(',');
+          });
+        }
 
         String partnerId = roomIdList.firstWhere((data) => data != myUserId);
 
@@ -130,6 +137,7 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
           }
         }
         if (listChat.isEmpty) {
+          return;
         } else if (listChat.length == 1) {
           ChatMessage lastchatmessage = listChat[0];
 
@@ -140,7 +148,7 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
                   : 'https://img.freepik.com/premium-vector/businesspeople-character-avatar-icon_24877-18272.jpg',
               name: roomIdList.length < 3
                   ? '${partnerInfo.companyname}${partnerInfo.fullname}'
-                  : element.id,
+                  : roomName,
               lastmessage: lastchatmessage.text,
               timestamp: lastchatmessage.timestamp));
         } else {
@@ -154,7 +162,7 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
                   : 'https://img.freepik.com/premium-vector/businesspeople-character-avatar-icon_24877-18272.jpg',
               name: roomIdList.length < 3
                   ? '${partnerInfo.companyname}${partnerInfo.fullname}'
-                  : element.id,
+                  : roomName,
               lastmessage: lastchatmessage.text == ''
                   ? 'Hình ảnh'
                   : lastchatmessage.text,
@@ -242,11 +250,6 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
                                       onPressed: (context) {},
                                       icon: Icons.call,
                                       backgroundColor: Colors.green,
-                                    ),
-                                    SlidableAction(
-                                      onPressed: (context) {},
-                                      icon: Icons.video_call_sharp,
-                                      backgroundColor: Colors.blue,
                                     ),
                                     SlidableAction(
                                       onPressed: (context) {},
