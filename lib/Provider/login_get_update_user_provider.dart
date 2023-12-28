@@ -139,6 +139,18 @@ class GetUserProvider extends ChangeNotifier {
     }
   }
 
+  updatePassword(String id, String currentPass, String newPass) async {
+    var url = Uri.parse('http://103.176.251.70:100/users/$id');
+    var response = await http
+        .patch(url, body: {"password": currentPass, "newpassword": newPass});
+
+    if (response.statusCode == 200) {
+      print('Đổi mật khẩu thành công');
+    } else {
+      throw Exception('Đổi mật khẩu thất bại, vui lòng kiểm tra lại kết nối !');
+    }
+  }
+
   GetUserProvider() {
     getPreGetUser();
     notifyListeners();

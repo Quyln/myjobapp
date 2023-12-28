@@ -165,32 +165,40 @@ class _LoginScreenState extends State<LoginScreen>
                         await pref.setString('userid', _idcontroller.text);
                         await pref.setString(
                             'userpassword', _passcontroller.text);
-                        User user = await value.getPreGetUser();
-                        if (user.id.isNotEmpty || user.password.isNotEmpty) {
-                          SharedPreferences pref =
-                              await SharedPreferences.getInstance();
-                          String userJson = jsonEncode(user.toJson());
-                          await pref.setBool('checklogin', true);
-                          if (user.fullname.isNotEmpty) {
-                            await pref.setString('username', user.fullname);
-                          } else {
-                            await pref.setString('username', user.companyname);
-                          }
-                          await pref.setString('userphone', user.phone);
-                          await pref.setString('useravatar', user.avatar);
+                        try {
+                          User user = await value.getPreGetUser();
+                          if (user.id.isNotEmpty || user.password.isNotEmpty) {
+                            SharedPreferences pref =
+                                await SharedPreferences.getInstance();
+                            String userJson = jsonEncode(user.toJson());
+                            await pref.setBool('checklogin', true);
 
-                          await pref.setString('user', userJson);
+                            if (user.fullname.isNotEmpty) {
+                              await pref.setString('username', user.fullname);
+                            } else {
+                              await pref.setString(
+                                  'username', user.companyname);
+                            }
+                            await pref.setString('userphone', user.phone);
+                            await pref.setString('useravatar', user.avatar);
+
+                            await pref.setString('user', userJson);
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: const Text('Đăng nhập thành công')));
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) => const BottomBarNav(
+                                          pageindex: 2,
+                                        ))));
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Lỗi đăng nhập')));
+                          }
+                        } catch (e) {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: const Text('Đăng nhập thành công')));
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: ((context) => const BottomBarNav(
-                                        pageindex: 2,
-                                      ))));
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Lỗi đăng nhập')));
+                              content: Text(
+                                  'Sai tài khoản hoặc mật khẩu. Vui lòng kiểm tra lại!')));
                         }
                       },
                       child: Container(

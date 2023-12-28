@@ -3,9 +3,9 @@ import 'package:myjobapp/Pages/PersonPage/Tabbar_List/posted_job_tabbar.dart';
 import 'package:myjobapp/Provider/get_jobs_byid_provider.dart';
 import 'package:myjobapp/Provider/login_get_update_user_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'Tabbar_List/applied_tabbar.dart';
 import 'Tabbar_List/save_tabbar.dart';
+import 'change_password.dart';
 
 class PersonPage extends StatefulWidget {
   const PersonPage({super.key});
@@ -15,11 +15,6 @@ class PersonPage extends StatefulWidget {
 }
 
 class _PersonPageState extends State<PersonPage> {
-  final _passcontroller = TextEditingController();
-  final _newpasscontroller = TextEditingController();
-  final _checknewpasscontroller = TextEditingController();
-  bool showpassword = false;
-
   @override
   Widget build(BuildContext context) {
     return Consumer<GetPostedJobsByID>(
@@ -129,156 +124,11 @@ class _PersonPageState extends State<PersonPage> {
                                                   ],
                                                 ),
                                                 onTap: () {
-                                                  showDialog(
-                                                      context: context,
-                                                      builder: (context) {
-                                                        return StatefulBuilder(
-                                                          builder: (context,
-                                                              setState) {
-                                                            return AlertDialog(
-                                                              title: const Text(
-                                                                  'Thay đổi mật khẩu'),
-                                                              shape: RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              15)),
-                                                              actionsPadding:
-                                                                  const EdgeInsets
-                                                                      .all(20),
-                                                              actions: [
-                                                                TextFormField(
-                                                                  obscureText:
-                                                                      showpassword,
-                                                                  controller:
-                                                                      _passcontroller,
-                                                                  decoration: InputDecoration(
-                                                                      suffixIcon: InkWell(
-                                                                        onTap:
-                                                                            () {
-                                                                          setState(
-                                                                              () {
-                                                                            showpassword =
-                                                                                !showpassword;
-                                                                          });
-                                                                        },
-                                                                        child: showpassword
-                                                                            ? const Icon(Icons.visibility_off)
-                                                                            : const Icon(Icons.visibility),
-                                                                      ),
-                                                                      focusedBorder: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
-                                                                      enabledBorder: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
-                                                                      border: InputBorder.none,
-                                                                      labelText: 'Mật khẩu cũ',
-                                                                      hintText: 'Nhập mật khẩu cũ...'),
-                                                                ),
-                                                                const SizedBox(
-                                                                  height: 20,
-                                                                ),
-                                                                TextFormField(
-                                                                  controller:
-                                                                      _newpasscontroller,
-                                                                  decoration: InputDecoration(
-                                                                      suffixIcon: InkWell(
-                                                                        onTap:
-                                                                            () {
-                                                                          setState(
-                                                                              () {
-                                                                            showpassword =
-                                                                                !showpassword;
-                                                                          });
-                                                                        },
-                                                                        child: showpassword
-                                                                            ? const Icon(Icons.visibility_off)
-                                                                            : const Icon(Icons.visibility),
-                                                                      ),
-                                                                      enabledBorder: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
-                                                                      focusedBorder: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
-                                                                      border: InputBorder.none,
-                                                                      labelText: 'Mật khẩu mới',
-                                                                      hintText: 'Nhập mật khẩu mới...'),
-                                                                ),
-                                                                const SizedBox(
-                                                                  height: 20,
-                                                                ),
-                                                                TextFormField(
-                                                                  controller:
-                                                                      _checknewpasscontroller,
-                                                                  decoration: InputDecoration(
-                                                                      suffixIcon: InkWell(
-                                                                        onTap:
-                                                                            () {
-                                                                          setState(
-                                                                              () {
-                                                                            showpassword =
-                                                                                !showpassword;
-                                                                          });
-                                                                        },
-                                                                        child: showpassword
-                                                                            ? const Icon(Icons.visibility_off)
-                                                                            : const Icon(Icons.visibility),
-                                                                      ),
-                                                                      enabledBorder: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
-                                                                      focusedBorder: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
-                                                                      border: InputBorder.none,
-                                                                      labelText: 'Nhập lại mật khẩu mới',
-                                                                      hintText: 'Nhập lại mật khẩu mới...'),
-                                                                ),
-                                                                GestureDetector(
-                                                                  onTap:
-                                                                      () async {
-                                                                    SharedPreferences
-                                                                        pref =
-                                                                        await SharedPreferences
-                                                                            .getInstance();
-                                                                    String?
-                                                                        userpassword =
-                                                                        pref.getString(
-                                                                            'userpassword');
-                                                                    if (userpassword !=
-                                                                            null &&
-                                                                        userpassword ==
-                                                                            _passcontroller
-                                                                                .text &&
-                                                                        _checknewpasscontroller.text ==
-                                                                            _newpasscontroller.text) {}
-                                                                  },
-                                                                  child:
-                                                                      Container(
-                                                                    margin:
-                                                                        const EdgeInsets.all(
-                                                                            10),
-                                                                    decoration: BoxDecoration(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(
-                                                                                15),
-                                                                        color: Colors
-                                                                            .blue),
-                                                                    padding:
-                                                                        const EdgeInsets.all(
-                                                                            10),
-                                                                    height: 40,
-                                                                    width: 100,
-                                                                    child:
-                                                                        const Center(
-                                                                      child:
-                                                                          Text(
-                                                                        'Xác nhận',
-                                                                        style: TextStyle(
-                                                                            fontSize:
-                                                                                16,
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                            color: Colors.white),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                )
-                                                              ],
-                                                            );
-                                                          },
-                                                        );
-                                                      });
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const ChangPasswordUser()));
                                                 },
                                               ),
                                               const SizedBox(
