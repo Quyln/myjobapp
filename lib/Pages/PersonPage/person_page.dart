@@ -78,38 +78,6 @@ class _PersonPageState extends State<PersonPage> {
                                               GestureDetector(
                                                 child: const Row(
                                                   children: [
-                                                    Icon(Icons
-                                                        .qr_code_2_outlined),
-                                                    SizedBox(
-                                                      width: 5,
-                                                    ),
-                                                    Text(
-                                                      'Mã QR của tôi',
-                                                      style: TextStyle(
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                  ],
-                                                ),
-                                                onTap: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                              ),
-                                              const SizedBox(
-                                                height: 5,
-                                              ),
-                                              const Divider(
-                                                indent: 5,
-                                                thickness: 1,
-                                                height: 3,
-                                              ),
-                                              const SizedBox(
-                                                height: 5,
-                                              ),
-                                              GestureDetector(
-                                                child: const Row(
-                                                  children: [
                                                     Icon(Icons.change_circle),
                                                     SizedBox(
                                                       width: 5,
@@ -160,8 +128,17 @@ class _PersonPageState extends State<PersonPage> {
                                                   ],
                                                 ),
                                                 onTap: () {
-                                                  Navigator.of(context)
-                                                      .pop('Option 3');
+                                                  DraggableScrollableSheet(
+                                                    initialChildSize: 0.5,
+                                                    minChildSize: 0.2,
+                                                    maxChildSize: 0.8,
+                                                    builder: (context,
+                                                        scrollController) {
+                                                      return Container(
+                                                        color: Colors.green,
+                                                      );
+                                                    },
+                                                  );
                                                 },
                                               ),
                                             ]),
@@ -198,17 +175,25 @@ class _PersonPageState extends State<PersonPage> {
                               const SizedBox(
                                 height: 10,
                               ),
-                              GestureDetector(
-                                onTap: () {},
-                                child: Container(
-                                  height: 40,
-                                  width: 110,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(25),
-                                    border: Border.all(color: Colors.grey),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {},
+                                    child: Container(
+                                      height: 40,
+                                      width: 100,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25),
+                                        border: Border.all(color: Colors.grey),
+                                      ),
+                                      child: const Center(
+                                          child: Text('Sửa hồ sơ')),
+                                    ),
                                   ),
-                                  child: const Center(child: Text('Sửa hồ sơ')),
-                                ),
+                                  const SizedBox(width: 3),
+                                  const Icon(Icons.qr_code_scanner),
+                                ],
                               ),
                               uservalue.user.position == 'Thành viên'
                                   ? const TabBar(

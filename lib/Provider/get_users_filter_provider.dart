@@ -19,5 +19,6 @@ class FilterUserSearchPro extends ChangeNotifier {
 
   FilterUserSearchPro() {
     getUserForSearch();
+    notifyListeners();
   }
 }
