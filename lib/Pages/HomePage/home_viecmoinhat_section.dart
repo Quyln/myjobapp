@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Provider/home_list_provider.dart';
-import 'package:myjobapp/Provider/login_getuser_provider.dart';
+import 'package:myjobapp/Provider/login_get_update_user_provider.dart';
 import 'package:provider/provider.dart';
 import '../JobsPage/jobs_detail_screen.dart';
 import '../../utils/colors_texts_style.dart';

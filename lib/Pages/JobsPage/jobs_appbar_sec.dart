@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/jobs_class.dart';
 import 'package:myjobapp/Pages/JobsPage/Add_Jobs/add_job.dart';
-import 'package:myjobapp/Provider/login_getuser_provider.dart';
+import 'package:myjobapp/Provider/login_get_update_user_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/list_tinh_huyen_cv.dart';

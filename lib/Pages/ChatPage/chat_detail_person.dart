@@ -6,7 +6,7 @@ import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:myjobapp/Classes/component/list_users_search.dart';
+import 'package:myjobapp/Classes/component/list_users_info.dart';
 import 'package:myjobapp/Classes/component/more_menu_class.dart';
 import 'package:myjobapp/Pages/ChatPage/message.dart';
 import 'package:myjobapp/Pages/ChatPage/searching_users.dart';

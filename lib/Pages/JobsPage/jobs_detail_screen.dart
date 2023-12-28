@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:myjobapp/Classes/component/applier_job_class.dart';
 import 'package:myjobapp/Classes/jobs_class.dart';
 import 'package:myjobapp/Classes/user_class.dart';
-import 'package:myjobapp/Provider/login_getuser_provider.dart';
+import 'package:myjobapp/Provider/login_get_update_user_provider.dart';
 import 'package:myjobapp/utils/colors_texts_style.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';

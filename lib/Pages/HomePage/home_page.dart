@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myjobapp/Pages/HomePage/home_tinnoibat_section.dart';
 import 'package:myjobapp/Pages/HomePage/home_top_sec.dart';
 import 'package:myjobapp/Pages/HomePage/home_viecmoinhat_section.dart';
-import 'package:myjobapp/Provider/login_getuser_provider.dart';
+import 'package:myjobapp/Provider/login_get_update_user_provider.dart';
 import 'package:myjobapp/utils/colors_texts_style.dart';
 import 'package:provider/provider.dart';
 

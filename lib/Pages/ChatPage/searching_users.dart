@@ -1,7 +1,7 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:myjobapp/Classes/component/list_users_search.dart';
+import 'package:myjobapp/Classes/component/list_users_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../bottombar_nav.dart';
@@ -103,7 +103,7 @@ class _SearchingUserPageState extends State<SearchingUserPage> {
       chatId: {
         'content': widget.oldChatroomID != null
             ? 'Vừa thêm thành viên mới'
-            : 'Chat đã được tạo thành công.',
+            : 'Bắt đầu trò chuyện nào',
         'userid': myUserId,
         'name': userName,
         'avatar': userAvatar,
@@ -153,13 +153,18 @@ class _SearchingUserPageState extends State<SearchingUserPage> {
           child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.all(10),
             child: TextFormField(
               onChanged: (e) => searchFilter(e),
               controller: _searchController,
               textAlignVertical: TextAlignVertical.center,
               decoration: const InputDecoration(
-                labelText: 'Tìm kiếm...',
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black12)),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black54)),
+                labelText: 'Tìm kiếm id của người muốn chat...',
+                labelStyle: TextStyle(),
                 prefixIcon: Icon(Icons.search),
                 prefixIconColor: Colors.grey,
                 border: InputBorder.none,

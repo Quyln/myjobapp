@@ -8,7 +8,7 @@ import 'package:myjobapp/Classes/jobs_class.dart';
 import 'package:myjobapp/Classes/user_class.dart';
 import 'package:myjobapp/Pages/JobsPage/jobs_detail_screen.dart';
 import 'package:myjobapp/Provider/Job_list_provider.dart';
-import 'package:myjobapp/Provider/login_getuser_provider.dart';
+import 'package:myjobapp/Provider/login_get_update_user_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 

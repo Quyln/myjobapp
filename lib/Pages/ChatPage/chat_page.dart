@@ -4,6 +4,8 @@ import 'package:myjobapp/Pages/ChatPage/Tabbars/regional.dart';
 import 'package:myjobapp/Provider/get_users_filter_provider.dart';
 import 'package:provider/provider.dart';
 
+import 'Tabbars/nearby_search.dart';
+
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
 
@@ -17,7 +19,7 @@ class _ChatPageState extends State<ChatPage> {
     return Consumer<FilterUserSearchPro>(
       builder: (context, value, child) {
         return DefaultTabController(
-          length: 2,
+          length: 3,
           child: Scaffold(
             backgroundColor: Colors.white,
             body: SafeArea(
@@ -31,7 +33,13 @@ class _ChatPageState extends State<ChatPage> {
                       Tab(
                         text: 'Cá nhân',
                         icon: Icon(
-                          Icons.person,
+                          Icons.group,
+                        ),
+                      ),
+                      Tab(
+                        text: 'Tìm quanh đây',
+                        icon: Icon(
+                          Icons.location_on,
                         ),
                       ),
                       Tab(
@@ -40,15 +48,13 @@ class _ChatPageState extends State<ChatPage> {
                           Icons.location_city,
                         ),
                       ),
-                      // Tab(
-                      //   icon: Icon(
-                      //     Icons.group,
-                      //   ),
-                      // ),
                     ]),
                 Expanded(
                   child: TabBarView(children: [
                     ChatTbPerson(
+                      usersData: value.listUsers,
+                    ),
+                    NearBySearchTabbar(
                       usersData: value.listUsers,
                     ),
                     const ChatTbRegional(),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Pages/PersonPage/Tabbar_List/posted_job_tabbar.dart';
 import 'package:myjobapp/Provider/get_jobs_byid_provider.dart';
-import 'package:myjobapp/Provider/login_getuser_provider.dart';
+import 'package:myjobapp/Provider/login_get_update_user_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Tabbar_List/applied_tabbar.dart';

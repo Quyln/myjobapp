@@ -5,7 +5,7 @@ import 'Provider/Home_list_provider.dart';
 import 'Provider/Job_list_provider.dart';
 import 'Provider/get_jobs_byid_provider.dart';
 import 'Provider/get_users_filter_provider.dart';
-import 'Provider/login_getuser_provider.dart';
+import 'Provider/login_get_update_user_provider.dart';
 import 'Provider/news_list_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';

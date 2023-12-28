@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:myjobapp/Classes/component/list_users_search.dart';
+import 'package:myjobapp/Classes/component/list_users_info.dart';
 
 class FilterUserSearchPro extends ChangeNotifier {
   List<UserForSearch> listUsers = [];

@@ -12,7 +12,7 @@ import 'package:myjobapp/Provider/get_users_filter_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-import '../../../Classes/component/list_users_search.dart';
+import '../../../Classes/component/list_users_info.dart';
 
 class ChatTbPerson extends StatefulWidget {
   const ChatTbPerson({super.key, required this.usersData});
