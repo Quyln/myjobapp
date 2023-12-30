@@ -19,8 +19,6 @@ class _BuildLongPressMenuState extends State<BuildLongPressMenu> {
   FirebaseFirestore db = FirebaseFirestore.instance;
   List<ItemModel> menuItems = [
     ItemModel('Nhắn tin', Icons.send),
-    ItemModel('Trả lời', Icons.format_quote),
-    ItemModel('Tìm kiếm', Icons.search),
   ];
 
   void generateChatRoomId() async {
@@ -52,11 +50,11 @@ class _BuildLongPressMenuState extends State<BuildLongPressMenu> {
       borderRadius: BorderRadius.circular(5),
       child: Container(
         height: 55,
-        width: 200,
+        width: 70,
         color: const Color(0xFF4C4C4C),
         child: GridView.count(
           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-          crossAxisCount: 3,
+          crossAxisCount: 1,
           crossAxisSpacing: 0,
           mainAxisSpacing: 10,
           shrinkWrap: true,

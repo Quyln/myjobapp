@@ -1,3 +1,4 @@
+import 'package:cached_memory_image/cached_memory_image.dart';
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Provider/login_get_update_user_provider.dart';
 import 'package:provider/provider.dart';
@@ -38,11 +39,17 @@ class AppBarNSec extends StatelessWidget {
             ),
             actions: [
               Padding(
-                padding: const EdgeInsets.only(right: 15),
-                child: CircleAvatar(
-                  radius: 20,
-                  backgroundColor: Colors.white,
-                  backgroundImage: NetworkImage(value.user.avatar),
+                padding: const EdgeInsets.only(right: 15, top: 10, bottom: 5),
+                child: ClipOval(
+                  child: SizedBox(
+                    width: 40,
+                    height: 30,
+                    child: CachedMemoryImage(
+                      uniqueKey: 'app://image/avatar',
+                      base64: value.user.avatar,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
               ),
             ],

@@ -1,9 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import '../../../../Classes/chat_class.dart';
 
-import '../../../Classes/chat_class.dart';
-
-class TextMessage extends StatelessWidget {
-  const TextMessage({
+class TextMessageSocial extends StatelessWidget {
+  const TextMessageSocial({
     super.key,
     required this.message,
   });
@@ -19,15 +19,18 @@ class TextMessage extends StatelessWidget {
         children: [
           if (!message.isSender) ...[
             Padding(
-              padding: const EdgeInsets.only(
-                top: 12,
-              ),
-              child: CircleAvatar(
-                radius: 20,
-                backgroundColor: Colors.grey,
-                backgroundImage: NetworkImage(message.avatar),
-              ),
-            ),
+                padding: const EdgeInsets.only(
+                  top: 12,
+                ),
+                child: ClipOval(
+                  child: SizedBox(
+                      width: 40,
+                      height: 40,
+                      child: Image.memory(
+                        base64Decode(message.avatar),
+                        fit: BoxFit.cover,
+                      )),
+                )),
           ],
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

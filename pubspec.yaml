@@ -69,6 +69,9 @@ dependencies:
   photo_manager: ^2.8.1
   custom_pop_up_menu: ^1.2.4
   cached_network_image: ^3.3.0
+  image_cropper: ^5.0.1
+  cached_memory_image: ^1.5.0
+  
 
 dev_dependencies:
   flutter_test:

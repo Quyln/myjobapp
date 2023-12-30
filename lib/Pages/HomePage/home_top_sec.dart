@@ -1,10 +1,10 @@
+import 'package:cached_memory_image/cached_memory_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:myjobapp/Pages/Welcome_Login_Pages/Login_Reg_Screen/login_sceen.dart';
 import 'package:myjobapp/Provider/login_get_update_user_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../Classes/user_class.dart';
 
 class HSecAppBar extends StatefulWidget {
@@ -30,6 +30,7 @@ class _HSecAppBarState extends State<HSecAppBar> {
     companyname: '',
     companytax: '',
   );
+  final Key imageKey = UniqueKey();
   @override
   Widget build(BuildContext context) {
     return Consumer<GetUserProvider>(
@@ -46,10 +47,16 @@ class _HSecAppBarState extends State<HSecAppBar> {
                 padding: const EdgeInsets.only(left: 15),
                 child: InkWell(
                   onTap: () {},
-                  child: CircleAvatar(
-                    radius: 20,
-                    backgroundColor: Colors.white,
-                    backgroundImage: NetworkImage(value.user.avatar),
+                  child: ClipOval(
+                    child: SizedBox(
+                      width: 40,
+                      height: 40,
+                      child: CachedMemoryImage(
+                        uniqueKey: 'app://image/avatar',
+                        base64: value.user.avatar,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -103,6 +110,7 @@ class _HSecAppBarState extends State<HSecAppBar> {
                       await pref.setBool('checklogin', false);
                       await pref.remove('userid');
                       await pref.remove('userpassword');
+                      await CachedImageBase64Manager.instance().clearCache();
 
                       Navigator.pushReplacement(
                           context,

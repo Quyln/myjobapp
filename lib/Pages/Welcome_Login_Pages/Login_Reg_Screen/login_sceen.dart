@@ -181,8 +181,11 @@ class _LoginScreenState extends State<LoginScreen>
                             }
                             await pref.setString('userphone', user.phone);
                             await pref.setString('useravatar', user.avatar);
-
                             await pref.setString('user', userJson);
+
+                            // final cachedImageManager =
+                            //     CachedImageBase64Manager.instance();
+
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                 content: const Text('Đăng nhập thành công')));
                             Navigator.pushReplacement(

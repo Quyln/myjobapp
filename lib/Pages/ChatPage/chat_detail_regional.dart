@@ -2,7 +2,7 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/chat_class.dart';
-import 'package:myjobapp/Pages/ChatPage/message.dart';
+import 'package:myjobapp/Pages/ChatPage/component/Regional/regional_message.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -224,7 +224,7 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
                     itemCount: chatMessageList.length,
                     itemBuilder: (context, index) {
                       final ChatMessage message = chatMessageList[index];
-                      return Message(
+                      return MessageSocial(
                         message: message,
                       );
                     },

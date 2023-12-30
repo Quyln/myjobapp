@@ -9,10 +9,9 @@
 	<string>Your location is required to provide relevant information.</string>
 
 	<key>NSPhotoLibraryUsageDescription</key>
-    <string>photo lib for profile images</string>
+    <string>Photo lib for profile images</string>
     <key>NSCameraUsageDescription</key>
-    <string>capture profile photo </string>
-
+    <string>Capture profile photo </string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Microphone access is required for audio recording.</string>
 

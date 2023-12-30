@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cached_memory_image/cached_memory_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
@@ -9,6 +10,7 @@ import 'package:myjobapp/Pages/ChatPage/chat_detail_person.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:myjobapp/Pages/ChatPage/searching_users.dart';
 import 'package:myjobapp/Provider/get_users_filter_provider.dart';
+import 'package:myjobapp/utils/anything.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -143,9 +145,7 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
 
           personChatList2.add(PersonChatClass(
               chatroomid: element.id,
-              avatar: roomIdList.length < 3
-                  ? partnerInfo.avatar
-                  : 'https://img.freepik.com/premium-vector/businesspeople-character-avatar-icon_24877-18272.jpg',
+              avatar: roomIdList.length < 3 ? partnerInfo.avatar : groupImage,
               name: roomIdList.length < 3
                   ? '${partnerInfo.companyname}${partnerInfo.fullname}'
                   : roomName,
@@ -157,9 +157,7 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
 
           personChatList2.add(PersonChatClass(
               chatroomid: element.id,
-              avatar: roomIdList.length < 3
-                  ? partnerInfo.avatar
-                  : 'https://img.freepik.com/premium-vector/businesspeople-character-avatar-icon_24877-18272.jpg',
+              avatar: roomIdList.length < 3 ? partnerInfo.avatar : groupImage,
               name: roomIdList.length < 3
                   ? '${partnerInfo.companyname}${partnerInfo.fullname}'
                   : roomName,
@@ -176,6 +174,35 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
         }
       });
     });
+  }
+
+  void outChat(String chatRoomId) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String myUserId = pref.getString('userid') ?? '';
+    List<String> chatRoomIdList = [];
+    chatRoomIdList = chatRoomId.split('-');
+    chatRoomIdList.sort();
+    if (chatRoomIdList.length < 3) {
+      await db.collection('personchat').doc(chatRoomId).delete();
+    } else {
+      List<String> listIdNoUserId =
+          chatRoomIdList.where((element) => element != myUserId).toList();
+      listIdNoUserId.sort();
+      String newChatRoomId = listIdNoUserId.join('-');
+      await db
+          .collection('personchat')
+          .doc(newChatRoomId)
+          .set({}, SetOptions(merge: true));
+
+      DocumentSnapshot docSnapshot =
+          await db.collection('personchat').doc(chatRoomId).get();
+      dynamic oldDocData = docSnapshot.data() ?? {};
+      await db
+          .collection('personchat')
+          .doc(newChatRoomId)
+          .set(oldDocData, SetOptions(merge: true));
+      await db.collection('personchat').doc(chatRoomId).delete();
+    }
   }
 
   @override
@@ -232,6 +259,9 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
                         ],
                       ),
                     ),
+                    const SizedBox(
+                      height: 5,
+                    ),
                     SizedBox(
                       width: double.infinity,
                       height: 600,
@@ -240,8 +270,8 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
                           itemCount: personChatList.length,
                           itemBuilder: (context, index) {
                             return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 5),
                               child: Slidable(
                                 endActionPane: ActionPane(
                                   motion: const StretchMotion(),
@@ -252,7 +282,43 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
                                       backgroundColor: Colors.green,
                                     ),
                                     SlidableAction(
-                                      onPressed: (context) {},
+                                      onPressed: (context) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          15)),
+                                              actionsPadding:
+                                                  const EdgeInsets.only(
+                                                      right: 30, bottom: 10),
+                                              content: const SizedBox(
+                                                  child: Text(
+                                                      'Bạn muốn xóa và thoát khỏi cuộc trò chuyện này?')),
+                                              actions: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    outChat(
+                                                        personChatList[index]
+                                                            .chatroomid);
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: const Text(
+                                                    'Xác nhận',
+                                                    style: TextStyle(
+                                                        color: Colors.red,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize: 18),
+                                                  ),
+                                                )
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      },
                                       icon: Icons.delete,
                                       backgroundColor: Colors.red,
                                     ),
@@ -292,13 +358,15 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
                                                     BorderRadius.circular(25),
                                               ),
                                               child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(25),
-                                                child: Image.network(
-                                                  personChatList[index].avatar,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              )),
+                                                  borderRadius:
+                                                      BorderRadius.circular(25),
+                                                  child: Image.memory(
+                                                    base64Decode(
+                                                      personChatList[index]
+                                                          .avatar,
+                                                    ),
+                                                    fit: BoxFit.cover,
+                                                  ))),
                                           Positioned(
                                             right: 2,
                                             bottom: 3,

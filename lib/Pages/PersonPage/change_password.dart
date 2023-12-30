@@ -34,15 +34,18 @@ class _ChangPasswordUserState extends State<ChangPasswordUser> {
           content: Text('Vui lòng kiểm tra lại thông tin.'),
         ),
       );
-
-      setState(() {
-        _isSnackBarVisible = true;
-      });
+      if (mounted) {
+        setState(() {
+          _isSnackBarVisible = true;
+        });
+      }
 
       Timer(const Duration(seconds: 5), () {
-        setState(() {
-          _isSnackBarVisible = false;
-        });
+        if (mounted) {
+          setState(() {
+            _isSnackBarVisible = false;
+          });
+        }
       });
     }
   }

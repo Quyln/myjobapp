@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Provider/home_list_provider.dart';
@@ -31,7 +32,8 @@ class _TinNoiBatHSecState extends State<TinNoiBatHSec> {
                     image: DecorationImage(
                       fit: BoxFit.cover,
                       image: value.tinNoiBatHomedata[index].image.isNotEmpty
-                          ? NetworkImage(value.tinNoiBatHomedata[index].image)
+                          ? CachedNetworkImageProvider(
+                                  value.tinNoiBatHomedata[index].image)
                               as ImageProvider
                           : const AssetImage('images/loading.gif'),
                     ),
@@ -63,8 +65,9 @@ class _TinNoiBatHSecState extends State<TinNoiBatHSec> {
                             height: 5,
                           ),
                           value.tinNoiBatHomedata[index].author.isNotEmpty
-                              ? Image.network(
-                                  value.tinNoiBatHomedata[index].author,
+                              ? CachedNetworkImage(
+                                  imageUrl:
+                                      value.tinNoiBatHomedata[index].author,
                                   width: 60,
                                   height: 10,
                                   fit: BoxFit.fill,

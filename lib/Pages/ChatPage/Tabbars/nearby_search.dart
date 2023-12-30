@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:app_settings/app_settings.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
@@ -29,9 +31,12 @@ class _NearBySearchTabbarState extends State<NearBySearchTabbar> {
   }
 
   void getPositionAndFilter() async {
-    setState(() {
-      loading = true;
-    });
+    if (mounted) {
+      setState(() {
+        loading = true;
+      });
+    }
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? myUserId = prefs.getString('userid');
 
@@ -77,6 +82,7 @@ class _NearBySearchTabbarState extends State<NearBySearchTabbar> {
                     double.parse(element.longitude!)) <
                 45000)
         .toList();
+    filteredListUser.sort((a, b) => a.distance!.compareTo(b.distance!));
 
     for (var user in filteredListUser) {
       double distance = Geolocator.distanceBetween(
@@ -86,10 +92,12 @@ class _NearBySearchTabbarState extends State<NearBySearchTabbar> {
           double.parse(user.longitude!));
       user.distance = distance;
     }
-    setState(() {
-      filteredListUser = filteredListUser;
-      loading = false;
-    });
+    if (mounted) {
+      setState(() {
+        filteredListUser = filteredListUser;
+        loading = false;
+      });
+    }
   }
 
   @override
@@ -133,8 +141,8 @@ class _NearBySearchTabbarState extends State<NearBySearchTabbar> {
                                   endRadius: 30,
                                   child: CircleAvatar(
                                     radius: 25,
-                                    backgroundImage: NetworkImage(
-                                        filteredListUser[index].avatar),
+                                    backgroundImage: MemoryImage(base64Decode(
+                                        filteredListUser[index].avatar)),
                                   ),
                                 ),
                                 Padding(

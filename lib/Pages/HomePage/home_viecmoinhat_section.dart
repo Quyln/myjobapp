@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Provider/home_list_provider.dart';
@@ -33,9 +34,9 @@ class _ViecmoinhatHSecState extends State<ViecmoinhatHSec> {
                         image: DecorationImage(
                           fit: BoxFit.cover,
                           image: value.viecMoiNhatdata[index].image != ''
-                              ? NetworkImage(
-                                  value.viecMoiNhatdata[index].image,
-                                ) as ImageProvider
+                              ? CachedNetworkImageProvider(
+                                      value.viecMoiNhatdata[index].image)
+                                  as ImageProvider
                               : const AssetImage('images/recruitment.gif'),
                         ),
                       ),

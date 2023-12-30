@@ -1,4 +1,5 @@
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:cached_memory_image/cached_memory_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/component/list_users_info.dart';
@@ -179,21 +180,23 @@ class _SearchingUserPageState extends State<SearchingUserPage> {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 2.5),
+                    padding: const EdgeInsets.symmetric(horizontal: 1),
                     child: AvatarGlow(
-                      showTwoGlows: true,
-                      repeat: true,
-                      endRadius: 25,
-                      glowColor: Colors.red.shade100,
-                      child: Material(
-                          elevation: 6,
-                          shape: const CircleBorder(),
-                          child: CircleAvatar(
-                            radius: 20,
-                            backgroundColor: Colors.grey,
-                            backgroundImage: NetworkImage(avatarList[index]),
-                          )),
-                    ),
+                        showTwoGlows: true,
+                        repeat: true,
+                        endRadius: 25,
+                        glowColor: Colors.red.shade100,
+                        child: ClipOval(
+                          child: SizedBox(
+                              height: 30,
+                              width: 30,
+                              child: CachedMemoryImage(
+                                fit: BoxFit.cover,
+                                uniqueKey:
+                                    'smallavatarsearch-${avatarList[index]}',
+                                base64: avatarList[index],
+                              )),
+                        )),
                   );
                 }),
           ),
@@ -209,15 +212,20 @@ class _SearchingUserPageState extends State<SearchingUserPage> {
                     child: Row(
                       children: [
                         AvatarGlow(
-                          showTwoGlows: true,
-                          glowColor: Colors.blueAccent,
-                          endRadius: 30,
-                          child: CircleAvatar(
-                            radius: 25,
-                            backgroundImage:
-                                NetworkImage(filteredList[index].avatar),
-                          ),
-                        ),
+                            showTwoGlows: true,
+                            glowColor: Colors.blueAccent,
+                            endRadius: 30,
+                            child: ClipOval(
+                              child: SizedBox(
+                                  height: 50,
+                                  width: 50,
+                                  child: CachedMemoryImage(
+                                    fit: BoxFit.cover,
+                                    uniqueKey:
+                                        'smallavatarsearch-${filteredList[index].avatar}',
+                                    base64: filteredList[index].avatar,
+                                  )),
+                            )),
                         Padding(
                           padding: const EdgeInsets.only(left: 10),
                           child: Column(
@@ -250,8 +258,6 @@ class _SearchingUserPageState extends State<SearchingUserPage> {
                               listIdAdded;
                               avatarList;
                             });
-                            print(listIdAdded);
-                            print(avatarList);
                           },
                           child: Container(
                             height: 25,

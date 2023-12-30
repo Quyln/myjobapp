@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/component/add_job_class.dart';
 import 'package:myjobapp/Classes/jobs_class.dart';
@@ -71,10 +73,10 @@ class _AddJobPageState extends State<AddJobPage> {
                 Padding(
                   padding: const EdgeInsets.only(right: 15),
                   child: CircleAvatar(
-                    radius: 20,
-                    backgroundColor: Colors.white,
-                    backgroundImage: NetworkImage(value.user.avatar),
-                  ),
+                      radius: 20,
+                      backgroundColor: Colors.white,
+                      backgroundImage:
+                          MemoryImage(base64Decode(value.user.avatar))),
                 ),
               ],
             ),

@@ -8,7 +8,7 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:myjobapp/Classes/component/list_users_info.dart';
 import 'package:myjobapp/Classes/component/more_menu_class.dart';
-import 'package:myjobapp/Pages/ChatPage/message.dart';
+import 'package:myjobapp/Pages/ChatPage/component/PersonGroup/person_message.dart';
 import 'package:myjobapp/Pages/ChatPage/searching_users.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
@@ -281,18 +281,18 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
                     ),
                   ),
                   AvatarGlow(
-                    showTwoGlows: true,
-                    endRadius: 20,
-                    glowColor: Colors.red,
-                    child: Material(
-                        elevation: 2,
-                        shape: const CircleBorder(),
-                        child: CircleAvatar(
-                          radius: 18,
-                          backgroundColor: Colors.grey,
-                          backgroundImage: NetworkImage(widget.partnerAvatar),
-                        )),
-                  ),
+                      showTwoGlows: true,
+                      endRadius: 20,
+                      glowColor: Colors.red,
+                      child: ClipOval(
+                        child: SizedBox(
+                            height: 35,
+                            width: 35,
+                            child: Image.memory(
+                              base64Decode(widget.partnerAvatar),
+                              fit: BoxFit.cover,
+                            )),
+                      )),
                 ],
               ),
               title: Text(
@@ -416,7 +416,10 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
                         itemCount: chatMessageList.length,
                         itemBuilder: (context, index) {
                           final ChatMessage message = chatMessageList[index];
-                          return Message(
+                          return MessagePerson(
+                            groupName: roomName,
+                            partnerAvatar: widget.partnerAvatar,
+                            roomIdList: roomNameListByIdList,
                             message: message,
                           );
                         },

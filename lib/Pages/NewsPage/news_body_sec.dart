@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:myjobapp/Classes/news_class.dart';
 import 'package:myjobapp/utils/colors_texts_style.dart';
@@ -25,9 +26,7 @@ class _ShowNSecState extends State<ShowNSec> {
           decoration: BoxDecoration(
             image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(
-                  widget.data[index].image,
-                )),
+                image: CachedNetworkImageProvider(widget.data[index].image)),
             color: Colors.black,
             borderRadius: BorderRadius.circular(25),
           ),
@@ -53,8 +52,8 @@ class _ShowNSecState extends State<ShowNSec> {
                         widget.data[index].title,
                         style: tTitle,
                       ),
-                      Image.network(
-                        widget.data[index].author,
+                      CachedNetworkImage(
+                        imageUrl: widget.data[index].author,
                         height: 15,
                         width: 60,
                         fit: BoxFit.contain,
