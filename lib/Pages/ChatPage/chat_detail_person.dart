@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:cached_memory_image/cached_memory_image.dart';
 import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
@@ -11,10 +12,13 @@ import 'package:myjobapp/Classes/component/more_menu_class.dart';
 import 'package:myjobapp/Pages/ChatPage/component/PersonGroup/person_message.dart';
 import 'package:myjobapp/Pages/ChatPage/searching_users.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:photo_manager/photo_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import '../../Classes/chat_class.dart';
+import '../../Classes/component/media_services.dart';
 import '../../Provider/get_users_filter_provider.dart';
 import '../../bottombar_nav.dart';
 
@@ -49,6 +53,7 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
   bool hasNewMessage = false;
   String roomId = '';
   bool reachBottom = false;
+  bool showGallery = false;
   String roomName = '';
   XFile? image;
   XFile? result;
@@ -58,6 +63,11 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
     ItemModel('Thêm thành viên', Icons.add),
     ItemModel('Thoát nhóm', Icons.subdirectory_arrow_left),
   ];
+  AssetEntity? selectedEntity;
+  AssetPathEntity? selectedAlbum;
+  List<AssetPathEntity> albumList = [];
+  List<AssetEntity> assetList = [];
+  List<AssetEntity> selectedAssetList = [];
   @override
   void initState() {
     super.initState();
@@ -65,6 +75,23 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
     getRoomName();
     chatRoomIdList = widget.chatRoomId.split('-');
     // _scrollController.addListener(checkScroolBottom);
+    MediaServices().loadAlbums(RequestType.common).then(
+      (value) {
+        setState(() {
+          albumList = value;
+          selectedAlbum = value[0];
+        });
+        //LOAD RECENT ASSETS
+        MediaServices().loadAssets(selectedAlbum!).then(
+          (value) {
+            setState(() {
+              selectedEntity = value[0];
+              assetList = value;
+            });
+          },
+        );
+      },
+    );
   }
 
   void getRoomName() {
@@ -288,8 +315,9 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
                         child: SizedBox(
                             height: 35,
                             width: 35,
-                            child: Image.memory(
-                              base64Decode(widget.partnerAvatar),
+                            child: CachedMemoryImage(
+                              uniqueKey: widget.partnerAvatar,
+                              base64: widget.partnerAvatar,
                               fit: BoxFit.cover,
                             )),
                       )),
@@ -456,7 +484,14 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
                     child: Row(children: [
                       IconButton(
                         onPressed: () async {
-                          pickerAndConvertToBase64();
+                          // pickerAndConvertToBase64();
+                          final List<AssetEntity>? result =
+                              await AssetPicker.pickAssets(
+                            context,
+                            pickerConfig: const AssetPickerConfig(
+                              maxAssets: 1,
+                            ),
+                          );
                         },
                         icon: const Icon(
                           Icons.image_outlined,
@@ -478,6 +513,7 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
                               decoration: const InputDecoration(
                                   hintText: 'Nhập nội dung...',
                                   border: InputBorder.none),
+                              onTap: () {},
                             ),
                           ),
                         ),

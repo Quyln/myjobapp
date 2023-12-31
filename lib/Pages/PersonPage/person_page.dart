@@ -164,14 +164,14 @@ class _PersonPageState extends State<PersonPage> {
                                   style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
-                                      fontWeight: FontWeight.normal),
+                                      fontWeight: FontWeight.bold),
                                 )
                               : Text(
                                   uservalue.user.companyname,
                                   style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
-                                      fontWeight: FontWeight.normal),
+                                      fontWeight: FontWeight.bold),
                                 ),
                         ),
                         actions: [

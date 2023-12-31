@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'package:cached_memory_image/cached_memory_image.dart';
 import 'package:flutter/material.dart';
 import '../../../../Classes/chat_class.dart';
 
@@ -26,8 +26,9 @@ class TextMessageSocial extends StatelessWidget {
                   child: SizedBox(
                       width: 40,
                       height: 40,
-                      child: Image.memory(
-                        base64Decode(message.avatar),
+                      child: CachedMemoryImage(
+                        uniqueKey: message.avatar,
+                        base64: message.avatar,
                         fit: BoxFit.cover,
                       )),
                 )),

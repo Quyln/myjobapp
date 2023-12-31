@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+import 'package:cached_memory_image/cached_memory_image.dart';
 import 'package:flutter/material.dart';
 import '../../../../Classes/chat_class.dart';
 
@@ -29,8 +28,9 @@ class TextMessagePerson extends StatelessWidget {
                   child: SizedBox(
                       width: 40,
                       height: 40,
-                      child: Image.memory(
-                        base64Decode(partnerAvatar!),
+                      child: CachedMemoryImage(
+                        uniqueKey: partnerAvatar!,
+                        base64: partnerAvatar,
                         fit: BoxFit.cover,
                       )),
                 )),

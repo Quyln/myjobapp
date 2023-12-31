@@ -39,11 +39,10 @@ class AppBarNSec extends StatelessWidget {
             ),
             actions: [
               Padding(
-                padding: const EdgeInsets.only(right: 15, top: 10, bottom: 5),
+                padding: const EdgeInsets.only(right: 15, top: 7, bottom: 10),
                 child: ClipOval(
                   child: SizedBox(
                     width: 40,
-                    height: 30,
                     child: CachedMemoryImage(
                       uniqueKey: 'app://image/avatar',
                       base64: value.user.avatar,

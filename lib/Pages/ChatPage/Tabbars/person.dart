@@ -360,11 +360,13 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
                                               child: ClipRRect(
                                                   borderRadius:
                                                       BorderRadius.circular(25),
-                                                  child: Image.memory(
-                                                    base64Decode(
-                                                      personChatList[index]
-                                                          .avatar,
-                                                    ),
+                                                  child: CachedMemoryImage(
+                                                    uniqueKey:
+                                                        personChatList[index]
+                                                            .avatar,
+                                                    base64:
+                                                        personChatList[index]
+                                                            .avatar,
                                                     fit: BoxFit.cover,
                                                   ))),
                                           Positioned(

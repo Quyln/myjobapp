@@ -1,7 +1,6 @@
-import 'dart:convert';
-
 import 'package:app_settings/app_settings.dart';
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:cached_memory_image/cached_memory_image.dart';
 import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -82,7 +81,6 @@ class _NearBySearchTabbarState extends State<NearBySearchTabbar> {
                     double.parse(element.longitude!)) <
                 45000)
         .toList();
-    filteredListUser.sort((a, b) => a.distance!.compareTo(b.distance!));
 
     for (var user in filteredListUser) {
       double distance = Geolocator.distanceBetween(
@@ -92,6 +90,8 @@ class _NearBySearchTabbarState extends State<NearBySearchTabbar> {
           double.parse(user.longitude!));
       user.distance = distance;
     }
+    filteredListUser.sort((a, b) => a.distance!.compareTo(b.distance!));
+
     if (mounted) {
       setState(() {
         filteredListUser = filteredListUser;
@@ -114,11 +114,11 @@ class _NearBySearchTabbarState extends State<NearBySearchTabbar> {
                   itemBuilder: (context, index) {
                     String distanceText;
                     if (filteredListUser[index].distance! < 1000) {
-                      distanceText = 'Dưới 1km';
+                      distanceText = 'Dưới 1 km';
                     } else {
                       int distanceInKm =
                           (filteredListUser[index].distance! ~/ 1000).toInt();
-                      distanceText = 'Cách $distanceInKm km';
+                      distanceText = 'Cách bạn khoảng $distanceInKm km';
                     }
                     return Padding(
                       padding: const EdgeInsets.only(
@@ -137,12 +137,20 @@ class _NearBySearchTabbarState extends State<NearBySearchTabbar> {
                               children: [
                                 AvatarGlow(
                                   showTwoGlows: true,
-                                  glowColor: Colors.blueAccent,
+                                  glowColor:
+                                      const Color.fromARGB(255, 0, 206, 7),
                                   endRadius: 30,
-                                  child: CircleAvatar(
-                                    radius: 25,
-                                    backgroundImage: MemoryImage(base64Decode(
-                                        filteredListUser[index].avatar)),
+                                  child: ClipOval(
+                                    child: SizedBox(
+                                      width: 45,
+                                      height: 45,
+                                      child: CachedMemoryImage(
+                                        uniqueKey:
+                                            filteredListUser[index].avatar,
+                                        base64: filteredListUser[index].avatar,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
                                   ),
                                 ),
                                 Padding(
@@ -152,15 +160,24 @@ class _NearBySearchTabbarState extends State<NearBySearchTabbar> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(filteredListUser[index].fullname !=
-                                              ''
-                                          ? filteredListUser[index].fullname
-                                          : filteredListUser[index].companyname)
+                                      Text(
+                                        filteredListUser[index].fullname != ''
+                                            ? filteredListUser[index].fullname
+                                            : filteredListUser[index]
+                                                .companyname,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        distanceText,
+                                        style: const TextStyle(fontSize: 12),
+                                      )
                                     ],
                                   ),
                                 ),
-                                const Spacer(),
-                                Text(distanceText)
                               ],
                             )),
                       ),

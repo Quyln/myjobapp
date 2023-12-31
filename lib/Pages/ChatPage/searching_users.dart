@@ -192,8 +192,7 @@ class _SearchingUserPageState extends State<SearchingUserPage> {
                               width: 30,
                               child: CachedMemoryImage(
                                 fit: BoxFit.cover,
-                                uniqueKey:
-                                    'smallavatarsearch-${avatarList[index]}',
+                                uniqueKey: avatarList[index],
                                 base64: avatarList[index],
                               )),
                         )),
@@ -221,8 +220,7 @@ class _SearchingUserPageState extends State<SearchingUserPage> {
                                   width: 50,
                                   child: CachedMemoryImage(
                                     fit: BoxFit.cover,
-                                    uniqueKey:
-                                        'smallavatarsearch-${filteredList[index].avatar}',
+                                    uniqueKey: filteredList[index].avatar,
                                     base64: filteredList[index].avatar,
                                   )),
                             )),

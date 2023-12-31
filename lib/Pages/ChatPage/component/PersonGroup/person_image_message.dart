@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'package:cached_memory_image/cached_memory_image.dart';
 import 'package:flutter/material.dart';
 import '../../../../Classes/chat_class.dart';
 
@@ -60,8 +60,9 @@ class _ImageMessagePersonState extends State<ImageMessagePerson> {
                 child: SizedBox(
                     width: 40,
                     height: 40,
-                    child: Image.memory(
-                      base64Decode(widget.partnerAvatar),
+                    child: CachedMemoryImage(
+                      uniqueKey: widget.partnerAvatar,
+                      base64: widget.partnerAvatar,
                       fit: BoxFit.cover,
                     )),
               )),
@@ -112,8 +113,10 @@ class _ImageMessagePersonState extends State<ImageMessagePerson> {
                                         _transformationController,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
-                                      child: Image.memory(base64Decode(
-                                          widget.message.imageb64!)),
+                                      child: CachedMemoryImage(
+                                        uniqueKey: widget.message.imageb64!,
+                                        base64: widget.message.imageb64!,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -124,11 +127,14 @@ class _ImageMessagePersonState extends State<ImageMessagePerson> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: widget.message.imageb64 != null
-                              ? Image.memory(
-                                  base64Decode(widget.message.imageb64!),
+                              ? CachedMemoryImage(
+                                  uniqueKey: widget.message.imageb64!,
+                                  base64: widget.message.imageb64!,
                                   fit: BoxFit.cover,
                                   height:
                                       MediaQuery.of(context).size.width * 0.5,
+                                  placeholder:
+                                      const CircularProgressIndicator(),
                                 )
                               : const SizedBox.shrink(),
                         ),

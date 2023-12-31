@@ -3,7 +3,6 @@ import 'package:myjobapp/Pages/ChatPage/Tabbars/person.dart';
 import 'package:myjobapp/Pages/ChatPage/Tabbars/regional.dart';
 import 'package:myjobapp/Provider/get_users_filter_provider.dart';
 import 'package:provider/provider.dart';
-
 import 'Tabbars/nearby_search.dart';
 
 class ChatPage extends StatefulWidget {

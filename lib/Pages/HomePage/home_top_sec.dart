@@ -35,7 +35,7 @@ class _HSecAppBarState extends State<HSecAppBar> {
   Widget build(BuildContext context) {
     return Consumer<GetUserProvider>(
       builder: (context, value, child) {
-        final token = NumberFormat('#,###').format(value.user.token);
+        // final token = NumberFormat('#,###').format(value.user.token);
         return SliverAppBar(
           floating: true,
           pinned: false,
@@ -96,13 +96,13 @@ class _HSecAppBarState extends State<HSecAppBar> {
               padding: const EdgeInsets.only(right: 15),
               child: Row(
                 children: [
-                  Text(
-                    token,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.normal,
-                        color: Colors.red,
-                        fontSize: 16),
-                  ),
+                  // Text(
+                  //   token,
+                  //   style: const TextStyle(
+                  //       fontWeight: FontWeight.normal,
+                  //       color: Colors.red,
+                  //       fontSize: 16),
+                  // ),
                   InkWell(
                     onTap: () async {
                       SharedPreferences pref =
@@ -117,12 +117,12 @@ class _HSecAppBarState extends State<HSecAppBar> {
                           MaterialPageRoute(
                               builder: (context) => const LoginScreen()));
                     },
-                    child: Image.network(
-                      'https://th.bing.com/th/id/R.cef7ade7807f8c0d60886922e91316c2?rik=vM3X8FUbkNUInw&pid=ImgRaw&r=0',
-                      width: 30,
-                      height: 30,
+                    child: const Icon(
+                      Icons.power_settings_new,
+                      size: 25,
+                      color: Colors.black,
                     ),
-                  )
+                  ),
                 ],
               ),
             )
