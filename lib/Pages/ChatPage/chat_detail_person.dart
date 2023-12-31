@@ -18,7 +18,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import '../../Classes/chat_class.dart';
-import '../../Classes/component/media_services.dart';
 import '../../Provider/get_users_filter_provider.dart';
 import '../../bottombar_nav.dart';
 
@@ -63,11 +62,7 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
     ItemModel('Thêm thành viên', Icons.add),
     ItemModel('Thoát nhóm', Icons.subdirectory_arrow_left),
   ];
-  AssetEntity? selectedEntity;
-  AssetPathEntity? selectedAlbum;
-  List<AssetPathEntity> albumList = [];
-  List<AssetEntity> assetList = [];
-  List<AssetEntity> selectedAssetList = [];
+  AssetEntity? choicedImage;
   @override
   void initState() {
     super.initState();
@@ -75,23 +70,6 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
     getRoomName();
     chatRoomIdList = widget.chatRoomId.split('-');
     // _scrollController.addListener(checkScroolBottom);
-    MediaServices().loadAlbums(RequestType.common).then(
-      (value) {
-        setState(() {
-          albumList = value;
-          selectedAlbum = value[0];
-        });
-        //LOAD RECENT ASSETS
-        MediaServices().loadAssets(selectedAlbum!).then(
-          (value) {
-            setState(() {
-              selectedEntity = value[0];
-              assetList = value;
-            });
-          },
-        );
-      },
-    );
   }
 
   void getRoomName() {
@@ -254,7 +232,7 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
     result = await FlutterImageCompress.compressAndGetFile(
       file.absolute.path,
       targetPath,
-      quality: 80,
+      quality: 40,
       rotate: 0,
     );
     setState(() {
@@ -282,6 +260,23 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
         base64Image;
       });
       print(base64Image);
+    }
+  }
+
+  void convertAssetEntityToBase64(AssetEntity assetEntity) async {
+    final file = await assetEntity.file;
+    final tempDir = await getTemporaryDirectory();
+    final path = tempDir.path;
+    final String targetPath =
+        "$path/${DateTime.now().millisecondsSinceEpoch}.jpg";
+    if (file != null) {
+      await compressAndGetFile(file, targetPath);
+      final bytes = await result!.readAsBytes();
+      base64Image = base64Encode(bytes);
+      setState(() {
+        base64Image;
+      });
+      sendImage();
     }
   }
 
@@ -485,13 +480,19 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
                       IconButton(
                         onPressed: () async {
                           // pickerAndConvertToBase64();
-                          final List<AssetEntity>? result =
-                              await AssetPicker.pickAssets(
+                          List<AssetEntity>? result = [];
+                          result = await AssetPicker.pickAssets(
                             context,
                             pickerConfig: const AssetPickerConfig(
-                              maxAssets: 1,
-                            ),
+                                maxAssets: 1, requestType: RequestType.image),
                           );
+                          if (result != null) {
+                            choicedImage = result.first;
+                            setState(() {
+                              choicedImage;
+                            });
+                            convertAssetEntityToBase64(choicedImage!);
+                          }
                         },
                         icon: const Icon(
                           Icons.image_outlined,
