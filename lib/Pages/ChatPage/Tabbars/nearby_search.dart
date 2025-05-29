@@ -60,7 +60,7 @@ class _NearBySearchTabbarState extends State<NearBySearchTabbar> {
     String myLatitudeUpdate = position.latitude.toString();
     String myLongitudeUpdate = position.longitude.toString();
 
-    var url = Uri.parse('http://103.176.251.70:100/users/$myUserId');
+    var url = Uri.parse('https://qtechcom.io/users/$myUserId');
     var response = await http.patch(url,
         body: {"latitude": myLatitudeUpdate, "longitude": myLongitudeUpdate});
 

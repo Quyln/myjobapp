@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:cached_memory_image/cached_memory_image.dart';
 import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
@@ -12,7 +13,6 @@ import 'package:myjobapp/Classes/component/more_menu_class.dart';
 import 'package:myjobapp/Pages/ChatPage/component/PersonGroup/person_message.dart';
 import 'package:myjobapp/Pages/ChatPage/searching_users.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:photo_manager/photo_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -45,8 +45,10 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
   List<ChatMessage> latestChatMessages = [];
   List<UserForSearch> roomNameListByIdList = [];
   List<String> chatRoomIdList = [];
+  List<dynamic> dataImageList = [];
 
   FirebaseFirestore db = FirebaseFirestore.instance;
+
   String? quoteChatMessage;
   bool isQuoting = false;
   bool hasNewMessage = false;
@@ -54,6 +56,7 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
   bool reachBottom = false;
   bool showGallery = false;
   String roomName = '';
+  String? myUserId;
   XFile? image;
   XFile? result;
   String? base64Image;
@@ -63,13 +66,20 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
     ItemModel('Thoát nhóm', Icons.subdirectory_arrow_left),
   ];
   AssetEntity? choicedImage;
+
   @override
   void initState() {
     super.initState();
+    getMyUserId();
     getChat();
     getRoomName();
     chatRoomIdList = widget.chatRoomId.split('-');
     // _scrollController.addListener(checkScroolBottom);
+  }
+
+  void getMyUserId() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    myUserId = pref.getString('userid') ?? '';
   }
 
   void getRoomName() {
@@ -118,29 +128,32 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
   void getChat() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String myUserId = pref.getString('userid') ?? '';
-    final docRef = db.collection("personchat").doc(widget.chatRoomId);
-    docRef.snapshots().listen(
+    DatabaseReference ref =
+        FirebaseDatabase.instance.ref('personchatData/${widget.chatRoomId}');
+
+    ref.onValue.listen(
       (event) {
         if (roomId != widget.chatRoomId) {
           setState(() {
             latestChatMessages = [];
           });
         }
-        // covert data json tu Firebase thanh Class chatMessage
-        chatMessageList = event
-                .data()
-                ?.entries
-                .map((e) => ChatMessage(
-                    text: e.value['content'],
-                    messageType: e.value['messageType'],
-                    timestamp: e.value['timestamp'],
-                    name: e.value['name'],
-                    messageStatus: MessageStatus.viewed,
-                    avatar: e.value['avatar'],
-                    imageb64: e.value['imageb64'],
-                    isSender: e.value['userid'] == myUserId))
-                .toList() ??
-            [];
+        final data = event.snapshot.value;
+        if (data != null && data is Map) {
+          data.forEach((key, value) {
+            ChatMessage oneChat = ChatMessage(
+                text: value["content"],
+                messageType: value["messageType"],
+                messageStatus: MessageStatus.viewed,
+                timestamp: value["timestamp"],
+                name: value["name"],
+                avatar: value["avatar"],
+                imageb64: value['imageb64'],
+                isSender: value["userid"] == myUserId);
+            chatMessageList.add(oneChat);
+          });
+        }
+
         if (mounted) {
           setState(() {
             chatMessageList.sort((a, b) {
@@ -173,18 +186,18 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
     String myUserId = pref.getString('userid') ?? '';
     String userName = pref.getString('username') ?? '';
     String userAvatar = pref.getString('useravatar') ?? '';
-
     int timeStamp = DateTime.now().millisecondsSinceEpoch;
     String chatId = '$myUserId-$timeStamp';
-    db.collection('personchat').doc(widget.chatRoomId).update({
-      chatId: {
-        'content': _inputcontroller.text,
-        'userid': myUserId,
-        'name': userName,
-        'avatar': userAvatar,
-        'timestamp': timeStamp,
-        'messageType': 'text',
-      }
+
+    DatabaseReference ref =
+        FirebaseDatabase.instance.ref('personchatData/${widget.chatRoomId}');
+    ref.child(chatId).update({
+      'content': _inputcontroller.text,
+      'userid': myUserId,
+      'name': userName,
+      'avatar': userAvatar,
+      'timestamp': timeStamp,
+      'messageType': 'text',
     });
   }
 
@@ -196,16 +209,16 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
 
     int timeStamp = DateTime.now().millisecondsSinceEpoch;
     String chatId = '$myUserId-$timeStamp';
-    db.collection('personchat').doc(widget.chatRoomId).update({
-      chatId: {
-        'content': _inputcontroller.text,
-        'userid': myUserId,
-        'name': userName,
-        'avatar': userAvatar,
-        'timestamp': timeStamp,
-        'messageType': 'image',
-        'imageb64': base64Image
-      }
+    DatabaseReference ref =
+        FirebaseDatabase.instance.ref('personchatData/${widget.chatRoomId}');
+    ref.child(chatId).update({
+      'content': _inputcontroller.text,
+      'userid': myUserId,
+      'name': userName,
+      'avatar': userAvatar,
+      'timestamp': timeStamp,
+      'messageType': 'image',
+      'imageb64': base64Image
     });
   }
 
@@ -434,7 +447,40 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
                       floatingActionButtonLocation:
                           FloatingActionButtonLocation.miniStartDocked,
                       backgroundColor: Colors.grey.shade200,
-                      body: ListView.builder(
+                      body:
+                          // FirebaseAnimatedList(
+                          //   controller: _scrollController,
+                          //   query: ref!,
+                          //   itemBuilder: (context, snapshot, animation, index) {
+                          //     final ChatMessage message = ChatMessage(
+                          //         text:
+                          //             snapshot.child("content").value.toString(),
+                          //         messageType: snapshot
+                          //             .child("messageType")
+                          //             .value
+                          //             .toString(),
+                          //         messageStatus: MessageStatus.viewed,
+                          //         timestamp: int.parse(snapshot
+                          //             .child("timestamp")
+                          //             .value
+                          //             .toString()),
+                          //         name: snapshot.child("name").value.toString(),
+                          //         avatar:
+                          //             snapshot.child("avatar").value.toString(),
+                          //         imageb64:
+                          //             snapshot.child("imageb64").value.toString(),
+                          //         isSender:
+                          //             snapshot.child("userid").value.toString() ==
+                          //                 myUserId);
+                          //     return MessagePerson(
+                          //       groupName: roomName,
+                          //       partnerAvatar: widget.partnerAvatar,
+                          //       roomIdList: roomNameListByIdList,
+                          //       message: message,
+                          //     );
+                          //   },
+                          // )
+                          ListView.builder(
                         controller: _scrollController,
                         itemCount: chatMessageList.length,
                         itemBuilder: (context, index) {
@@ -531,6 +577,9 @@ class _DetailPersonChatPageState extends State<DetailPersonChatPage> {
                           }
                           scrollDownOnChat();
                           _inputcontroller.clear();
+                          setState(() {
+                            base64Image = '';
+                          });
                         },
                         child: const Icon(
                           Icons.send_outlined,

@@ -37,7 +37,6 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
   void getChat() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String myUserId = pref.getString('userid') ?? '';
-    // doan nay la de lang nghe Firebase
     final docRef = db.collection("test").doc(widget.kvTinhId);
     docRef.snapshots().listen(
       (event) {
@@ -46,7 +45,6 @@ class _DetailRegionalChatPageState extends State<DetailRegionalChatPage> {
             latestChatMessages = [];
           });
         }
-        // covert data json tu Firebase thanh Class chatMessage
         chatMessageList = event
                 .data()
                 ?.entries

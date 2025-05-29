@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:cached_memory_image/cached_memory_image.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
@@ -36,6 +37,12 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
       companyname: '',
       fullname: '');
 
+  @override
+  void initState() {
+    super.initState();
+    getChat();
+  }
+
   Map<String, dynamic> splitChatRoomId(String chatRoomid) {
     List<String> listId = chatRoomid.split('-');
     Map<String, dynamic> result = {};
@@ -70,6 +77,8 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
   void getChat() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String myUserId = pref.getString('userid') ?? '';
+
+    DatabaseReference ref = FirebaseDatabase.instance.ref('personchatData');
 
     final docRef = db.collection("personchat");
     docRef.snapshots().listen((event) {
@@ -126,7 +135,7 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
 
         String partnerId = roomIdList.firstWhere((data) => data != myUserId);
 
-        var url = Uri.parse('http://103.176.251.70:100/users/takeoneuser');
+        var url = Uri.parse('https://qtechcom.io/users/takeoneuser');
         var respone = await http.post(url, body: {"userid": partnerId});
 
         if (respone.statusCode == 201) {
@@ -203,12 +212,6 @@ class _ChatTbPersonState extends State<ChatTbPerson> {
           .set(oldDocData, SetOptions(merge: true));
       await db.collection('personchat').doc(chatRoomId).delete();
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getChat();
   }
 
   @override
